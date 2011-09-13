@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+<maintainer>
+	<email>@gentoo.org</email>
+	<description>Tiny media scanner / internet grabber library</description>
+</maintainer>
+<longdescription>libvalhalla is a library written in C. It is a media scanner, that stores various information in an SQLite database and relies on FFmpeg (libavformat and libavutil) and libcurl. It features many Internet grabbers that allows automatic download of covers, lyrics, informations on media files, tags retrival in video and music files and so on.</longdescription>
+<use>
+	<flag name='debug'>enable debug build</flag>
+	<flag name='doc'>generate extra doxygen documentation</flag>
+	<flag name='curl'>build with curl for supporting various internet grabbers</flag>
+	<flag name='xml'>build with libxml2 for supporting various internet grabbers together with curl</flag
+	<flag name='gcrypt'>build with libgcrypt for supporting the Amazon grabber (together with curl and xml)</flag
+	<flag name='exif'>build with libexif for supporting the EXIF grabber</flag>
+	<flag name='nfo'>build with libnfo for supporting the NFO grabber</flag>
+</use>
+</pkgmetadata>
+

@@ -1,0 +1,10 @@
+# ChangeLog for x11-misc/dmenu
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*dmenu-4.3.1 (31 May 2011)
+
+  31 May 2011; Michael Weber <xmw@gentoo.org> +dmenu-4.3.1.ebuild,
+  +files/dmenu-4.3.1-xft.patch, +metadata.xml:
+  Initial import w/ xft patch
+

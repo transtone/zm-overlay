@@ -1,0 +1,45 @@
+#!/bin/bash
+svn=${1:-/usr/local/src/enlightenment/svn}
+overlay=${2:-${0%/*}/../}
+
+get_svn_dirs() {
+	find $svn/$1/ \
+		-mindepth 1 -maxdepth 1 \
+		-type d '!' '(' -name CVSROOT -o -name .svn ')' \
+		-printf '%P\n' | sort
+}
+
+find_pkg() {
+	find $overlay -name "$1" -printf '%P'
+}
+
+line() {
+	printf "%10s: %-20s -> %s\n" "$1" "$2" "$3"
+}
+has() { [[ " ${*:2} " == *" $1 "* ]] ; }
+
+pkgs="x11-plugins/e_modules"
+for t in OLD BROKEN E-MODULES-EXTRA MISC PROTO "" ; do
+	for d in $(get_svn_dirs $t) ; do
+		dd=$d
+		if [[ ! -e ${svn}/${t}/${d}/configure.ac ]] &&
+		   [[ ! -e ${svn}/${t}/${d}/configure.in ]]
+		then
+			continue
+		fi
+		[[ ${d}${t} == E-MODULES-EXTRA ]] && continue
+		[[ ${t} == E-MODULES-EXTRA ]] && dd=e_modules-$d
+		case ${d} in
+			e) dd=enlightenment;;
+		esac
+		dd=$(find_pkg $dd)
+		pkgs="$pkgs $dd"
+		line "${t/-EXTRA}" $d $dd
+	done
+done
+
+cd ${overlay}
+for p in *-*/* ; do
+	has $p $pkgs && continue
+	line "!!!" "???" "$p"
+done

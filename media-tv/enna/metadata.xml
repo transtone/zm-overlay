@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+<maintainer>
+	<email>@gentoo.org</email>
+	<description>Powerful Media Center application using Enlightenment Foundations Libraries (EFL) for the GUI and GeeXboX libraries for multimedia playback and information retrieval</description>
+</maintainer>
+<longdescription>Powerful Media Center application using Enlightenment Foundations Libraries (EFL) for the GUI and GeeXboX libraries for multimedia playback and information retrieval</longdescription>
+<use>
+	<flag name='theme'>Enable / disable theme</flag>
+	<flag name='bookstore'>Enable / disable bookstore Activity Module</flag>
+	<flag name='configuration'>Enable / disable configuration Activity Module</flag>
+	<flag name='games'>Enable / disable Games Activity Module</flag>
+	<flag name='music'>Enable / disable Music Activity Module</flag>
+	<flag name='photo'>Enable / disable Photo Activity Module</flag>
+	<flag name='vdr'>Enable / disable TV Activity Module (interfacing to VDR via libsvdrp)</flag>
+	<flag name='video'>Enable / disable Video Activity Module</flag>
+	<flag name='weather'>Enable / disable Weather Activity Module</flag>
+	<flag name='cdda'>Enable / disable CDDA Browser Module</flag>
+	<flag name='dvd'>Enable / disable DVD Video Browser Module</flag>
+	<flag name='netstreams'>Enable / disable NetStreams Browser Module</flag>
+	<flag name='podcast'>Enable / disable Podcasts Browser Module</flag>
+	<flag name='shoutcast'>Enable / disable SHOUTcast Browser Module</flag>
+	<flag name='upnp'>Enable / disable UPnP/DLNA Browser Module</flag>
+	<flag name='keyboard'>Enable / disable Keyboard Input Module</flag>
+	<flag name='lirc'>Enable LIRC Input Module (always enabled if LIRC installed)</flag>
+	<flag name='hal'>Enable / disable HAL Volume Module</flag>
+	<flag name='mtab'>Enable / disable mtab Volume Module</flag>
+	<flag name='udev'>Enable / disable Udev Volume Module</flag>
+	<flag name='efreet'>Enable / disable efreet support</flag>
+	<flag name='cddb'>Enable / disable libcddb support</flag>
+	<flag name='curl'>Enable / disable libcurl support</flag>
+	<flag name='xml'>Enable / disable libxml2 support</flag>
+	<flag name='xrandr'>Enable / disable libxrandr support</flag>
+	<flag name='ecore-x'>Enable / disable ecore X11 support</flag>
+	<flag name='libxdg-basedir'>Enable / disable libxdg-basedir support</flag>
+</use>
+</pkgmetadata>

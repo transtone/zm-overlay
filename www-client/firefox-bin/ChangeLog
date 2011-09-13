@@ -1,0 +1,37 @@
+# ChangeLog for www-client/firefox-bin
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*firefox-bin-9.0_alpha1-r2 (27 Aug 2011)
+
+  27 Aug 2011; <yporti@gentoo.org> -firefox-bin-9.0_alpha1-r1.ebuild,
+  +firefox-bin-9.0_alpha1-r2.ebuild:
+  Bump to snapshot 20110827 and add support for Gentoo Hardened.
+
+*firefox-bin-9.0_alpha1-r1 (23 Aug 2011)
+
+  23 Aug 2011; <yporti@gentoo.org> -firefox-bin-9.0_alpha1.ebuild,
+  +firefox-bin-9.0_alpha1-r1.ebuild:
+  Bump Firefox Nightly to 20110823 snapshot and add support to ~x86.
+
+*firefox-bin-9.0_alpha1 (17 Aug 2011)
+
+  17 Aug 2011; <yporti@gentoo.org> -firefox-bin-8.0_alpha1-r1.ebuild,
+  +firefox-bin-9.0_alpha1.ebuild:
+  Version bump to 9.0a1 and drop old.
+
+*firefox-bin-8.0_alpha1-r1 (15 Aug 2011)
+
+  15 Aug 2011; <yporti@gentoo.org> -firefox-bin-8.0_alpha1.ebuild,
+  +firefox-bin-8.0_alpha1-r1.ebuild:
+  Bump to 20110814 snapshot.
+
+*firefox-bin-8.0_alpha1 (15 Aug 2011)
+
+  15 Aug 2011; <yporti@gentoo.org> +files/10firefox-bin,
+  +files/chrome/default16.png, +files/chrome/default32.png,
+  +files/chrome/default48.png, +files/firefox-bin.desktop,
+  +files/firefox-bin-prefs.js, +files/icons/mozicon128.png,
+  +firefox-bin-8.0_alpha1.ebuild, +metadata.xml:
+  Add firefox-bin nightly.
+

@@ -1,0 +1,79 @@
+# ChangeLog for xfce-base/xfce4-meta
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/xfce-base/xfce4-meta/ChangeLog,v 1.18 2011/01/17 15:08:41 xarthisius Exp $
+
+  17 Jan 2011; Kacper Kowalik <xarthisius@gentoo.org> xfce4-meta-4.8.ebuild:
+  ppc/ppc64 stable wrt #349053
+
+  16 Jan 2011; Samuli Suominen <ssuominen@gentoo.org> xfce4-meta-4.8.ebuild:
+  amd64/x86 stable wrt #349053
+
+*xfce4-meta-4.8 (16 Jan 2011)
+
+  16 Jan 2011; Samuli Suominen <ssuominen@gentoo.org> +xfce4-meta-4.8.ebuild:
+  Version bump.
+
+*xfce4-meta-4.8_pre (09 Nov 2010)
+
+  09 Nov 2010; Samuli Suominen <ssuominen@gentoo.org>
+  +xfce4-meta-4.8_pre.ebuild:
+  Version bump.
+
+  29 Aug 2010; Raúl Porcel <armin76@gentoo.org> xfce4-meta-4.6.2.ebuild:
+  alpha/ia64/sparc stable wrt #323729
+
+  11 Aug 2010; Joseph Jezak <josejx@gentoo.org> xfce4-meta-4.6.2.ebuild:
+  Marked ppc stable for bug #323729.
+
+  11 Aug 2010; Joseph Jezak <josejx@gentoo.org> xfce4-meta-4.6.2.ebuild:
+  Marked ppc stable for bug #323729.
+
+  10 Aug 2010; Jeroen Roovers <jer@gentoo.org> xfce4-meta-4.6.2.ebuild:
+  Stable for HPPA (bug #323729).
+
+  23 Jul 2010; Markus Meier <maekke@gentoo.org> xfce4-meta-4.6.2.ebuild:
+  arm stable, bug #323729
+
+  09 Jul 2010; Samuli Suominen <ssuominen@gentoo.org>
+  xfce4-meta-4.6.2.ebuild:
+  ppc64 stable wrt #323729
+
+  30 Jun 2010; Christian Faulhammer <fauli@gentoo.org>
+  xfce4-meta-4.6.2.ebuild:
+  x86 stable, bug 323729
+
+  29 Jun 2010; Christoph Mende <angelos@gentoo.org> xfce4-meta-4.6.2.ebuild:
+  Stable on amd64 wrt bug #323729
+
+*xfce4-meta-4.6.2 (14 Jun 2010)
+
+  14 Jun 2010; Jeremy Olexa <darkside@gentoo.org> +xfce4-meta-4.6.2.ebuild:
+  Add a 4.6.2 meta ebuild. It is largely useless but will improve the
+  visibility of the status of xfce in Gentoo. In preparation for the 4.6.2
+  stablereq bug 323729
+
+  14 Jun 2010; Jeremy Olexa <darkside@gentoo.org> xfce4-meta-4.6.1.ebuild:
+  After more discussion in bug 323791, it was decided to indeed remove
+  terminal from this the meta package and instead make it more clear in the
+  docs, bug 323801
+
+  13 Jun 2010; Christoph Mende <angelos@gentoo.org> xfce4-meta-4.6.1.ebuild:
+  Added x11-terms/terminal to USE=-minimal
+
+  20 Apr 2010; Samuli Suominen <ssuominen@gentoo.org>
+  xfce4-meta-4.6.1.ebuild:
+  USE="svg" wrt #313435 by Roman v. Gemmeren.
+
+  05 Oct 2009; Jeremy Olexa <darkside@gentoo.org> xfce4-meta-4.6.1.ebuild:
+  Port Gentoo Prefix ebuild to gentoo-x86
+
+  13 Sep 2009; Samuli Suominen <ssuominen@gentoo.org>
+  xfce4-meta-4.6.1.ebuild:
+  Pull in media-fonts/dejavu (and x11-themes/xfce4-icon-theme) wrt #284082.
+
+*xfce4-meta-4.6.1 (23 Aug 2009)
+
+  23 Aug 2009; Samuli Suominen <ssuominen@gentoo.org>
+  +xfce4-meta-4.6.1.ebuild:
+  Initial commit.
+

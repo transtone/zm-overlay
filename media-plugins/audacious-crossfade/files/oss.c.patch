@@ -1,0 +1,38 @@
+--- old/oss.c	2007-12-05 00:37:11.000000000 +0100
++++ oss.c	2007-12-05 00:38:00.000000000 +0100
+@@ -591,7 +591,7 @@
+ 			PERROR("[xfade-oss] buffer_thread_f: ioctl(GETOSPACE)");
+ 
+ 			/* 0.3.4: try to reset device */
+-			if (ioctl(dsp_fd, SNDCTL_DSP_RESET, 0))
++			if (ioctl(dsp_fd, SNDCTL_DSP_SYNC, 0))
+ 			{
+ 				PERROR("[xfade-oss] buffer_thread_f: ioctl(RESET)");
+ 				break;  /* give up */
+@@ -672,7 +672,7 @@
+ 	/* close device */
+ 	if (dsp_fd != -1)
+ 	{
+-		ioctl(dsp_fd, SNDCTL_DSP_RESET, NULL);
++		ioctl(dsp_fd, SNDCTL_DSP_SYNC, NULL);
+ 		close(dsp_fd);
+ 		dsp_fd = -1;
+ 	}
+@@ -703,7 +703,7 @@
+ 	streampos = (gint64) time *format.bps / 1000;
+ 
+ 	/* reset dsp */
+-	ioctl(dsp_fd, SNDCTL_DSP_RESET, NULL);
++	ioctl(dsp_fd, SNDCTL_DSP_SYNC, NULL);
+ 
+ 	/* reset buffer */
+ 	buffer_rd_index = 0;
+@@ -751,7 +751,7 @@
+ 		}
+ 
+ 		/* reset device, this will stop playback immediatelly */
+-		ioctl(dsp_fd, SNDCTL_DSP_RESET, NULL);
++		ioctl(dsp_fd, SNDCTL_DSP_SYNC, NULL);
+ 
+ 		/* rewind buffer */
+ 		buffer_rd_index -= rewind;

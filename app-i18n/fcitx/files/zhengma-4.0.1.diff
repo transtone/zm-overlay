@@ -1,0 +1,76 @@
+diff -ru png/Makefile.am png.new/Makefile.am
+--- png/Makefile.am	2010-11-28 19:54:59.000000000 +0800
++++ png.new/Makefile.am	2011-08-23 15:56:58.640189269 +0800
+@@ -5,6 +5,7 @@
+ 		   fcitx-chn.png \
+ 		   fcitx-eng.png \
+ 		   fcitx-erbi.png \
++		   fcitx-zhengma.png \
+ 		   fcitx-full-letter.png \
+ 		   fcitx-full-punct.png \
+ 		   fcitx-vkon.png \
+diff -ru po/zh_CN.po po.new/zh_CN.po
+--- po/zh_CN.po	2010-12-17 14:05:57.000000000 +0800
++++ po.new/zh_CN.po	2011-08-23 16:08:19.375678904 +0800
+@@ -679,6 +679,10 @@
+ msgid "Erbi"
+ msgstr "二笔"
+ 
++#: data/table/zhengma.conf:2 
++msgid "Zhengma"
++msgstr "郑码"
++
+ #: data/table/wanfeng.conf:2
+ msgid "Wanfeng"
+ msgstr "晚风"
+diff -ru skin/classic/Makefile.am skin.new/classic/Makefile.am
+--- skin/classic/Makefile.am	2010-12-06 20:06:36.000000000 +0800
++++ skin.new/classic/Makefile.am	2011-08-23 16:06:08.899310084 +0800
+@@ -1,6 +1,6 @@
+ classicdir = $(pkgdatadir)/skin/classic
+ classic_DATA = active.png  bingchan.png chnpunc.png  engpunc.png  erbi.png  fcitx_skin.conf  half.png \
+-			   input.png  legend.png  nolegend.png  quwei.png  vk.png wubi.png wbpy.png ziranma.png \
++			   input.png  legend.png  nolegend.png  quwei.png  vk.png wubi.png wbpy.png ziranma.png zhengma.png \
+ 			   bar.png cangjie.png  cn.png en.png  fan.png  full.png inactive.png  jian.png logo.png \
+ 			   dianbaoma.png novk.png shuangpin.png wanfeng.png pinyin.png prev.png next.png menu.png keyboard.png
+ EXTRA_DIST = $(classic_DATA)
+diff -ru skin/dark/Makefile.am skin.new/dark/Makefile.am
+--- skin/dark/Makefile.am	2010-12-06 20:06:25.000000000 +0800
++++ skin.new/dark/Makefile.am	2011-08-23 16:06:34.613988606 +0800
+@@ -1,6 +1,6 @@
+ darkdir = $(pkgdatadir)/skin/dark
+ dark_DATA = active.png  bingchan.png chnpunc.png  engpunc.png  erbi.png  fcitx_skin.conf  half.png \
+-			   input.png  legend.png  nolegend.png  quwei.png  vk.png wubi.png wbpy.png ziranma.png \
++			   input.png  legend.png  nolegend.png  quwei.png  vk.png wubi.png wbpy.png ziranma.png zhengma.png \
+ 			   bar.png cangjie.png  cn.png en.png  fan.png  full.png inactive.png  jian.png logo.png \
+ 			   dianbaoma.png novk.png shuangpin.png wanfeng.png pinyin.png prev.png next.png menu.png keyboard.png
+ EXTRA_DIST = $(dark_DATA)
+diff -ru skin/default/Makefile.am skin.new/default/Makefile.am
+--- skin/default/Makefile.am	2010-11-28 19:55:00.000000000 +0800
++++ skin.new/default/Makefile.am	2011-08-23 16:06:51.028783393 +0800
+@@ -1,6 +1,6 @@
+ defaultdir = $(pkgdatadir)/skin/default
+ default_DATA = active.png  bingchan.png chnpunc.png  engpunc.png  erbi.png  fcitx_skin.conf  half.png \
+-			   input.png  legend.png  nolegend.png  quwei.png  vk.png wubi.png wbpy.png ziranma.png \
++			   input.png  legend.png  nolegend.png  quwei.png  vk.png wubi.png wbpy.png ziranma.png zhengma.png \
+ 			   bar.png cangjie.png  cn.png en.png  fan.png  full.png inactive.png  jian.png logo.png \
+ 			   dianbaoma.png novk.png shuangpin.png wanfeng.png pinyin.png prev.png next.png keyboard.png menu.png
+ EXTRA_DIST = $(default_DATA)
+diff -ru data/table/Makefile.am data.new/table/Makefile.am
+--- data/table/Makefile.am	2010-11-28 19:54:59.000000000 +0800
++++ data.new/table/Makefile.am	2011-08-23 19:06:28.750043336 +0800
+@@ -34,7 +34,13 @@
+ table_url = http://fcitx.googlecode.com/files/table.tar.gz
+ table_tar = @srcdir@/table.tar.gz
+ 
+-table_DATA = $(mb_data) $(mb_conf)
++zm_tar = @srcdir@/zmmb.tar.gz
++zm_data = zm.mb
++zm_conf = zhengma.conf
++@srcdir@/zm.mb: $(zm_tar)
++	cd $(srcdir) && $(TAR) xzmvf $(zm_tar)
++
++table_DATA = $(mb_data) $(mb_conf) $(zm_data) $(zm_conf)
+ EXTRA_DIST = $(mb_conf)
+ 
+ CLEANFILES = $(mb_data)

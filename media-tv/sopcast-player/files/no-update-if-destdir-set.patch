@@ -1,0 +1,21 @@
+Index: Makefile
+===================================================================
+--- Makefile	(revision 248)
++++ Makefile	(working copy)
+@@ -70,8 +70,15 @@
+ 	done
+ 	$(INSTALL) -m 0644 $(NAME).desktop $(DESTDIR)$(DESKDIR)
+ 	$(INSTALL) -m 0644 $(NAME).svg $(DESTDIR)$(ICONDIR)
+-	$(gtk_update_icon_cache)
+ 
++	if test -z "$(DESTDIR)"; then \
++		echo "Updating GTK icon cache."; \
++		$(gtk_update_icon_cache); \
++	else \
++		echo "*** Icon cache not updated.  After install, run this:"; \
++		echo "***   $(gtk_update_icon_cache)"; \
++	fi
++
+ uninstall:
+ 	rm -fr $(DESTDIR)$(INSTALLDIR)
+ 	rm $(DESTDIR)$(BINDIR)/$(NAME)

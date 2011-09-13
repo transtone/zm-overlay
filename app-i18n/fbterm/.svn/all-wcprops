@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/211/trunk/app-i18n/fbterm
+END
+metadata.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/177/trunk/app-i18n/fbterm/metadata.xml
+END
+fbterm-1.4.ebuild
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/178/trunk/app-i18n/fbterm/fbterm-1.4.ebuild
+END
+fbterm-1.5.ebuild
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/211/trunk/app-i18n/fbterm/fbterm-1.5.ebuild
+END
+Manifest
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/211/trunk/app-i18n/fbterm/Manifest
+END
+ChangeLog
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/211/trunk/app-i18n/fbterm/ChangeLog
+END

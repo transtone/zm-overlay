@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/278/trunk/app-i18n/libucimf
+END
+metadata.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/149/trunk/app-i18n/libucimf/metadata.xml
+END
+libucimf-2.2.8-r1.ebuild
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/278/trunk/app-i18n/libucimf/libucimf-2.2.8-r1.ebuild
+END
+Manifest
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/207/trunk/app-i18n/libucimf/Manifest
+END
+ChangeLog
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/278/trunk/app-i18n/libucimf/ChangeLog
+END
+libucimf-9999.ebuild
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/278/trunk/app-i18n/libucimf/libucimf-9999.ebuild
+END
