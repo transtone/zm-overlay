@@ -13,7 +13,7 @@ SRC_URI=""
 EGIT_REPO_URI="git://github.com/msanders/snipmate.vim.git"
 
 LICENSE="as-is"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 S="${WORKDIR}"
