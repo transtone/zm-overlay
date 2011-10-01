@@ -13,8 +13,8 @@ MY_P="${MY_PN}-${MY_PV}"
 DESCRIPTION="Firefox Web Browser"
 KEYWORDS=""
 
-FDATE="2011-09-13-03-08-46"
-SRC_URI=" http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${FDATE}-mozilla-central-l10n/${MY_P}.zh-CN.linux-x86_64.tar.bz2 -> ${MY_PN}_${FDATE}-x86_64.tar.bz2 "
+FDATE="2011-09-29-04-20-12"
+SRC_URI=" http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${FDATE}-mozilla-aurora-l10n/${MY_P}.zh-CN.linux-x86_64.tar.bz2 -> ${MY_PN}_${FDATE}-x86_64.tar.bz2 "
 HOMEPAGE="http://www.mozilla.com/firefox"
 RESTRICT="strip mirror"
 

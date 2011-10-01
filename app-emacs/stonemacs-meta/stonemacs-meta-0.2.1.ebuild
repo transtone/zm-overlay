@@ -17,7 +17,6 @@ RDEPEND="app-emacs/anything-config
 	app-emacs/css-mode
 	app-emacs/color-moccur
 	app-emacs/moccur-edit
-	app-emacs/ecb
 	app-emacs/gentoo-syntax
 	app-emacs/grep-edit
 	app-emacs/haskell-mode
