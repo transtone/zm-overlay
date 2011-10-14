@@ -1,0 +1,51 @@
+# ChangeLog for www-servers/uwsgi
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/www-servers/uwsgi/ChangeLog,v 1.8 2011/06/08 18:00:12 maksbotan Exp $
+
+*uwsgi-0.9.8 (08 Jun 2011)
+
+  08 Jun 2011; Maxim Koltsov (maksbotan) <maksbotan@gentoo.org>
+  -uwsgi-0.9.6.6.ebuild, +uwsgi-0.9.8.ebuild,
+  +files/uwsgi-0.9.8-no-werror.patch:
+  Bumped to 0.9.8, removed old unsupported 0.9.6.6
+
+  06 Jun 2011; Maxim Koltsov (maksbotan) <maksbotan@gentoo.org>
+  uwsgi-0.9.7.2.ebuild, +files/uwsgi-0.9.7.2-no-werror.patch:
+  Disabled '-Werror' flag on compilation (bug #370015)
+
+*uwsgi-0.9.7.2 (31 May 2011)
+
+  31 May 2011; Maxim Koltsov (maksbotan) <maksbotan@gentoo.org>
+  -uwsgi-0.9.5.ebuild, +uwsgi-0.9.7.2.ebuild, +files/uwsgi.confd,
+  +files/uwsgi.initd, metadata.xml:
+  Bumping to 0.9.7.2 (bug #340058). Added init scripts from that bug.
+  Removed
+  uwsgi-0.9.5 as obsolete. Drop usage of gcc patch in 0.9.7.2 as issue is
+  fixed
+  upstream.
+
+  19 Apr 2011; Benedikt Böhm <hollow@gentoo.org> metadata.xml:
+  remove myself from metadata
+
+  12 Jan 2011; Tiziano Müller <dev-zero@gentoo.org> uwsgi-0.9.6.6.ebuild,
+  files/uwsgi-0.9.6.6-gentoo-gcc.patch:
+  Updated patch to use 'gcc -dumpversion' instead of 'gcc -v'.
+
+  10 Jan 2011; Tiziano Müller <dev-zero@gentoo.org> files/42_mod_uwsgi.conf,
+  uwsgi-0.9.6.6.ebuild:
+  mod_Ruwsgi and mod_uwsgi are mutually exclusive.
+
+*uwsgi-0.9.6.6 (07 Jan 2011)
+
+  07 Jan 2011; Tiziano Müller <dev-zero@gentoo.org> +files/42_mod_uwsgi.conf,
+  +uwsgi-0.9.6.6.ebuild, +files/uwsgi-0.9.6.6-gentoo-gcc.patch:
+  Version bump (bug #346941).
+
+*uwsgi-0.9.5 (03 May 2010)
+
+  03 May 2010; Benedikt Böhm <hollow@gentoo.org> +uwsgi-0.9.5.ebuild,
+  +files/uwsgi-0.9.5-fix_uwsgiconfig.py_indentation.patch,
+  +files/uwsgi-0.9.5-respect_flags.patch, +metadata.xml:
+  initial ebuild. thanks to Arfrever Frehtes Taifersar Arahesis for sane
+  python ABI support. closes #314931
+
