@@ -37,11 +37,14 @@ UWSGI_CHROOT=
 #
 # UWSGI_DIR=
 
-# The user and group to run your application as. If you do not specify these,
-# the application will be run as root:root.
-#
+# The user to run your application as. If you do not specify these,
+# the application will be run as root.
+# if use virtualenv, and want run as user, you must install uwsgi in virtualenv first.
 UWSGI_USER=
 
 # Additional options you might want to pass to uWSGI
 #
 #UWSGI_EXTRA_OPTIONS=
+
+# The path to your virtualenv.
+UWSGI_VIRTUAL_ENV=
