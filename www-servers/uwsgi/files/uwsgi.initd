@@ -21,6 +21,9 @@ checkconfig() {
 		eerror "${UWSGI_USER}: No such user"
 		return 1
 	    fi
+	    if [ -n "${UWSGI_VIRTUAL_ENV}" ]; then
+		UWSGI_EXEC=${UWSGI_VIRTUAL_ENV}/bin/uwsgi #if run as users, please install uwsgi in virtualenv.
+	    fi
         fi
 
 	if [ "${SVCNAME}" = "uwsgi" ]; then
@@ -95,9 +98,6 @@ checkconfig() {
 	fi
 	if [ -n "${UWSGI_VIRTUAL_ENV}" ]; then
 	    OPTIONS="${OPTIONS} --virtualenv ${UWSGI_VIRTUAL_ENV}"
-	    if [ ${UWSGI_USER}!="root" ]; then
-		UWSGI_EXEC=${UWSGI_VIRTUAL_ENV}/bin/uwsgi #if run as users, please install uwsgi in virtualenv.
-	    fi
 	fi
 
 	checkpath -d --owner 0 --mode 0755 "${PIDPATH%/*}"
