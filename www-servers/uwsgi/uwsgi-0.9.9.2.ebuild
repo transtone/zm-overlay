@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="dev-libs/libxml2"
+RDEPEND="dev-libs/libxml2
+		!www-servers/uwsgi-init-scripts "
 DEPEND="${RDEPEND}"
 
 APXS2_S="${S}/apache2"
