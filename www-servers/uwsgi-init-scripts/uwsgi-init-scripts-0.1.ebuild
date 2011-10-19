@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/mysql-init-scripts/mysql-init-scripts-2.0_pre1-r2.ebuild,v 1.1 2011/01/15 17:54:31 robbat2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/www-servers/uwsgi-init-scripts/uwsgi-init-scripts-0.1.ebuild,v 0.1 2011/10/19 08:33:00 transtone Exp $
 
 DESCRIPTION="Gentoo uwsgi init scripts"
 HOMEPAGE="https://github.com/transtone/zm-overlay/tree/master/www-servers/uwsgi-init-scripts http://transtone.org/"
