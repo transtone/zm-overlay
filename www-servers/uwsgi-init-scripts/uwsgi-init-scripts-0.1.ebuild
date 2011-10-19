@@ -20,3 +20,6 @@ src_install() {
 	mkdir -p "${ED}"/var/run/uwsgi
 }
 
+pkg_postinst() {
+	elog "please run \"pip install uwsgi\" in your virtualenv first. "
+}
