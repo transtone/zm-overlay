@@ -17,7 +17,7 @@ checkconfig() {
  	if [ -z "${UWSGI_USER}" ]; then
 	    UWSGI_USER="root"
 	else 
-	    if [ ! id -u "${UWSGI_USER}" >/dev/null ]; then
+	    if ! id -u "${UWSGI_USER}" >/dev/null; then
 		eerror "${UWSGI_USER}: No such user"
 		return 1
 	    fi
