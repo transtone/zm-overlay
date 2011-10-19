@@ -14,6 +14,12 @@ depend() {
 
 checkconfig() {
 
+	if [ -f "${UWSGI_EXEC}" ]; then
+	    eerror "You need install uwsgi in virtualenv"
+	    eerror "Please run \". ${UWSGI_VIRTUAL_ENV}/bin/activate && pip install uwsgi \""
+	    return 1
+	fi
+
  	if [ -z "${UWSGI_USER}" ]; then
 	    UWSGI_USER="root"
 	else 
