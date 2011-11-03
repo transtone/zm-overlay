@@ -27,6 +27,7 @@ RDEPEND="app-emacs/anything-config
 	app-emacs/python-mode
 	app-emacs/fold-dwim
 	app-emacs/redo
+	app-emacs/undo-tree
 	app-emacs/w3mnav
 	app-emacs/yasnippet
         app-emacs/graphviz-dot-mode

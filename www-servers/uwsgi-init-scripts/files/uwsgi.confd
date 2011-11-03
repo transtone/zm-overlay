@@ -44,7 +44,7 @@ UWSGI_USER=
 
 # The path to your virtualenv.
 # If you want to run your application with virtualenv, you must set this options.
-UWSGI_VIRTUAL_ENV=
+UWSGI_PATH=/usr/
 
 # Additional options you might want to pass to uWSGI
 #

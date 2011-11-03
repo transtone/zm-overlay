@@ -20,6 +20,7 @@ sys-apps/lshw
 sys-apps/mlocate
 sys-apps/usermode-utilities
 sys-block/ms-sys
+sys-block/btrace
 sys-boot/grub
 sys-devel/bc
 sys-fs/btrfs-progs

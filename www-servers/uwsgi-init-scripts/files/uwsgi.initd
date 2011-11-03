@@ -4,7 +4,7 @@
 # $Header: /var/cvsroot/gentoo-x86/www-servers/uwsgi-init-scripts/files/uwsgi.initd,v 0.1 2011/10/19 08:23:00 transtone Exp $
 
 PROGNAME=${SVCNAME#*.}
-UWSGI_EXEC=${UWSGI_VIRTUAL_ENV}/bin/uwsgi
+UWSGI_EXEC=${UWSGI_PATH}/bin/uwsgi
 PIDPATH=/var/run/uwsgi/${UWSGI_USER}
 PIDFILE="${PIDPATH}/${PROGNAME}.pid"
 
@@ -16,7 +16,7 @@ checkconfig() {
 
 	if ![ -f "${UWSGI_EXEC}" ]; then
 	    eerror "You need install uwsgi in virtualenv"
-	    eerror "Please run \". ${UWSGI_VIRTUAL_ENV}/bin/activate && pip install uwsgi\""
+	    eerror "Please run \". ${UWSGI_PATH}/bin/activate && pip install uwsgi\""
 	    return 1
 	fi
 
@@ -98,13 +98,6 @@ checkconfig() {
 
 	if [ -n "${UWSGI_XML_CONFIG}" ]; then
 	    OPTIONS="${OPTIONS} --xmlconfig ${UWSGI_XML_CONFIG}"
-	fi
-
-	if [ -n "${UWSGI_VIRTUAL_ENV}" ]; then
-	    OPTIONS="${OPTIONS} --virtualenv ${UWSGI_VIRTUAL_ENV}"
-	else
-	    eerror "Please set 'UWSGI_VIRTUAL_ENV' in /etc/conf.d/uwsgi.${PROGNAME} "
-	    return 1
 	fi
 
 	checkpath -d --owner 0 --mode 0755 "${PIDPATH%/*}"
