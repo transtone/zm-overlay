@@ -3,14 +3,6 @@
 <pkgmetadata>
 <herd>no-herd</herd>
 <maintainer>
-	<email>hanno@gentoo.org</email>
+  <email>joshua.rich@gmail.com</email>
 </maintainer>
-<use>
-	<flag name='webkit'>
-		Enable the webkit rendering engine
-	</flag>
-	<flag name='smp'>
-		Enable support for multiprocessors
-	</flag>
-</use>
 </pkgmetadata>

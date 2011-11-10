@@ -6,15 +6,14 @@ EAPI="3"
 
 inherit eutils mozilla-launcher multilib mozextension pax-utils
 
-MY_PV="${PV/_alpha/a}"
+MY_PV="${PV/_beta/b}"
 MY_PN="${PN/-bin}"
 MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="Firefox Web Browser"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
-FDATE="2011-11-01-04-20-22"
-SRC_URI=" http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${FDATE}-mozilla-aurora-l10n/${MY_P}.zh-CN.linux-x86_64.tar.bz2 -> ${MY_PN}_${FDATE}-x86_64.tar.bz2 "
+SRC_URI=" http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${MY_PV}-candidates/build1/linux-x86_64/zh-CN/${MY_P}.tar.bz2 -> ${MY_P}-x86_64.tar.bz2 "
 HOMEPAGE="http://www.mozilla.com/firefox"
 RESTRICT="strip mirror"
 
@@ -31,14 +30,13 @@ RDEPEND="dev-libs/dbus-glib
 	>=x11-libs/gtk+-2.2:2
 	>=media-libs/alsa-lib-1.0.16
 "
-
 S="${WORKDIR}/${MY_PN}"
 
 src_install() {
 	declare MOZILLA_FIVE_HOME=/opt/${MY_PN}
 
 	# Install icon and .desktop for menu entry
-	newicon "${FILESDIR}"/chrome/default48.png ${PN}-icon.png
+	newicon "${S}"/chrome/icons/default/default48.png ${PN}-icon.png
 	domenu "${FILESDIR}"/${PN}.desktop
 
 	# Add StartupNotify=true bug 237317
@@ -49,11 +47,6 @@ src_install() {
 	# Install firefox in /opt
 	dodir ${MOZILLA_FIVE_HOME%/*}
 	mv "${S}" "${D}"${MOZILLA_FIVE_HOME} || die
-
-	if use !default-icons; then
-		cp "${FILESDIR}"/chrome/* "${D}""${MOZILLA_FIVE_HOME}"/chrome/icons/default/
-		cp "${FILESDIR}"/icons/* "${D}""${MOZILLA_FIVE_HOME}"/icons/
-	fi
 
 	# Fix prefs that make no sense for a system-wide install
 	insinto ${MOZILLA_FIVE_HOME}/defaults/pref/
@@ -76,12 +69,6 @@ src_install() {
 
 	ln -sfn "/usr/$(get_libdir)/nsbrowser/plugins" \
 			"${D}${MOZILLA_FIVE_HOME}/plugins" || die
-
-	pax-mark -mr "${D}${MOZILLA_FIVE_HOME}"/crashreporter
-	pax-mark -mr "${D}${MOZILLA_FIVE_HOME}"/firefox
-	pax-mark -mr "${D}${MOZILLA_FIVE_HOME}"/firefox-bin
-	pax-mark -mr "${D}${MOZILLA_FIVE_HOME}"/plugin-container
-	pax-mark -mr "${D}${MOZILLA_FIVE_HOME}"/updater
 }
 
 pkg_postinst() {
