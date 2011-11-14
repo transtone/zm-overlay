@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>desktop-misc</herd>
+	<maintainer>
+		<email>lack@gentoo.org</email>
+		<name>Jim Ramsay</name>
+	</maintainer>
+	<use>
+		<!-- =www-plugins/adobe-flash-10.0* has both 32- and 64-bit versions -->
+		<flag name='64bit'>For amd64-multilib, installs the native 64-bit
+			plugin</flag>
+		<flag name='32bit'>For amd64-multilib, installs the 32-bit plugin</flag>
+		<flag name='bindist'>With USE="-bindist", applies a binary patch to the
+			native 64-bit plugin for compatibility with glibc-2.13 (Bug
+			#354073).  Required due to the non-modification clause in Adobe's
+			license.</flag>
+
+		<flag name='vdpau'>Enables VDPAU support to offload video processing
+			(32-bit flash player only)</flag>
+
+		<!-- www-plugins/adobe-flash-10.3 has a KDE KCM thingy -->
+		<flag name='kde'>Enables a KCM plugin for configuring flash player
+			preferences (32-bit KDE4 only)</flag>
+	</use>
+</pkgmetadata>

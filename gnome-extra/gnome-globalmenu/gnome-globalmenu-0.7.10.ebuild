@@ -6,7 +6,7 @@ inherit gnome2
 
 DESCRIPTION="Global menubar applet for Gnome2."
 HOMEPAGE="http://code.google.com/p/gnome2-globalmenu/"
-SRC_URI="http://gnome2-globalmenu.googlecode.com/files/${P}.tar.gz"
+SRC_URI="http://gnome2-globalmenu.googlecode.com/files/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
