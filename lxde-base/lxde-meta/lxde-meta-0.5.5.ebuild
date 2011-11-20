@@ -13,16 +13,13 @@ KEYWORDS="~alpha amd64 arm ~ppc x86"
 IUSE=""
 
 RDEPEND="=lxde-base/lxappearance-0.5*
-	=lxde-base/lxde-common-0.5.5*
 	=lxde-base/lxmenu-data-0.1*
 	=lxde-base/lxpanel-0.5.8*
-	>=lxde-base/lxsession-0.4.6.1
-	=lxde-base/lxsession-edit-0.2*
-	=lxde-base/lxshortcut-0.1*
 	=lxde-base/lxtask-0.1*
 	x11-misc/pcmanfm
-	x11-wm/openbox
-	|| ( <=x11-misc/obconf-2.0.3-r1 >x11-misc/obconf-2.0.3-r1[lxde] )"
+	x11-misc/obconf
+	x11-misc/obmenu
+	x11-wm/openbox"
 
 pkg_postinst() {
 	elog "For your convenience you can review the LXDE Configuration HOWTO at"
