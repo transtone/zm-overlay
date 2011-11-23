@@ -26,7 +26,6 @@ sys-devel/bc
 sys-fs/btrfs-progs
 sys-fs/diskdev_cmds
 sys-fs/dosfstools
-sys-fs/extundelete
 sys-fs/lvm2
 sys-fs/ncdu
 sys-fs/ntfs3g

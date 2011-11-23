@@ -10,7 +10,7 @@ SLOT="0"
 KEYWORDS="~alpha amd64 arm ppc x86"
 IUSE=""
 
-RDEPEND="app-emacs/anything-config
+RDEPEND="app-emacs/anything
 	app-emacs/auto-complete
 	app-emacs/color-theme
 	app-emacs/crontab-mode
@@ -28,7 +28,6 @@ RDEPEND="app-emacs/anything-config
 	app-emacs/fold-dwim
 	app-emacs/redo
 	app-emacs/undo-tree
-	app-emacs/w3mnav
 	app-emacs/yasnippet
         app-emacs/graphviz-dot-mode
 	app-emacs/smex
