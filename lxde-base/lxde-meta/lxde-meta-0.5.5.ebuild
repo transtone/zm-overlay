@@ -14,7 +14,6 @@ IUSE=""
 
 RDEPEND="=lxde-base/lxappearance-0.5*
 	=lxde-base/lxmenu-data-0.1*
-	=lxde-base/lxpanel-0.5.8*
 	=lxde-base/lxtask-0.1*
 	x11-misc/pcmanfm
 	x11-misc/obconf
