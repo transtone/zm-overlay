@@ -6,7 +6,6 @@ EAPI="3"
 
 inherit cmake-utils eutils subversion
 
-
 DESCRIPTION="A lightweight panel/taskbar"
 HOMEPAGE="http://code.google.com/p/tint2/"
 ESVN_REPO_URI="http://tint2.googlecode.com/svn/trunk/"
@@ -14,7 +13,7 @@ ESVN_REPO_URI="http://tint2.googlecode.com/svn/trunk/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="battery examples tint2conf +launcher"
+IUSE="tint2conf"
 
 COMMON_DEPEND="dev-libs/glib:2
 	x11-libs/cairo
@@ -36,11 +35,6 @@ S="${WORKDIR}/${MY_P}"
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_enable launcher LAUNCHER)
-		$(cmake-utils_use_enable battery BATTERY)
-		$(cmake-utils_use_enable examples EXAMPLES)
-		$(cmake-utils_use_enable tint2conf TINT2CONF)
-
 		# bug 296890
 		"-DDOCDIR=/usr/share/doc/${PF}"
 	)
