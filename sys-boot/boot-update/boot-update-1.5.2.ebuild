@@ -9,10 +9,10 @@ SRC_URI="http://www.funtoo.org/archive/boot-update/${P}.tar.bz2"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86 sparc"
 
 DEPEND=""
-RDEPEND="dev-lang/python >=sys-boot/grub-1.97.2"
+RDEPEND="dev-lang/python >=sys-boot/grub-1.98-r2"
 RESTRICT="nomirror"
 
 src_install() {
@@ -21,7 +21,7 @@ src_install() {
 	doins -r .
 
 	cd ${S}
-	
+
 	dodoc doc/*.rst
 
 	doman doc/boot-update.8
@@ -31,15 +31,10 @@ src_install() {
 	dosbin sbin/boot-update
 
 	dodoc etc/boot.conf.example
+	insinto /etc
+	doins etc/boot.conf
 }
 
 src_compile() {
 	return
-}
-
-pkg_postinst() {
-	if [ ! -e ${ROOT}/etc/boot.conf ] && [ -e ${ROOT}/usr/share/doc/${PF}/boot.conf.example.bz2 ]
-	then
-		bzcat ${ROOT}/usr/share/doc/${PF}/boot.conf.example.bz2 > ${ROOT}/etc/boot.conf
-	fi
 }
