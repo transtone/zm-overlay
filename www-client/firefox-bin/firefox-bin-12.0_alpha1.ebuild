@@ -13,7 +13,7 @@ MY_P="${MY_PN}-${MY_PV}"
 DESCRIPTION="Firefox Web Browser"
 KEYWORDS="~amd64"
 # ftp://ftp.mozilla.org/pub/firefox/nightly/2011-12-25-03-10-06-mozilla-central-l10n/firefox-12.0a1.af.linux-i686.tar.bz2
-FDATE="2011-12-27-03-10-15"
+FDATE="2011-12-30-03-11-51"
 SRC_URI="amd64? ( http://ftp.mozilla.org/pub/firefox/nightly/${FDATE}-mozilla-central-l10n/${MY_P}.zh-CN.linux-x86_64.tar.bz2 -> ${MY_PN}_${FDATE}-x86_64.tar.bz2 )
 	 x86? ( http://ftp.mozilla.org/pub/firefox/nightly/${FDATE}-mozilla-central-l10n/${MY_P}.zh-CN.linux-i686.tar.bz2 -> ${MY_PN}_${FDATE}-i686.tar.bz2 )"
 HOMEPAGE="http://www.mozilla.com/firefox"
