@@ -1,0 +1,12 @@
+diff -ru r8168-8.027.00-old/src/r8168_n.c r8168-8.027.00/src/r8168_n.c
+--- r8168-8.027.00-old/src/r8168_n.c	2012-01-10 10:51:15.994273472 +0800
++++ r8168-8.027.00/src/r8168_n.c	2012-01-10 10:58:04.388167846 +0800
+@@ -14282,7 +14282,7 @@
+ 
+ 		txd = tp->TxDescArray + entry;
+ 		len = frag->size;
+-		addr = ((void *) page_address(frag->page)) + frag->page_offset;
++		addr = ((void *) page_address(frag->page.p)) + frag->page_offset;
+ 		mapping = pci_map_single(tp->pci_dev, addr, len, PCI_DMA_TODEVICE);
+ 
+ 		/* anti gcc 2.95.3 bugware (sic) */
