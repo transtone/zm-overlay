@@ -11,7 +11,7 @@ MY_PN="${PN/-bin}"
 MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="Firefox Web Browser"
-KEYWORDS="~amd64"
+KEYWORDS=""
 
 FDATE="2012-01-07-03-10-40"
 SRC_URI="amd64? ( http://ftp.mozilla.org/pub/firefox/nightly/${FDATE}-mozilla-central-l10n/${MY_P}.zh-CN.linux-x86_64.tar.bz2 -> ${MY_PN}_${FDATE}-x86_64.tar.bz2 ) "
