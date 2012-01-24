@@ -4,7 +4,7 @@
 
 ETYPE="sources"
 K_WANT_GENPATCHES="base extras"
-K_GENPATCHES_VER="3"
+K_GENPATCHES_VER="4"
 K_SECURITY_UNSUPPORTED="1"
 
 inherit kernel-2 versionator
