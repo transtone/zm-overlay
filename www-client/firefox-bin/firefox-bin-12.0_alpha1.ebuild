@@ -13,7 +13,7 @@ MY_P="${MY_PN}-${MY_PV}"
 DESCRIPTION="Firefox Web Browser"
 KEYWORDS="~amd64"
 
-FDATE="2012-01-23-09-57-41"
+FDATE="2012-01-28-03-11-08"
 SRC_URI="amd64? ( http://ftp.mozilla.org/pub/firefox/nightly/${FDATE}-mozilla-central-l10n/${MY_P}.zh-CN.linux-x86_64.tar.bz2 -> ${MY_PN}_${FDATE}-x86_64.tar.bz2 ) "
 HOMEPAGE="http://www.mozilla.com/firefox"
 RESTRICT="strip mirror"
