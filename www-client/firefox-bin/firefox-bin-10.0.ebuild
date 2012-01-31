@@ -7,7 +7,7 @@ EAPI="3"
 inherit eutils mozilla-launcher multilib mozextension pax-utils
 
 #MY_PV="${PV/_beta/b}"
-MY_PV="${PV/_beta7/esr}"
+MY_PV="${PV/esr}"
 MY_PN="${PN/-bin}"
 MY_P="${MY_PN}-${MY_PV}"
 
