@@ -6,15 +6,16 @@ EAPI="3"
 
 inherit eutils mozilla-launcher multilib mozextension pax-utils
 
-MY_PV="${PV/_beta/b}"
+#MY_PV="${PV/_beta/b}"
+MY_PV="${PV/_beta7/esr}"
 MY_PN="${PN/-bin}"
 MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="Firefox Web Browser"
 KEYWORDS="~amd64 ~x86"
 
-SRC_URI=" amd64? ( http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${MY_PV}-candidates/build1/linux-x86_64/zh-CN/${MY_P}.tar.bz2 -> ${MY_P}-x86_64.tar.bz2 )
-          x86? ( http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${MY_PV}-candidates/build1/linux-i686/zh-CN/${MY_P}.tar.bz2 -> ${MY_P}-i686.tar.bz2 ) "
+SRC_URI=" amd64? ( http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${MY_PV}-candidates/build1/linux-x86_64/zh-CN/${MY_P}.tar.bz2 -> ${MY_P}-x86_64.tar.bz2 ) "
+#		  x86? ( http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${MY_PV}-candidates/build1/linux-i686/zh-CN/${MY_P}.tar.bz2 -> ${MY_P}-i686.tar.bz2 ) "
 HOMEPAGE="http://www.mozilla.com/firefox"
 RESTRICT="strip mirror"
 
@@ -36,22 +37,22 @@ S="${WORKDIR}/${MY_PN}"
 src_install() {
 	declare MOZILLA_FIVE_HOME=/opt/${MY_PN}
 
-        # Install icon and .desktop for menu entry
-        newicon "${S}"/chrome/icons/default/default48.png ${PN}-icon.png
-        domenu "${FILESDIR}"/${PN}.desktop
+		# Install icon and .desktop for menu entry
+		newicon "${S}"/chrome/icons/default/default48.png ${PN}-icon.png
+		domenu "${FILESDIR}"/${PN}.desktop
 
-        # Add StartupNotify=true bug 237317
-        if use startup-notification; then
-                echo "StartupNotify=true" >> "${D}"/usr/share/applications/${PN}.desktop
-        fi
+		# Add StartupNotify=true bug 237317
+		if use startup-notification; then
+				echo "StartupNotify=true" >> "${D}"/usr/share/applications/${PN}.desktop
+		fi
 
-        # Install firefox in /opt
-        dodir ${MOZILLA_FIVE_HOME%/*}
-        mv "${S}" "${D}"${MOZILLA_FIVE_HOME} || die
+		# Install firefox in /opt
+		dodir ${MOZILLA_FIVE_HOME%/*}
+		mv "${S}" "${D}"${MOZILLA_FIVE_HOME} || die
 
-        # Fix prefs that make no sense for a system-wide install
-        insinto ${MOZILLA_FIVE_HOME}/defaults/pref/
-        doins "${FILESDIR}"/${PN}-prefs.js || die
+		# Fix prefs that make no sense for a system-wide install
+		insinto ${MOZILLA_FIVE_HOME}/defaults/pref/
+		doins "${FILESDIR}"/${PN}-prefs.js || die
 
 	# Create /usr/bin/firefox-bin
 	dodir /usr/bin/
@@ -64,9 +65,9 @@ src_install() {
 	EOF
 	fperms 0755 /usr/bin/${PN}
 
-        # revdep-rebuild entry
-        insinto /etc/revdep-rebuild
-        doins "${FILESDIR}"/10${PN} || die
+		# revdep-rebuild entry
+		insinto /etc/revdep-rebuild
+		doins "${FILESDIR}"/10${PN} || die
 
 	ln -sfn "/usr/$(get_libdir)/nsbrowser/plugins" \
 			"${D}${MOZILLA_FIVE_HOME}/plugins" || die
