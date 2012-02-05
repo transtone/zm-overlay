@@ -1,19 +1,32 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-client/firefox/firefox-6.0.ebuild,v 1.2 2011/08/23 19:35:58 polynomial-c Exp $
+# $Header: $
 
 EAPI="3"
 VIRTUALX_REQUIRED="pgo"
 WANT_AUTOCONF="2.1"
 
-inherit check-reqs flag-o-matic toolchain-funcs eutils gnome2-utils mozconfig-3 multilib pax-utils fdo-mime autotools mozextension versionator python virtualx nsplugins
+# This list can be updated with scripts/get_langs.sh from the mozilla overlay
+MOZ_LANGS=(af ak ar as ast be bg bn-BD bn-IN br bs ca cs csb cy da de el en
+en-GB en-US en-ZA eo es-AR es-CL es-ES es-MX et eu fa fi fr fy-NL ga-IE gd gl
+gu-IN he hi-IN hr hu hy-AM id is it ja kk kn ko ku lg lt lv mai mk ml mr nb-NO
+nl nn-NO nso or pa-IN pl pt-BR pt-PT rm ro ru si sk sl son sq sr sv-SE ta ta-LK
+te th tr uk vi zh-CN zh-TW zu)
 
-MAJ_FF_PV="$(get_version_component_range 1-2)" # 3.5, 3.6, 4.0, etc.
-FF_PV="${PV/_alpha/a}" # Handle alpha for SRC_URI
-FF_PV="${FF_PV/_beta/b}" # Handle beta for SRC_URI
-FF_PV="${FF_PV/_rc/rc}" # Handle rc for SRC_URI
+# Convert the ebuild version to the upstream mozilla version, used by mozlinguas
+MOZ_PV="${PV/_alpha/a}" # Handle alpha for SRC_URI
+MOZ_PV="${MOZ_PV/_beta/b}" # Handle beta for SRC_URI
+MOZ_PV="${MOZ_PV/_rc/rc}" # Handle rc for SRC_URI
+
+# Changeset for alpha snapshot
 CHANGESET="e56ecd8b3a68"
-PATCH="${PN}-9.0-patches-0.4"
+# Patch version
+PATCH="${PN}-10.0-patches-0.4"
+# Upstream ftp release URI that's used by mozlinguas.eclass
+# We don't use the http mirror because it deletes old tarballs.
+MOZ_FTP_URI="ftp://ftp.mozilla.org/pub/${PN}/releases/"
+
+inherit check-reqs flag-o-matic toolchain-funcs eutils gnome2-utils mozconfig-3 multilib pax-utils fdo-mime autotools python virtualx nsplugins mozlinguas
 
 DESCRIPTION="Firefox Web Browser"
 HOMEPAGE="http://www.mozilla.com/firefox"
@@ -23,9 +36,9 @@ SLOT="0"
 LICENSE="|| ( MPL-1.1 GPL-2 LGPL-2.1 )"
 IUSE="bindist +crashreporter +ipc pgo system-sqlite +webm"
 
-FTP_URI="ftp://ftp.mozilla.org/pub/firefox/releases/"
 # More URIs appended below...
-SRC_URI="http://dev.gentoo.org/~anarchy/mozilla/patchsets/${PATCH}.tar.xz"
+SRC_URI="${SRC_URI}
+	http://dev.gentoo.org/~anarchy/mozilla/patchsets/${PATCH}.tar.xz"
 
 ASM_DEPEND=">=dev-lang/yasm-1.1"
 
@@ -38,8 +51,8 @@ RDEPEND="
 	>=media-libs/mesa-7.10
 	media-libs/libpng[apng]
 	virtual/libffi
-	system-sqlite? ( >=dev-db/sqlite-3.7.7.1[fts3,secure-delete,unlock-notify,debug=] )
-	webm? ( media-libs/libvpx
+	system-sqlite? ( >=dev-db/sqlite-3.7.7.1[fts3,secure-delete,threadsafe,unlock-notify,debug=] )
+	webm? ( >=media-libs/libvpx-0.9.7
 		media-libs/alsa-lib )
 	crashreporter? ( net-misc/curl )"
 # We don't use PYTHON_DEPEND/PYTHON_USE_WITH for some silly reason
@@ -54,73 +67,19 @@ DEPEND="${RDEPEND}
 # No source releases for alpha|beta
 if [[ ${PV} =~ alpha ]]; then
 	SRC_URI="${SRC_URI}
-		http://dev.gentoo.org/~anarchy/mozilla/firefox/firefox-${FF_PV}_${CHANGESET}.source.tar.bz2"
+		http://dev.gentoo.org/~anarchy/mozilla/firefox/firefox-${MOZ_PV}_${CHANGESET}.source.tar.bz2"
 	S="${WORKDIR}/mozilla-central"
 elif [[ ${PV} =~ beta ]]; then
 	SRC_URI="${SRC_URI}
-		${FTP_URI}/${FF_PV}/source/firefox-${FF_PV}.source.tar.bz2"
+		${MOZ_FTP_URI}/${MOZ_PV}/source/firefox-${MOZ_PV}.source.tar.bz2"
 	S="${WORKDIR}/mozilla-beta"
 else
 	SRC_URI="${SRC_URI}
-		${FTP_URI}/${FF_PV}/source/firefox-${FF_PV}.source.tar.bz2"
+		${MOZ_FTP_URI}/${MOZ_PV}/source/firefox-${MOZ_PV}.source.tar.bz2"
 	S="${WORKDIR}/mozilla-release"
 fi
 
-# No language packs for alphas
-if ! [[ ${PV} =~ alpha|beta ]]; then
-	# This list can be updated with scripts/get_langs.sh from mozilla overlay
-	LANGS=(af ak ar ast be bg bn-BD bn-IN br bs ca cs cy da de el en en-GB en-US
-	en-ZA eo es-AR es-CL es-ES es-MX et eu fa fi fr fy-NL ga-IE gd gl gu-IN he
-	hi-IN hr hu hy-AM id is it ja kk kn ko ku lg lt lv mai mk ml mr nb-NO nl
-	nn-NO nso or pa-IN pl pt-BR pt-PT rm ro ru si sk sl son sq sr sv-SE ta ta-LK
-	te th tr uk vi zh-CN zh-TW zu)
-
-	for X in "${LANGS[@]}" ; do
-		# en and en_US are handled internally
-		if [[ ${X} != en ]] && [[ ${X} != en-US ]]; then
-			SRC_URI="${SRC_URI}
-				linguas_${X/-/_}? ( ${FTP_URI}/${FF_PV}/linux-i686/xpi/${X}.xpi -> ${P}-${X}.xpi )"
-		fi
-		IUSE="${IUSE} linguas_${X/-/_}"
-		# Install all the specific locale xpis if there's no generic locale xpi
-		# Example: there's no pt.xpi, so install all pt-*.xpi
-		if ! has ${X%%-*} "${LANGS[@]}"; then
-			SRC_URI="${SRC_URI}
-				linguas_${X%%-*}? ( ${FTP_URI}/${FF_PV}/linux-i686/xpi/${X}.xpi -> ${P}-${X}.xpi )"
-			IUSE="${IUSE} linguas_${X%%-*}"
-		fi
-	done
-fi
-
 QA_PRESTRIPPED="usr/$(get_libdir)/${PN}/firefox"
-
-# TODO: Move all the linguas crap to an eclass
-linguas() {
-	# Generate the list of language packs called "linguas"
-	# This list is used to install the xpi language packs
-	local LINGUA
-	for LINGUA in ${LINGUAS}; do
-		if has ${LINGUA} en en_US; then
-			# For mozilla products, en and en_US are handled internally
-			continue
-		# If this language is supported by ${P},
-		elif has ${LINGUA} "${LANGS[@]//-/_}"; then
-			# Add the language to linguas, if it isn't already there
-			has ${LINGUA//_/-} "${linguas[@]}" || linguas+=(${LINGUA//_/-})
-			continue
-		# For each short LINGUA that isn't in LANGS,
-		# add *all* long LANGS to the linguas list
-		elif ! has ${LINGUA%%-*} "${LANGS[@]}"; then
-			for LANG in "${LANGS[@]}"; do
-				if [[ ${LANG} == ${LINGUA}-* ]]; then
-					has ${LANG} "${linguas[@]}" || linguas+=(${LANG})
-					continue 2
-				fi
-			done
-		fi
-		ewarn "Sorry, but ${P} does not support the ${LINGUA} locale"
-	done
-}
 
 pkg_setup() {
 	moz_pkgsetup
@@ -160,11 +119,8 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 
-	linguas
-	for X in "${linguas[@]}"; do
-		# FIXME: Add support for unpacking xpis to portage
-		xpi_unpack "${P}-${X}.xpi"
-	done
+	# Unpack language packs
+	mozlinguas_src_unpack
 }
 
 src_prepare() {
@@ -261,11 +217,25 @@ src_compile() {
 	if use pgo; then
 		addpredict /root
 		addpredict /etc/gconf
-		# Firefox tries to dri stuff when it's run, see bug 380283
+		# Reset and cleanup environment variables used by GNOME/XDG
+		gnome2_environment_reset
+
+		# Firefox tries to use dri stuff when it's run, see bug 380283
 		shopt -s nullglob
-		local cards=$(echo -n /dev/{dri,ati}/card* /dev/nvidiactl* | sed 's/ /:/g')
+		cards=$(echo -n /dev/dri/card* | sed 's/ /:/g')
+		if test -n "${cards}"; then
+			# FOSS drivers are fine
+			addpredict "${cards}"
+		else
+			cards=$(echo -n /dev/ati/card* /dev/nvidiactl* | sed 's/ /:/g')
+			if test -n "${cards}"; then
+				# Binary drivers seem to cause access violations anyway, so
+				# let's use indirect rendering so that the device files aren't
+				# touched at all. See bug 394715.
+				export LIBGL_ALWAYS_INDIRECT=1
+			fi
+		fi
 		shopt -u nullglob
-		test -n "${cards}" && addpredict "${cards}"
 
 		CC="$(tc-getCC)" CXX="$(tc-getCXX)" LD="$(tc-getLD)" \
 		MOZ_MAKE_FLAGS="${MAKEOPTS}" \
@@ -296,10 +266,8 @@ src_install() {
 	MOZ_MAKE_FLAGS="${MAKEOPTS}" \
 	emake DESTDIR="${D}" install || die "emake install failed"
 
-	linguas
-	for X in "${linguas[@]}"; do
-		xpi_install "${WORKDIR}/${P}-${X}"
-	done
+	# Install language packs
+	mozlinguas_src_install
 
 	local size sizes icon_path icon name
 	if use bindist; then
