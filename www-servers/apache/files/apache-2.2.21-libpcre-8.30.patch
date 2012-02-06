@@ -1,0 +1,11 @@
+--- httpd-2.2.21/server/util_pcre.c.orig	2012-02-06 11:25:49.648128514 +0000
++++ httpd-2.2.21/server/util_pcre.c	2012-02-06 11:27:23.253865166 +0000
+@@ -137,7 +137,7 @@
+ 
+ if (preg->re_pcre == NULL) return AP_REG_INVARG;
+ 
+-preg->re_nsub = pcre_info((const pcre *)preg->re_pcre, NULL, NULL);
++pcre_fullinfo((const pcre *)preg->re_pcre, NULL, PCRE_INFO_CAPTURECOUNT, &preg->re_nsub);
+ return 0;
+ }
+ 
