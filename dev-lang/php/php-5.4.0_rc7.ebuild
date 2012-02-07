@@ -325,7 +325,7 @@ eblit-pkg() {
 eblit-pkg pkg_setup v3
 
 src_prepare() {
-	epatch "${FILESDIR}/pcre_info.patch.patch"
+	epatch "${FILESDIR}/pcre_info.patch"
 	eblit-run src_prepare v4 ;
 }
 src_configure() { eblit-run src_configure v54 ; }
