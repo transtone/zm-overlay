@@ -1,0 +1,67 @@
+# ChangeLog for net-misc/spice-gtk
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/net-misc/spice-gtk/ChangeLog,v 1.13 2012/01/30 15:15:20 nirbheek Exp $
+
+  30 Jan 2012; Nirbheek Chauhan <nirbheek@gentoo.org> spice-gtk-0.8.ebuild:
+  Fix usbredir and polkit deps
+
+  27 Jan 2012; Agostino Sarubbo <ago@gentoo.org> spice-gtk-0.7.159.ebuild:
+  Stable for amd64, wrt bug #399429
+
+*spice-gtk-0.8 (19 Jan 2012)
+
+  19 Jan 2012; Tiziano Müller <dev-zero@gentoo.org> +spice-gtk-0.8.ebuild,
+  -spice-gtk-0.7.159-r1.ebuild:
+  Version bump, dropped useless revision.
+
+  19 Jan 2012; Tiziano Müller <dev-zero@gentoo.org> spice-gtk-0.7.159-r1.ebuild:
+  Use a default logo instead of none.
+
+  19 Jan 2012; Tiziano Müller <dev-zero@gentoo.org> Manifest:
+  Drop old. Fix bug #389635.
+
+  09 Jan 2012; Nirbheek Chauhan <nirbheek@gentoo.org> spice-gtk-0.7.159.ebuild,
+  metadata.xml:
+  Add usbredir support, remove USE=cairo, + other minor ebuild changes. Update
+  vala use-description. Add myself to metadata.xml with dev-zero's permission.
+
+*spice-gtk-0.7.159 (07 Jan 2012)
+
+  07 Jan 2012; Nirbheek Chauhan <nirbheek@gentoo.org>
+  +spice-gtk-0.7.159.ebuild:
+  Bump to 0.7.159, development version
+
+  19 Oct 2011; Tiziano Müller <dev-zero@gentoo.org> spice-gtk-0.7.ebuild,
+  metadata.xml:
+  Added vala USE-flag to regenerate the pre-generated code if requested. Fixed
+  bug #377051 by adding -j1 to 'emake install' (final solution will be upstream
+  once spice-gtk is integrated in spice). Fixed bug #377041 by updating the
+  spice-protocol dependency.
+
+*spice-gtk-0.7 (25 Jul 2011)
+
+  25 Jul 2011; Tiziano Müller <dev-zero@gentoo.org> -spice-gtk-0.6.ebuild,
+  +spice-gtk-0.7.ebuild:
+  Version bump. Dropped old.
+
+  24 Jul 2011; Thomas Kahle <tomka@gentoo.org> spice-gtk-0.6-r1.ebuild:
+  ~x86 per bug 375935
+
+*spice-gtk-0.6-r1 (11 May 2011)
+
+  11 May 2011; Tiziano Müller <dev-zero@gentoo.org> +spice-gtk-0.6-r1.ebuild:
+  Create a menu entry. Require version >=2.26 for glib-2 for
+  GUnixSocketAddressType.
+
+*spice-gtk-0.6 (27 Apr 2011)
+
+  27 Apr 2011; Tiziano Müller <dev-zero@gentoo.org> +spice-gtk-0.6.ebuild,
+  metadata.xml:
+  Version bump, also solves bug #364201.
+
+*spice-gtk-0.5 (24 Feb 2011)
+
+  24 Feb 2011; Tiziano Müller <dev-zero@gentoo.org> +spice-gtk-0.5.ebuild,
+  +files/spice.protocol, +files/spice.schemas, +metadata.xml:
+  Initial commit, ebuild written by me (bug #353780).
+
