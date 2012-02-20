@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+
+<pkgmetadata>
+	<herd>gnome</herd>
+	
+	<maintainer>
+		<email>ulltor@gmail.com</email>
+		<name>Gavrilov Maksim</name>
+	</maintainer>
+	
+	<longdescription lang="en">
+		Vala is a new programming language that aims to bring 
+		modern programming language features to GNOME developers 
+		without imposing any additional runtime requirements and 
+		without using a different ABI compared to applications 
+		and libraries written in C.
+	</longdescription> 
+	
+	<use>
+		<flag name="vapigen">Enable vala's library binding generator</flag>
+		<flag name="symlink">Force ebuild to automatically update the /usr/bin/valac symlink</flag>
+ 	</use>
+ 	
+</pkgmetadata>
