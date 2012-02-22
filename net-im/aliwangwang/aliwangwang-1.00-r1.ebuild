@@ -6,12 +6,12 @@ EAPI="3"
 
 DESCRIPTION="AliWangWang for Linux"
 HOMEPAGE="http://www.taobao.com/wangwang"
-SRC_URI="amd64? ( http://www.taobao.com/wangwang/${PN}_${PV}-00_amd64.deb )
-	x86? ( http://www.taobao.com/wangwang/${PN}_${PV}-00_i386.deb )"
+SRC_URI="amd64? ( ${PN}_${PV}-00_amd64.deb )
+	x86? ( ${PN}_${PV}-00_i386.deb )"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
