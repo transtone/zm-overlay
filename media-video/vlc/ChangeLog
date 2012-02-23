@@ -1,0 +1,69 @@
+# ChangeLog for media-video/vlc
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/media-video/vlc/ChangeLog,v 1.783 2012/02/20 20:56:26 aballier Exp $
+
+  20 Feb 2012; Alexis Ballier <aballier@gentoo.org> vlc-2.0.0.ebuild:
+  drop arm keyword prior to unmasking for bug #397891
+
+  20 Feb 2012; Alexis Ballier <aballier@gentoo.org> vlc-2.0.0.ebuild,
+  vlc-2.0.9999.ebuild, vlc-9999.ebuild:
+  libvlc is lgpl now
+
+  19 Feb 2012; Alexis Ballier <aballier@gentoo.org> -vlc-1.1.9999.ebuild:
+  drop live ebuild for 1.1 now that 2.0 is out it is discontinued
+
+  19 Feb 2012; Alexis Ballier <aballier@gentoo.org> -vlc-2.0.0_rc1.ebuild:
+  remove old
+
+*vlc-2.0.0 (19 Feb 2012)
+
+  19 Feb 2012; Alexis Ballier <aballier@gentoo.org> +vlc-2.0.0.ebuild:
+  bump to 2.0.0
+
+  01 Feb 2012; Alexis Ballier <aballier@gentoo.org> vlc-9999.ebuild:
+  bump fluidsynth dep
+
+  01 Feb 2012; Alexis Ballier <aballier@gentoo.org> vlc-9999.ebuild:
+  portaudio has been removed
+
+  01 Feb 2012; Alexis Ballier <aballier@gentoo.org> vlc-1.1.13.ebuild,
+  vlc-1.1.9999.ebuild:
+  backport upstream patch to fix build with latest zlib, bug #401629
+
+  28 Jan 2012; Alexis Ballier <aballier@gentoo.org> -vlc-1.2.0_pre3.ebuild,
+  -vlc-1.2.0_pre4.ebuild:
+  remove old
+
+*vlc-2.0.0_rc1 (28 Jan 2012)
+
+  28 Jan 2012; Alexis Ballier <aballier@gentoo.org> +vlc-2.0.0_rc1.ebuild,
+  vlc-2.0.9999.ebuild, vlc-9999.ebuild:
+  libv44l has been renamed to v4l and bump to 2.0.0 rc1
+
+*vlc-2.0.9999 (28 Jan 2012)
+
+  28 Jan 2012; Alexis Ballier <aballier@gentoo.org> -vlc-1.2.9999.ebuild,
+  +vlc-2.0.9999.ebuild:
+  vlc-1.2 will be 2.0, git branches have been moved too
+
+  20 Jan 2012; Alexis Ballier <aballier@gentoo.org> vlc-1.2.9999.ebuild:
+  bump live dep
+
+*vlc-1.2.0_pre4 (09 Jan 2012)
+
+  09 Jan 2012; Alexis Ballier <aballier@gentoo.org> +vlc-1.2.0_pre4.ebuild:
+  bump
+
+  06 Jan 2012; Alexis Ballier <aballier@gentoo.org> -vlc-1.1.12.ebuild:
+  remove old
+
+  02 Jan 2012; Samuli Suominen <ssuominen@gentoo.org> metadata.xml:
+  USE description for flag "neon" is in use.desc now.
+
+  01 Jan 2012; Andreas K. Huettel <dilfridge@gentoo.org> +ChangeLog-2011:
+  Split ChangeLog.
+
+  01 Jan 2012; Raúl Porcel <armin76@gentoo.org> vlc-1.1.13.ebuild:
+  alpha/sparc stable wrt #395543
+
+  For previous entries, please see ChangeLog-2011.
