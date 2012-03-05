@@ -12,8 +12,9 @@ SRC_URI="http://airdownload.adobe.com/air/lin/download/${PV}/AdobeAIRSDK.tbz2 ->
 
 LICENSE="AdobeAirSDK"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
+RESTRICT="mirror"
 
 RDEPEND="app-arch/unzip
 	x86? ( dev-libs/libxml2
