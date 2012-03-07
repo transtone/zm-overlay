@@ -14,7 +14,8 @@ HOMEPAGE="http://spice-space.org http://gitorious.org/spice-gtk"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-SRC_URI="http://spice-space.org/download/gtk/${P}.tar.bz2"
+MY_PV="${PV/_rc/-}"
+SRC_URI="http://spice-space.org/download/gtk/${PN}-${MY_PV}.tar.bz2"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc gnome gstreamer gtk3 +introspection kde policykit +pulseaudio
 python sasl static-libs usbredir vala"
@@ -57,6 +58,8 @@ DEPEND="${RDEPEND}
 # dev-lang/vala:0.14
 # dev-lang/perl
 # dev-perl/Text-CSV
+
+S="${WORKDIR}/${PN}-${MY_PV}"
 
 pkg_setup() {
 	if use gstreamer && use pulseaudio ; then
