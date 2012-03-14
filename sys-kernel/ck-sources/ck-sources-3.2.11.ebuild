@@ -1,10 +1,10 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-kernel/ck-sources/ck-sources-3.2.1.ebuild,v 1.1 2012/01/30 20:26:58 nelchael Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-kernel/ck-sources/ck-sources-3.2.6.ebuild,v 1.1 2012/02/19 16:25:48 nelchael Exp $
 
 ETYPE="sources"
 K_WANT_GENPATCHES="base extras"
-K_GENPATCHES_VER="8"
+K_GENPATCHES_VER="11"
 K_SECURITY_UNSUPPORTED="1"
 
 inherit kernel-2 versionator
