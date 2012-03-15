@@ -11,7 +11,7 @@ MY_PN="${PN/-bin}"
 MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="Firefox Web Browser"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 SRC_URI=" amd64? ( http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${MY_PV}-candidates/build1/linux-x86_64/zh-CN/${MY_P}.tar.bz2 -> ${MY_P}-x86_64.tar.bz2 ) "
 #		  x86? ( http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${MY_PV}-candidates/build1/linux-i686/zh-CN/${MY_P}.tar.bz2 -> ${MY_P}-i686.tar.bz2 ) "

@@ -1,30 +1,37 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/www-client/firefox-bin/firefox-bin-11.0.ebuild,v 1.1 2012/03/14 08:34:40 jdhore Exp $
 
-EAPI="3"
+EAPI="4"
 
-inherit eutils mozilla-launcher multilib mozextension pax-utils
+# Convert the ebuild version to the upstream mozilla version, used by mozlinguas
+MOZ_PV="${PV/_beta/b}" # Handle beta for SRC_URI
+MOZ_PV="${MOZ_PV/_rc/rc}" # Handle rc for SRC_URI
+MOZ_PN="${PN/-bin}"
+MOZ_P="${MOZ_PN}-${MOZ_PV}"
 
-#MY_PV="${PV/_beta/b}"
-MY_PV="${PV/esr}"
-MY_PN="${PN/-bin}"
-MY_P="${MY_PN}-${MY_PV}"
+# Upstream ftp release URI that's used by mozlinguas.eclass
+# We don't use the http mirror because it deletes old tarballs.
+MOZ_FTP_URI="ftp://ftp.mozilla.org/pub/mozilla.org/${MOZ_PN}/releases/"
+
+inherit eutils multilib pax-utils fdo-mime gnome2-utils nsplugins
 
 DESCRIPTION="Firefox Web Browser"
-KEYWORDS="~amd64 ~x86"
-
-SRC_URI=" amd64? ( http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${MY_PV}-candidates/build1/linux-x86_64/zh-CN/${MY_P}.tar.bz2 -> ${MY_P}-x86_64.tar.bz2 ) "
-#		  x86? ( http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/${MY_PV}-candidates/build1/linux-i686/zh-CN/${MY_P}.tar.bz2 -> ${MY_P}-i686.tar.bz2 ) "
+MOZ_FTP_URI="ftp://ftp.mozilla.org/pub/mozilla.org/${MOZ_PN}/releases"
+SRC_URI="${SRC_URI}
+	amd64? ( ${MOZ_FTP_URI}/${MOZ_PV}/linux-x86_64/zh-CN/${MOZ_P}.tar.bz2 -> ${PN}_x86_64-${PV}.tar.bz2 ) "
+#	x86? ( ${MOZ_FTP_URI}/${MOZ_PV}/linux-i686/zh-CN/${MOZ_P}.tar.bz2 -> ${PN}_i686-${PV}.tar.bz2 )"
 HOMEPAGE="http://www.mozilla.com/firefox"
-RESTRICT="strip mirror"
+RESTRICT="strip mirror binchecks"
 
+KEYWORDS="-* ~amd64 ~x86"
 SLOT="0"
 LICENSE="|| ( MPL-1.1 GPL-2 LGPL-2.1 )"
-IUSE="default-icons startup-notification"
+IUSE="startup-notification"
 
 DEPEND="app-arch/unzip"
 RDEPEND="dev-libs/dbus-glib
+	virtual/freedesktop-icon-theme
 	x11-libs/libXrender
 	x11-libs/libXt
 	x11-libs/libXmu
@@ -32,27 +39,36 @@ RDEPEND="dev-libs/dbus-glib
 	>=x11-libs/gtk+-2.2:2
 	>=media-libs/alsa-lib-1.0.16
 "
-S="${WORKDIR}/${MY_PN}"
+
+S="${WORKDIR}/${MOZ_PN}"
+
+src_unpack() {
+	unpack ${A}
+
+}
 
 src_install() {
-	declare MOZILLA_FIVE_HOME=/opt/${MY_PN}
+	declare MOZILLA_FIVE_HOME=/opt/${MOZ_PN}
 
-		# Install icon and .desktop for menu entry
-		newicon "${S}"/chrome/icons/default/default48.png ${PN}-icon.png
-		domenu "${FILESDIR}"/${PN}.desktop
+	# Install icon and .desktop for menu entry
+	newicon "${S}"/chrome/icons/default/default48.png ${PN}-icon.png
+	domenu "${FILESDIR}"/${PN}.desktop
 
-		# Add StartupNotify=true bug 237317
-		if use startup-notification; then
-				echo "StartupNotify=true" >> "${D}"/usr/share/applications/${PN}.desktop
-		fi
+	# Add StartupNotify=true bug 237317
+	if use startup-notification; then
+		echo "StartupNotify=true" >> "${D}"/usr/share/applications/${PN}.desktop
+	fi
 
-		# Install firefox in /opt
-		dodir ${MOZILLA_FIVE_HOME%/*}
-		mv "${S}" "${D}"${MOZILLA_FIVE_HOME} || die
+	# Install firefox in /opt
+	dodir ${MOZILLA_FIVE_HOME%/*}
+	mv "${S}" "${D}"${MOZILLA_FIVE_HOME} || die
 
-		# Fix prefs that make no sense for a system-wide install
-		insinto ${MOZILLA_FIVE_HOME}/defaults/pref/
-		doins "${FILESDIR}"/${PN}-prefs.js || die
+	# Fix prefs that make no sense for a system-wide install
+	insinto ${MOZILLA_FIVE_HOME}/defaults/pref/
+	doins "${FILESDIR}"/${PN}-prefs.js || die
+
+	# Install language packs
+	mozlinguas_src_install
 
 	# Create /usr/bin/firefox-bin
 	dodir /usr/bin/
@@ -61,16 +77,23 @@ src_install() {
 	unset LD_PRELOAD
 	LD_LIBRARY_PATH="/opt/firefox/"
 	GTK_PATH=/usr/lib/gtk-2.0/
-	exec /opt/${MY_PN}/${MY_PN} "\$@"
+	exec /opt/${MOZ_PN}/${MOZ_PN} "\$@"
 	EOF
 	fperms 0755 /usr/bin/${PN}
 
-		# revdep-rebuild entry
-		insinto /etc/revdep-rebuild
-		doins "${FILESDIR}"/10${PN} || die
+	# revdep-rebuild entry
+	insinto /etc/revdep-rebuild
+	doins "${FILESDIR}"/10${PN} || die
 
-	ln -sfn "/usr/$(get_libdir)/nsbrowser/plugins" \
-			"${D}${MOZILLA_FIVE_HOME}/plugins" || die
+	# Plugins dir
+	share_plugins_dir
+
+	# Required in order to use plugins and even run firefox on hardened.
+	pax-mark mr "${ED}"/${MOZILLA_FIVE_HOME}/{firefox,firefox-bin,plugin-container}
+}
+
+pkg_preinst() {
+	gnome2_icon_savelist
 }
 
 pkg_postinst() {
@@ -87,8 +110,12 @@ pkg_postinst() {
 		einfo "if you have curl emerged with the nss USE-flag"
 		einfo
 	fi
+
+	# Update mimedb for the new .desktop file
+	fdo-mime_desktop_database_update
+	gnome2_icon_cache_update
 }
 
 pkg_postrm() {
-	update_mozilla_launcher_symlinks
+	gnome2_icon_cache_update
 }
