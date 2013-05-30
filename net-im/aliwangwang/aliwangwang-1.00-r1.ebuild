@@ -11,7 +11,7 @@ SRC_URI="amd64? ( ${PN}_${PV}-00_amd64.deb )
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND="

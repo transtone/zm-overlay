@@ -9,7 +9,7 @@ EGIT_BRANCH="dev"
 EGIT_BOOTSTRAP="autogen.sh"
 
 LICENSE="GPL-3"
-KEYWORDS="~amd64"
+KEYWORDS=""
 SLOT="0"
 IUSE="gtk3 gstreamer libnotify proxy"
 

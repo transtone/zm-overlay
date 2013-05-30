@@ -1,0 +1,12 @@
+diff -urN sflphone-1.2.2-orig/kde/src/CMakeLists.txt sflphone-1.2.2/kde/src/CMakeLists.txt
+--- sflphone-1.2.2-orig/kde/src/CMakeLists.txt	2013-03-26 00:42:07.883964524 -0400
++++ sflphone-1.2.2/kde/src/CMakeLists.txt	2013-03-26 00:42:22.098965938 -0400
+@@ -89,7 +89,7 @@
+    conf/dlgvideobase.ui
+ )
+ 
+-add_subdirectory( test   )
++#add_subdirectory( test   )
+ 
+ IF(${ENABLE_VIDEO} MATCHES true)
+    MESSAGE("VIDEO enabled")

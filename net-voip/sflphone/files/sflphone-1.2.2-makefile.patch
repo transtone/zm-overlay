@@ -1,0 +1,206 @@
+diff -urN sflphone-1.2.2-orig/daemon/Makefile.in sflphone-1.2.2/daemon/Makefile.in
+--- sflphone-1.2.2-orig/daemon/Makefile.in	2013-03-25 21:23:13.187776941 -0400
++++ sflphone-1.2.2/daemon/Makefile.in	2013-03-25 22:33:06.073194161 -0400
+@@ -844,7 +844,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/doc/dbus-api/Makefile.in sflphone-1.2.2/daemon/doc/dbus-api/Makefile.in
+--- sflphone-1.2.2-orig/daemon/doc/dbus-api/Makefile.in	2013-03-25 21:23:13.287776951 -0400
++++ sflphone-1.2.2/daemon/doc/dbus-api/Makefile.in	2013-03-25 22:33:06.113194165 -0400
+@@ -457,7 +457,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/globals.mak sflphone-1.2.2/daemon/globals.mak
+--- sflphone-1.2.2-orig/daemon/globals.mak	2013-03-25 21:23:13.289776951 -0400
++++ sflphone-1.2.2/daemon/globals.mak	2013-03-25 22:33:06.113194165 -0400
+@@ -9,7 +9,6 @@
+ indent="/usr/bin/astyle"
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ PJSIP_LIBS=$(APP_LDFLAGS) $(APP_LDLIBS)
+ 
+ SIP_CFLAGS=-I$(src)/libs/pjproject-2.0.1/pjsip/include \
+diff -urN sflphone-1.2.2-orig/daemon/src/Makefile.in sflphone-1.2.2/daemon/src/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/Makefile.in	2013-03-25 21:23:13.195776942 -0400
++++ sflphone-1.2.2/daemon/src/Makefile.in	2013-03-25 22:33:06.099194164 -0400
+@@ -913,7 +913,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/audio/Makefile.in sflphone-1.2.2/daemon/src/audio/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/audio/Makefile.in	2013-03-25 21:23:13.191776941 -0400
++++ sflphone-1.2.2/daemon/src/audio/Makefile.in	2013-03-25 22:33:06.084194162 -0400
+@@ -783,7 +783,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/audio/alsa/Makefile.in sflphone-1.2.2/daemon/src/audio/alsa/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/audio/alsa/Makefile.in	2013-03-25 21:23:13.193776942 -0400
++++ sflphone-1.2.2/daemon/src/audio/alsa/Makefile.in	2013-03-25 22:33:06.092194163 -0400
+@@ -570,7 +570,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/audio/audiortp/Makefile.in sflphone-1.2.2/daemon/src/audio/audiortp/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/audio/audiortp/Makefile.in	2013-03-25 21:23:13.192776942 -0400
++++ sflphone-1.2.2/daemon/src/audio/audiortp/Makefile.in	2013-03-25 22:33:06.090194163 -0400
+@@ -607,7 +607,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/audio/codecs/Makefile.in sflphone-1.2.2/daemon/src/audio/codecs/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/audio/codecs/Makefile.in	2013-03-25 21:23:13.191776941 -0400
++++ sflphone-1.2.2/daemon/src/audio/codecs/Makefile.in	2013-03-25 22:33:06.088194163 -0400
+@@ -941,7 +941,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+@@ -949,7 +948,6 @@
+                 find $(top_srcdir)/src/ -name \*.cpp -o -name \*.h | xargs $(indent) --options=$(ASTYLERC) ; \
+ 	fi
+ 
+-@BUILD_ILBC_TRUE@include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ install-exec-local:  install-libcodec_ulaw_so install-libcodec_alaw_so install-libcodec_g722_so install-libcodec_g729_so install-libcodec_opus_so $(INSTALL_GSM_RULE) $(INSTALL_SPEEX_NB_RULE) $(INSTALL_SPEEX_WB_RULE) $(INSTALL_SPEEX_UB_RULE) $(INSTALL_ILBC_RULE)
+ uninstall-local:  uninstall-libcodec_ulaw_so uninstall-libcodec_alaw_so uninstall-libcodec_g722_so uninstall-libcodec_g729_so uninstall-libcodec_opus_so uninstall-libcodec_gsm_so uninstall-libcodec_speex_nb_so uninstall-libcodec_speex_wb_so uninstall-libcodec_speex_ub_so uninstall-libcodec_ilbc_so
+diff -urN sflphone-1.2.2-orig/daemon/src/audio/pulseaudio/Makefile.in sflphone-1.2.2/daemon/src/audio/pulseaudio/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/audio/pulseaudio/Makefile.in	2013-03-25 21:23:13.190776941 -0400
++++ sflphone-1.2.2/daemon/src/audio/pulseaudio/Makefile.in	2013-03-25 22:33:06.082194162 -0400
+@@ -581,7 +581,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/audio/sound/Makefile.in sflphone-1.2.2/daemon/src/audio/sound/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/audio/sound/Makefile.in	2013-03-25 21:23:13.190776941 -0400
++++ sflphone-1.2.2/daemon/src/audio/sound/Makefile.in	2013-03-25 22:33:06.080194162 -0400
+@@ -587,7 +587,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/dbus/Makefile.in sflphone-1.2.2/daemon/src/dbus/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/dbus/Makefile.in	2013-03-25 21:23:13.196776942 -0400
++++ sflphone-1.2.2/daemon/src/dbus/Makefile.in	2013-03-25 22:33:06.106194165 -0400
+@@ -718,7 +718,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/history/Makefile.in sflphone-1.2.2/daemon/src/history/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/history/Makefile.in	2013-03-25 21:23:13.196776942 -0400
++++ sflphone-1.2.2/daemon/src/history/Makefile.in	2013-03-25 22:33:06.103194164 -0400
+@@ -586,7 +586,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/iax/Makefile.in sflphone-1.2.2/daemon/src/iax/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/iax/Makefile.in	2013-03-25 21:23:13.195776942 -0400
++++ sflphone-1.2.2/daemon/src/iax/Makefile.in	2013-03-25 22:33:06.096194164 -0400
+@@ -613,7 +613,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/im/Makefile.in sflphone-1.2.2/daemon/src/im/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/im/Makefile.in	2013-03-25 21:23:13.196776942 -0400
++++ sflphone-1.2.2/daemon/src/im/Makefile.in	2013-03-25 22:33:06.101194164 -0400
+@@ -576,7 +576,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/sip/Makefile.in sflphone-1.2.2/daemon/src/sip/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/sip/Makefile.in	2013-03-25 21:23:13.194776942 -0400
++++ sflphone-1.2.2/daemon/src/sip/Makefile.in	2013-03-25 22:33:06.094194163 -0400
+@@ -662,7 +662,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/video/Makefile.in sflphone-1.2.2/daemon/src/video/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/video/Makefile.in	2013-03-25 21:23:13.197776942 -0400
++++ sflphone-1.2.2/daemon/src/video/Makefile.in	2013-03-25 22:33:06.108194165 -0400
+@@ -753,7 +753,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/src/video/test/Makefile.in sflphone-1.2.2/daemon/src/video/test/Makefile.in
+--- sflphone-1.2.2-orig/daemon/src/video/test/Makefile.in	2013-03-25 21:23:13.198776942 -0400
++++ sflphone-1.2.2/daemon/src/video/test/Makefile.in	2013-03-25 22:33:06.111194165 -0400
+@@ -774,7 +774,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
+diff -urN sflphone-1.2.2-orig/daemon/test/Makefile.in sflphone-1.2.2/daemon/test/Makefile.in
+--- sflphone-1.2.2-orig/daemon/test/Makefile.in	2013-03-25 21:23:13.188776941 -0400
++++ sflphone-1.2.2/daemon/test/Makefile.in	2013-03-25 22:33:06.077194162 -0400
+@@ -920,7 +920,6 @@
+ 
+ 
+ # for pjsip
+-include $(src)/libs/pjproject-2.0.1/build.mak
+ 
+ indent:
+ 	@echo "Indenting code:"
