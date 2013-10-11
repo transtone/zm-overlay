@@ -16,6 +16,7 @@ cleanup() {
 runair() {
 	if [ ! -f "$1" ]; then
 		echo 'Specified application file not found:' "$1" >&2
+		cleanup
 		synopsis
 		return 1
 	fi
@@ -25,7 +26,7 @@ runair() {
 		return 1
 	fi
 
-	/opt/Adobe/AirSDK/bin/adl -nodebug "${tmpdir}"/META-INF/AIR/application.xml "${tmpdir}"
+	/opt/bin/adl -nodebug "${tmpdir}"/META-INF/AIR/application.xml "${tmpdir}"
 }
 
 trap cleanup HUP INT QUIT TERM

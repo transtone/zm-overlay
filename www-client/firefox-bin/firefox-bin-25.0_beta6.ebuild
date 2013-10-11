@@ -1,11 +1,8 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-client/firefox-bin/firefox-bin-22.0.ebuild,v 1.1 2013/06/26 00:46:42 jdhore Exp $
+# $Header: /var/cvsroot/gentoo-x86/www-client/firefox-bin/firefox-bin-24.0.ebuild,v 1.1 2013/09/18 13:37:07 polynomial-c Exp $
 
 EAPI="5"
-
-# Can be updated using scripts/get_langs.sh from mozilla overlay
-MOZ_LANGS=( zh-CN )
 
 # Convert the ebuild version to the upstream mozilla version, used by mozlinguas
 MOZ_PV="${PV/_beta/b}" # Handle beta for SRC_URI
@@ -22,12 +19,11 @@ inherit eutils multilib pax-utils fdo-mime gnome2-utils mozlinguas nsplugins
 DESCRIPTION="Firefox Web Browser"
 MOZ_FTP_URI="ftp://ftp.mozilla.org/pub/mozilla.org/${MOZ_PN}/releases"
 SRC_URI="${SRC_URI}
-	amd64? ( ${MOZ_FTP_URI}/${MOZ_PV}/linux-x86_64/en-US/${MOZ_P}.tar.bz2 -> ${PN}_x86_64-${PV}.tar.bz2 )
-	x86? ( ${MOZ_FTP_URI}/${MOZ_PV}/linux-i686/en-US/${MOZ_P}.tar.bz2 -> ${PN}_i686-${PV}.tar.bz2 )"
+	amd64? ( ${MOZ_FTP_URI}/${MOZ_PV}/linux-x86_64/zh-CN/${MOZ_P}.tar.bz2 -> ${PN}_x86_64-${PV}.tar.bz2 )"
 HOMEPAGE="http://www.mozilla.com/firefox"
 RESTRICT="strip mirror"
 
-KEYWORDS="-* ~amd64 "
+KEYWORDS="-* ~amd64"
 SLOT="0"
 LICENSE="MPL-2.0 GPL-2 LGPL-2.1"
 IUSE="startup-notification"
@@ -38,10 +34,8 @@ RDEPEND="dev-libs/dbus-glib
 	x11-libs/libXrender
 	x11-libs/libXt
 	x11-libs/libXmu
-
 	>=x11-libs/gtk+-2.2:2
 	>=media-libs/alsa-lib-1.0.16
-
 	!net-libs/libproxy[spidermonkey]
 "
 
@@ -61,8 +55,6 @@ S="${WORKDIR}/${MOZ_PN}"
 src_unpack() {
 	unpack ${A}
 
-	# Unpack language packs
-	mozlinguas_src_unpack
 }
 
 src_install() {
@@ -102,17 +94,6 @@ src_install() {
 	doins "${FILESDIR}"/local-settings.js
 	insinto ${MOZILLA_FIVE_HOME}/
 	doins "${FILESDIR}"/all-gentoo.js
-
-	# Install language packs
-	mozlinguas_src_install
-
-	local LANG=${linguas%% *}
-	if [[ -n ${LANG} && ${LANG} != "en" ]]; then
-		elog "Setting default locale to ${LANG}"
-		echo "pref(\"general.useragent.locale\", \"${LANG}\");" \
-			>> "${D}${MOZILLA_FIVE_HOME}"/defaults/pref/${PN}-prefs.js || \
-			die "sed failed to change locale"
-	fi
 
 	# Create /usr/bin/firefox-bin
 	dodir /usr/bin/

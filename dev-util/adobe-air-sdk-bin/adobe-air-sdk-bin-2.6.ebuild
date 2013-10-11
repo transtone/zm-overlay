@@ -12,8 +12,9 @@ SRC_URI="http://airdownload.adobe.com/air/lin/download/${PV}/AdobeAIRSDK.tbz2 ->
 
 LICENSE="AdobeAirSDK"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
+RESTRICT="strip"
 
 RDEPEND="app-arch/unzip
 	x86? ( dev-libs/libxml2
@@ -27,9 +28,9 @@ RDEPEND="app-arch/unzip
 	amd64? ( app-emulation/emul-linux-x86-baselibs
 		app-emulation/emul-linux-x86-gtklibs )"
 
-QA_PRESTRIPPED=".*\.so
-	/opt/Adobe/AirSDK/bin/adl"
-QA_EXECSTACK="*/libCore.so"
+QA_PRESTRIPPED=".*\.so /opt/Adobe/AirSDK/bin/adl"
+QA_EXECSTACK="*/libCore.so */libcurl.so */libadobecertstore.so */libadobecp.so"
+QA_TEXTRELS="*/libcurl.so"
 
 src_install() {
 	local sdkdir=opt/Adobe/AirSDK
