@@ -2,12 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="5"
 
 DESCRIPTION="A GTK+ front-end for the SopCast P2P TV player"
 HOMEPAGE="http://code.google.com/p/sopcast-player/"
 SRC_URI="http://sopcast-player.googlecode.com/files/${P}.tar.gz"
-
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -19,15 +18,11 @@ S=${WORKDIR}/${PN}
 RDEPEND="dev-python/pygtk
 	dev-python/pygobject
 	media-tv/sopcast-bin
-	=media-video/vlc-1.1*
+	media-video/vlc
 	sys-devel/gettext"
 
 DEPEND="${REPEND}
 	dev-lang/python[sqlite]"
-
-src_compile() {
-	emake || die "emake failed"
-}
 
 src_install() {
 	emake DESTDIR=${D} install \

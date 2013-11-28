@@ -70,7 +70,7 @@ USE_ENABLE() {
 				"
 				AUFS_PATCHES="
 					${WORKDIR}/aufs3-base.patch
-					${WORKDIR}/aufs3-proc_map.patch
+					${WORKDIR}/aufs3-mmap.patch
 					${WORKDIR}/aufs3-kbuild.patch
 					${WORKDIR}/aufs3-standalone.patch
 				"
@@ -246,7 +246,6 @@ src_prepare() {
 	enable ck && sed -i -e 's/\(^EXTRAVERSION :=.*$\)/# \1/' "Makefile"
 
 	features aufs && if use aufs; then
-		cp -i "${WORKDIR}"/include/linux/aufs_type.h include/linux/aufs_type.h || die
 		cp -i "${WORKDIR}"/include/uapi/linux/aufs_type.h include/uapi/linux/aufs_type.h || die
 		cp -ri "${WORKDIR}"/{Documentation,fs} . || die
 	fi
