@@ -6,21 +6,21 @@ EAPI="5"
 K_DEBLOB_AVAILABLE="1"
 
 ck_version="2"
-gentoo_version="7"
+gentoo_version="9"
 optimization_version="1"
-tuxonice_version="2013.12.05"
+tuxonice_version="2013.12.09"
 uksm_version="0.1.2.2"
 
-aufs_kernel_version="3.12_p20131111"
+aufs_kernel_version="3.12_p20140114"
 cjktty_kernel_version="3.11.0"
 reiser4_kernel_version="3.12.0"
-tuxonice_kernel_version="3.12.3"
+tuxonice_kernel_version="3.12.4"
 uksm_kernel_version="3.12.0"
 
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~mips"
 
-SUPPORTED_USE="+ck +additional +aufs +cjktty +experimental +gentoo +optimization +reiser4 +tuxonice +uksm"
-UNSUPPORTED_USE=""
+SUPPORTED_USE="+ck +additional +cjktty +experimental +gentoo +optimization +reiser4 +tuxonice +uksm"
+UNSUPPORTED_USE="+aufs"
 
 UNIPATCH_EXCLUDE=""
 

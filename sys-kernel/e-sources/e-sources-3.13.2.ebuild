@@ -5,28 +5,28 @@
 EAPI="5"
 K_DEBLOB_AVAILABLE="1"
 
-ck_version="2"
-gentoo_version="8"
-optimization_version="1"
-tuxonice_version="2013.12.09"
+ck_version=""
+gentoo_version="5"
+tuxonice_version=""
 uksm_version="0.1.2.2"
 
-aufs_kernel_version="3.12_p20140114"
+aufs_kernel_version="3.13_p20140127"
 cjktty_kernel_version="3.11.0"
-reiser4_kernel_version="3.12.0"
-tuxonice_kernel_version="3.12.4"
-uksm_kernel_version="3.12.0"
+reiser4_kernel_version=""
+tuxonice_kernel_version=""
+uksm_kernel_version="3.13.0"
 
 KEYWORDS="~amd64 ~x86 ~mips"
 
-SUPPORTED_USE="+ck +additional +aufs +cjktty +experimental +gentoo +optimization +reiser4 +tuxonice +uksm"
-UNSUPPORTED_USE=""
+SUPPORTED_USE="+additional +aufs +cjktty +exfat +experimental +gentoo -optimization +thinkpad +uksm"
+UNSUPPORTED_USE="ck imq reiser4 tuxonice"
 
 UNIPATCH_EXCLUDE=""
 
+OVERRIDE_AUFS_PATCHES=""
 OVERRIDE_CJKTTY_PATCHES=""
 OVERRIDE_CK_PATCHES=""
-OVERRIDE_REISER4_PATCHES="1"
+OVERRIDE_REISER4_PATCHES=""
 OVERRIDE_TUXONICE_PATCHES=""
 OVERRIDE_UKSM_PATCHES=""
 

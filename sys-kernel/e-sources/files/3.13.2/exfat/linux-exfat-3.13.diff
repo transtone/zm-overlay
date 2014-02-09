@@ -22,6 +22,19 @@ index 4fe6df3..3a903fd 100644
  obj-$(CONFIG_BFS_FS)		+= bfs/
  obj-$(CONFIG_ISO9660_FS)	+= isofs/
  obj-$(CONFIG_HFSPLUS_FS)	+= hfsplus/ # Before hfs to find wrapped HFS+
+diff --git a/fs/exfat/.gitignore b/fs/exfat/.gitignore
+new file mode 100644
+index 0000000..241505f
+--- /dev/null
++++ b/fs/exfat/.gitignore
+@@ -0,0 +1,7 @@
++*.cmd
++*.ko
++*.mod.c
++modules.order
++Module.symvers
++*.o
++.tmp_versions
 diff --git a/fs/exfat/Kconfig b/fs/exfat/Kconfig
 new file mode 100644
 index 0000000..78b32aa
@@ -69,30 +82,42 @@ index 0000000..78b32aa
 +	  Set this to the default input/output character set you'd like exFAT to use.
 diff --git a/fs/exfat/Makefile b/fs/exfat/Makefile
 new file mode 100644
-index 0000000..bfc67a2
+index 0000000..28bfa2d
 --- /dev/null
 +++ b/fs/exfat/Makefile
-@@ -0,0 +1,9 @@
+@@ -0,0 +1,56 @@
 +#
-+# Makefile for the Linux fat filesystem support.
++# Makefile for Linux FAT12/FAT16/FAT32(VFAT)/FAT64(ExFAT) filesystem driver.
 +#
++
++ifneq ($(KERNELRELEASE),)
++# call from kernel build system
 +
 +obj-$(CONFIG_EXFAT_FS) += exfat.o
 +
-+CFLAGS_exfat_core.o += -O2
-+exfat-y	:= exfat_core.o exfat_super.o exfat_api.o exfat_blkdev.o exfat_cache.o \
++exfat-objs := exfat_core.o exfat_super.o exfat_api.o exfat_blkdev.o exfat_cache.o \
 +			   exfat_data.o exfat_bitmap.o exfat_nls.o exfat_oal.o exfat_upcase.o
-diff --git a/fs/exfat/Makefile.module b/fs/exfat/Makefile.module
-new file mode 100644
-index 0000000..2e97826
---- /dev/null
-+++ b/fs/exfat/Makefile.module
-@@ -0,0 +1,20 @@
++
++else
++# external module build
++
 +EXTRA_FLAGS += -I$(PWD)
 +
-+#KDIR	:= /usr/src/linux/
++#
++# KDIR is a path to a directory containing kernel source.
++# It can be specified on the command line passed to make to enable the module to 
++# be built and installed for a kernel other than the one currently running.
++# By default it is the path to the symbolic link created when 
++# the current kernel's modules were installed, but
++# any valid path to the directory in which the target kernel's source is located
++# can be provided on the command line.
++#
 +KDIR	:= /lib/modules/$(shell uname -r)/build
-+PWD		:= $(shell pwd)
++MDIR	:= /lib/modules/$(shell uname -r)
++PWD	:= $(shell pwd)
++KREL	:= $(shell cd ${KDIR} && make -s kernelrelease)
++MDIR	:= /lib/modules/${KREL}
++PWD	:= $(shell pwd)
 +
 +export CONFIG_EXFAT_FS := m
 +
@@ -105,19 +130,28 @@ index 0000000..2e97826
 +help:
 +	$(MAKE) -C $(KDIR) M=$(PWD) help
 +
-+.PHONY : install
-+install : all
-+	sudo $(MAKE) -C $(KDIR) M=$(PWD) modules_install; sudo depmod
++install: exfat.ko
++	rm -f ${MDIR}/kernel/fs/exfat/exfat.ko
++	install -m644 -b -D exfat.ko ${MDIR}/kernel/fs/exfat/exfat.ko
++	depmod -aq
++
++uninstall:
++	rm -rf ${MDIR}/kernel/fs/exfat
++	depmod -aq
++
++endif
++
++.PHONY : all clean install uninstall 
 diff --git a/fs/exfat/README.md b/fs/exfat/README.md
 new file mode 100644
-index 0000000..e142912
+index 0000000..a9caac2
 --- /dev/null
 +++ b/fs/exfat/README.md
-@@ -0,0 +1,71 @@
+@@ -0,0 +1,75 @@
 +exfat-nofuse
 +============
 +
-+Linux non-fuse read/write kernel driver for the exFAT file system.<br />
++Linux non-fuse read/write kernel driver for the exFAT, FAT12, FAT16 and vfat (FAT32) file systems.<br />
 +Originally ported from android kernel v3.0.
 +
 +
@@ -131,60 +165,64 @@ index 0000000..e142912
 +Special thanks to github user AndreiLux for spreading the word about the leak!<br />
 +
 +
-+Installation as stand alone module:
++Installing as a stand-alone module:
 +====================================
 +
-+    make -f Makefile.module KDIR="path to kernel source" CROSS_COMPILE="path to android chain tools (as linaro)/bin/SOMETHING- (see your folder for clues)"
-+
-+Example how it's works for me!
-+
-+    make -f Makefile.module CROSS_COMPILE=../dorimanx-SG2-I9100-Kernel/android-toolchain/bin/arm-eabi- KDIR=../dorimanx-SG2-I9100-Kernel/
-+
-+exfat.ko module file will be created in exfat source folder. and will work with kernel source you have used.
-+
-+    make -f Makefile.module install
++    make
++    sudo make install
 +
 +To load the driver manually, run this as root:
 +
 +    modprobe exfat
 +
-+To add to kernel you need to do this:
++You may also specify custom toolchains by using CROSS_COMPILE flag, in my case:
++>CROSS_COMPILE=../dorimanx-SG2-I9100-Kernel/android-toolchain/bin/arm-eabi-
++
++Installing as a part of the kernel:
 +======================================
 +
-+cd your kernel source dir
++Let's take [linux] as the path to your kernel source dir...
 +
-+mkdir fs/exfat
++	cd [linux]
++	cp -rvf exfat-nofuse [linux]/fs/exfat
 +
-+copy all files (except .git and .gitignore) from exfat-nofuse to your kernel source fs/exfat/
++edit [linux]/fs/Kconfig
++```
++ menu "DOS/FAT/NT Filesystems"
++  
++  source "fs/fat/Kconfig"
++ +source "fs/exfat/Kconfig"
++  source "fs/ntfs/Kconfig"
++```
++  
++  endmenu
 +
-+see
-+https://github.com/dorimanx/Dorimanx-SG2-I9100-Kernel/commit/e8fc728a68096db9ffcebff40244ebfb60a3de18
++edit [linux]/fs/Makefile
++```
++  obj-$(CONFIG_FAT_FS)    += fat/
++ +obj-$(CONFIG_EXFAT_FS)  += exfat/
++  obj-$(CONFIG_BFS_FS)    += bfs/
++```
 +
-+edit fs/Kconfig
-+edit fs/Makefile
-+
-+cd your kernel source
-+make menuconfig
++	cd [linux]
++	make menuconfig
 +
 +Go to:
-+> File systems > DOS/FAT/NT > check the exfat as MODULE (M)
-+> (437) Default codepage for exFAT
-+> (utf8) Default iocharset for exFAT
++> File systems > DOS/FAT/NT
++>   check exfat as MODULE (M)
++>   (437) Default codepage for exFAT
++>   (utf8) Default iocharset for exFAT
 +
 +> ESC to main menu
 +> Save an Alternate Configuration File
 +> ESC ESC
 +
-+build your kernel.
++build your kernel
 +
-+and you will have new module!
-+
-+exfat.ko
-+
-+have fun.
++Have fun.
 +
 +Free Software for the Free Minds!
-+=====================================
++=================================
 diff --git a/fs/exfat/exfat_api.c b/fs/exfat/exfat_api.c
 new file mode 100644
 index 0000000..3a9943b
@@ -2311,10 +2349,10 @@ index 0000000..fd8928e
 +/* end of exfat_config.h */
 diff --git a/fs/exfat/exfat_core.c b/fs/exfat/exfat_core.c
 new file mode 100644
-index 0000000..a487a2b
+index 0000000..c99897f
 --- /dev/null
 +++ b/fs/exfat/exfat_core.c
-@@ -0,0 +1,5100 @@
+@@ -0,0 +1,5116 @@
 +/* Some of the source code in this file came from "linux/fs/fat/misc.c".  */
 +/*
 + *  linux/fs/fat/misc.c
@@ -2913,6 +2951,8 @@ index 0000000..a487a2b
 +			num_alloced = p_fs->fs_func->alloc_cluster(sb, num_alloc, &new_clu);
 +			if (num_alloced == 0)
 +				break;
++			else if (num_alloced < 0)
++				return FFS_MEDIAERR;
 +
 +			/* (2) append to the FAT chain */
 +			if (last_clu == CLUSTER_32(~0)) {
@@ -3651,7 +3691,9 @@ index 0000000..a487a2b
 +
 +		/* (1) allocate a cluster */
 +		num_alloced = p_fs->fs_func->alloc_cluster(sb, 1, &new_clu);
-+		if (num_alloced < 1)
++		if (num_alloced < 0)
++			return FFS_MEDIAERR;
++		else if (num_alloced == 0)
 +			return FFS_FULL;
 +
 +		/* (2) append to the FAT chain */
@@ -4122,16 +4164,19 @@ index 0000000..a487a2b
 +
 +	for (i = 2; i < p_fs->num_clusters; i++) {
 +		if (FAT_read(sb, new_clu, &read_clu) != 0)
-+			return 0;
++			return -1;
 +
 +		if (read_clu == CLUSTER_32(0)) {
-+			FAT_write(sb, new_clu, CLUSTER_32(~0));
++			if (FAT_write(sb, new_clu, CLUSTER_32(~0)) < 0)
++				return -1;
 +			num_clusters++;
 +
 +			if (p_chain->dir == CLUSTER_32(~0))
 +				p_chain->dir = new_clu;
-+			else
-+				FAT_write(sb, last_clu, new_clu);
++			else {
++				if (FAT_write(sb, last_clu, new_clu) < 0)
++					return -1;
++			}
 +
 +			last_clu = new_clu;
 +
@@ -4183,18 +4228,22 @@ index 0000000..a487a2b
 +		}
 +
 +		if (set_alloc_bitmap(sb, new_clu-2) != FFS_SUCCESS)
-+			return 0;
++			return -1;
 +
 +		num_clusters++;
 +
-+		if (p_chain->flags == 0x01)
-+			FAT_write(sb, new_clu, CLUSTER_32(~0));
++		if (p_chain->flags == 0x01) {
++			if (FAT_write(sb, new_clu, CLUSTER_32(~0)) < 0)
++				return -1;
++		}
 +
 +		if (p_chain->dir == CLUSTER_32(~0)) {
 +			p_chain->dir = new_clu;
 +		} else {
-+			if (p_chain->flags == 0x01)
-+				FAT_write(sb, last_clu, new_clu);
++			if (p_chain->flags == 0x01) {
++				if (FAT_write(sb, last_clu, new_clu) < 0)
++					return -1;
++			}
 +		}
 +		last_clu = new_clu;
 +
@@ -4256,7 +4305,8 @@ index 0000000..a487a2b
 +		if (FAT_read(sb, clu, &clu) == -1)
 +			break;
 +
-+		FAT_write(sb, prev, CLUSTER_32(0));
++		if (FAT_write(sb, prev, CLUSTER_32(0)) < 0)
++			break;
 +		num_clusters++;
 +
 +	} while (clu != CLUSTER_32(~0));
@@ -4414,7 +4464,8 @@ index 0000000..a487a2b
 +		return;
 +
 +	while (len > 1) {
-+		FAT_write(sb, chain, chain+1);
++		if (FAT_write(sb, chain, chain+1) < 0)
++			break;
 +		chain++;
 +		len--;
 +	}
@@ -5923,7 +5974,8 @@ index 0000000..a487a2b
 +			p_fs->hint_uentry.clu.flags = 0x01;
 +		}
 +		if (clu.flags == 0x01)
-+			FAT_write(sb, last_clu, clu.dir);
++			if (FAT_write(sb, last_clu, clu.dir) < 0)
++				return -1;
 +
 +		if (p_fs->hint_uentry.entry == -1) {
 +			p_fs->hint_uentry.dir = p_dir->dir;
@@ -6991,7 +7043,9 @@ index 0000000..a487a2b
 +
 +	/* (1) allocate a cluster */
 +	ret = p_fs->fs_func->alloc_cluster(sb, 1, &clu);
-+	if (ret < 1)
++	if (ret < 0)
++		return FFS_MEDIAERR;
++	else if (ret == 0)
 +		return FFS_FULL;
 +
 +	ret = clear_cluster(sb, clu.dir);
@@ -9064,7 +9118,7 @@ index 0000000..b9ad234
 +/* end of exfat_oal.h */
 diff --git a/fs/exfat/exfat_super.c b/fs/exfat/exfat_super.c
 new file mode 100644
-index 0000000..91aef8e
+index 0000000..eea339b
 --- /dev/null
 +++ b/fs/exfat/exfat_super.c
 @@ -0,0 +1,2302 @@
@@ -10474,7 +10528,7 @@ index 0000000..91aef8e
 +	return err;
 +}
 +
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,13,0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,14,0)
 +static ssize_t exfat_direct_IO(int rw, struct kiocb *iocb, struct iov_iter *iter,
 +				loff_t offset)
 +#else
@@ -10490,7 +10544,7 @@ index 0000000..91aef8e
 +	ssize_t ret;
 +
 +	if (rw == WRITE) {
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,13,0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,14,0)
 +		if (EXFAT_I(inode)->mmu_private < (offset + iov_iter_count(iter)))
 +#else
 +		if (EXFAT_I(inode)->mmu_private < (offset + iov_length(iov, nr_segs)))
@@ -10498,7 +10552,7 @@ index 0000000..91aef8e
 +			return 0;
 +	}
 +#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,00)
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,13,0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,14,0)
 +	ret = blockdev_direct_IO(rw, iocb, inode, iter,
 +					offset, exfat_get_block);
 +#else
@@ -10512,7 +10566,7 @@ index 0000000..91aef8e
 +
 +#if LINUX_VERSION_CODE > KERNEL_VERSION(2,6,34)
 +	if ((ret < 0) && (rw & WRITE))
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,13,0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,14,0)
 +		exfat_write_failed(mapping, offset+iov_iter_count(iter));
 +#else
 +		exfat_write_failed(mapping, offset+iov_length(iov, nr_segs));
@@ -10851,7 +10905,7 @@ index 0000000..91aef8e
 +		info.FreeClusters = info.NumClusters - info.UsedClusters;
 +
 +		if (p_fs->dev_ejected)
-+			return -EIO;
++			printk("[EXFAT] statfs on device is ejected\n");
 +	}
 +
 +	buf->f_type = sb->s_magic;
@@ -11962,7 +12016,7 @@ index 0000000..457ee8d
 +/* end of exfat_upcase.c */
 diff --git a/fs/exfat/exfat_version.h b/fs/exfat/exfat_version.h
 new file mode 100644
-index 0000000..2ad6a8f
+index 0000000..ac24433
 --- /dev/null
 +++ b/fs/exfat/exfat_version.h
 @@ -0,0 +1,19 @@
@@ -11984,4 +12038,4 @@ index 0000000..2ad6a8f
 +/*                                                                      */
 +/************************************************************************/
 +
-+#define EXFAT_VERSION  "1.2.6"
++#define EXFAT_VERSION  "1.2.7"
