@@ -105,7 +105,7 @@ MODULES_RDEPEND="
 	freeswitch_modules_redis? ( dev-db/redis )
 	freeswitch_modules_cdr_pg_csv? ( dev-db/postgresql-base )
 "
-#	freeswitch_modules_gsmopen? ( net-libs/libctb ... ) 
+#	freeswitch_modules_gsmopen? ( net-libs/libctb ... )
 
 # external core dependencies
 CORE_RDEPEND="
@@ -301,8 +301,8 @@ pkg_setup() {
 	#
 	# 6. create user + group
 	#
-	enewgroup freeswitch
-	enewuser freeswitch -1 -1 /opt/freeswitch freeswitch
+	enewgroup ${PN}
+	enewuser freeswitch -1 -1 /opt/freeswitch ${PN}
 
 	#
 	# 7. set active python version
@@ -368,14 +368,14 @@ fs_check_core_abi_compat() {
 	}
 
 	/switch_.+/{
-	    sym=\$4
-            sym_len=\$2
+		sym=\$4
+			sym_len=\$2
 
-	    if (! sym in symbols)
-	        print sym
+		if (! sym in symbols)
+			print sym
 
-	    if (symbols[sym] != sym_len)
-	        print sym
+		if (symbols[sym] != sym_len)
+			print sym
 	}
 	EOF
 
@@ -429,10 +429,10 @@ fs_check_modules_api_compat() {
 	}
 
 	/switch_.+/{
-	    sym=\$2
+		sym=\$2
 
-	    if (! sym in symbols)
-	        exit 1
+		if (! sym in symbols)
+			exit 1
 	}
 	EOF
 
@@ -681,37 +681,37 @@ esl_modname() {
 }
 
 esl_dorubymod() {
-        ( # dont want to pollute calling env
-                insinto $(${RUBY:-/usr/bin/ruby} -r rbconfig -e 'print Config::CONFIG["sitearchdir"]')
+		( # dont want to pollute calling env
+				insinto $(${RUBY:-/usr/bin/ruby} -r rbconfig -e 'print Config::CONFIG["sitearchdir"]')
 		insopts -m755
-                doins "$@"
-        ) || die "failed to install $@"
+				doins "$@"
+		) || die "failed to install $@"
 }
 
 esl_dopymod() {
-        ( # dont want to pollute calling env
-                insinto $(python_get_sitedir)
+		( # dont want to pollute calling env
+				insinto $(python_get_sitedir)
 
 		for x in ${@}; do
-			insopts -m644 
+			insopts -m644
 
 			[ "${x}" != "${x%.so}" ] && insopts -m755
 
-	                doins "${x}" || die "failed to install ${x}"
+					doins "${x}" || die "failed to install ${x}"
 		done
-        ) || die "failed to install $@"
+		) || die "failed to install $@"
 }
 
 esl_doluamod() {
-        ( # dont want to pollute calling env
-                insinto /usr/$(get_libdir)/lua/$(${LUA:-/usr/bin/lua} -v 2>&1 | sed -e '1s:^Lua \([0-9]\.[0-9]\)\.[0-9]\+.*:\1:')
+		( # dont want to pollute calling env
+				insinto /usr/$(get_libdir)/lua/$(${LUA:-/usr/bin/lua} -v 2>&1 | sed -e '1s:^Lua \([0-9]\.[0-9]\)\.[0-9]\+.*:\1:')
 		insopts -m755
-                doins "$@"
-        ) || die "failed to install $@"
+				doins "$@"
+		) || die "failed to install $@"
 }
 
 esl_doperlmod() {
-        ( # dont want to pollute calling env
+		( # dont want to pollute calling env
 		eval "$(${PERL:-/usr/bin/perl} -V:installvendorarch)"
 		eval "$(${PERL:-/usr/bin/perl} -V:installvendorlib)"
 
@@ -733,7 +733,7 @@ esl_doperlmod() {
 				;;
 			esac
 		done
-        ) || die "failed to install $@"
+		) || die "failed to install $@"
 }
 
 ###
