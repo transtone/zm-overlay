@@ -38,7 +38,7 @@ ${PV%.*}.9999*)
 *_beta*)
 	MY_P="${PN}-${PV/_/.}"	# 1.4.0_betaX -> 1.4.0.betaX
 	SRC_URI="http://files.freeswitch.org/${MY_P}.tar.bz2"
-	S="${WORKDIR}/${MY_P}"
+	S="${WORKDIR}/${PN}-${PV/_beta?/}"
 	;;
 *_rc*)
 	MY_P="${PN}-${PV/.?_/.}"	# 1.2.0_rcX -> 1.2.rcX
