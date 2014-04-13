@@ -132,8 +132,8 @@ RDEPEND="virtual/libc
 DEPEND="${RDEPEND}
 	sctp? ( kernel_linux? ( net-misc/lksctp-tools ) )"
 
-PDEPEND=">=net-misc/freeswitch-sounds-1.0.22
-	 >=net-misc/freeswitch-music-1.0.8"
+#PDEPEND=">=net-misc/freeswitch-sounds-1.0.22
+#	 >=net-misc/freeswitch-music-1.0.8"
 
 ###
 # IUSE merging
