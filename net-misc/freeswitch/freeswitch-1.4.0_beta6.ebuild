@@ -19,7 +19,7 @@ inherit autotools eutils flag-o-matic python
 DESCRIPTION="FreeSWITCH telephony platform"
 HOMEPAGE="http://www.freeswitch.org/"
 
-KEYWORDS="~arm ~amd64 ~x86"
+KEYWORDS=""
 LICENSE="MPL-1.1"
 SLOT="0"
 
@@ -874,6 +874,7 @@ src_configure() {
 		--mandir=/usr/share/man \
 		--infodir=/usr/share/info \
 		--datadir=/usr/share \
+        --enable-core-pgsql-support \
 		--enable-core-libedit-support \
 		--with-pkgconfigdir=/usr/$(get_libdir)/pkgconfig \
 		$(fs_enable sctp) \

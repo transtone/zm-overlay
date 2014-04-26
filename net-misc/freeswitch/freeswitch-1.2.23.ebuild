@@ -14,7 +14,7 @@ PYTHON_DEPEND="2"
 WANT_AUTOMAKE="1.11"
 WANT_AUTOCONF="2.5"
 
-inherit autotools eutils flag-o-matic python
+inherit autotools eutils flag-o-matic python systemd
 
 DESCRIPTION="FreeSWITCH telephony platform"
 HOMEPAGE="http://www.freeswitch.org/"
@@ -869,6 +869,7 @@ src_configure() {
 		--mandir=/usr/share/man \
 		--infodir=/usr/share/info \
 		--datadir=/usr/share \
+        --enable-core-pgsql-support \
 		--enable-core-libedit-support \
 		--with-pkgconfigdir=/usr/$(get_libdir)/pkgconfig \
 		$(fs_enable sctp) \
@@ -972,6 +973,8 @@ src_install() {
 
 	newinitd "${FILESDIR}"/freeswitch.rc6   freeswitch
 	newconfd "${FILESDIR}"/freeswitch.confd freeswitch
+
+    systemd_newunit "${S}/debian"/freeswitch-systemd.freeswitch.service freeswitch.service
 
 	# save a copy of the default config
 	einfo "Saving a copy of the default configuration..."
