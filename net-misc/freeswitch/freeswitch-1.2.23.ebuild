@@ -73,7 +73,6 @@ INTER_MODULE_DEPENDS="
 # modules need these core functions
 CORE_MODULE_DEPENDS="
 	nibblebill:odbc
-	easyroute:odbc
 	lcr:odbc
 "
 
@@ -90,7 +89,6 @@ MODULES_RDEPEND="
 	freeswitch_modules_python? ( =dev-lang/python-2* )
 	freeswitch_modules_managed? ( >=dev-lang/mono-1.9 )
 	freeswitch_modules_nibblebill? ( dev-db/unixODBC )
-	freeswitch_modules_easyroute? ( dev-db/unixODBC )
 	freeswitch_modules_lcr? ( dev-db/unixODBC )
 	freeswitch_modules_skypopen? ( x11-base/xorg-server x11-apps/xhost net-im/skype media-fonts/font-misc-misc media-fonts/font-cursor-misc )
 	freeswitch_modules_memcache? ( net-misc/memcached )
@@ -110,6 +108,7 @@ MODULES_RDEPEND="
 # external core dependencies
 CORE_RDEPEND="
 	odbc? ( dev-db/unixODBC )
+	dev-db/postgresql-base
 	esl-lua? ( dev-lang/lua dev-lang/swig )
 	esl-php? ( dev-lang/php dev-lang/swig )
 	esl-perl? ( dev-lang/perl dev-lang/swig )
@@ -869,7 +868,7 @@ src_configure() {
 		--mandir=/usr/share/man \
 		--infodir=/usr/share/info \
 		--datadir=/usr/share \
-        --enable-core-pgsql-support \
+		--enable-core-pgsql-support \
 		--enable-core-libedit-support \
 		--with-pkgconfigdir=/usr/$(get_libdir)/pkgconfig \
 		$(fs_enable sctp) \
@@ -974,7 +973,7 @@ src_install() {
 	newinitd "${FILESDIR}"/freeswitch.rc6   freeswitch
 	newconfd "${FILESDIR}"/freeswitch.confd freeswitch
 
-    systemd_newunit "${S}/debian"/freeswitch-systemd.freeswitch.service freeswitch.service
+	# systemd_newunit "${FILESDIR}"/freeswitch.service freeswitch.service
 
 	# save a copy of the default config
 	einfo "Saving a copy of the default configuration..."
