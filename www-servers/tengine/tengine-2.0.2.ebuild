@@ -445,7 +445,8 @@ src_configure() {
 # http_postgres
 	if use nginx_modules_http_postgres; then
 		http_enabled=1
-		myconf+=" --add-module=${WORKDIR}/FRiCKLE-ngx_postgres-${HTTP_POSTGRES_MODULE_SHA1}"
+		#myconf+=" --add-module=${WORKDIR}/FRiCKLE-ngx_postgres-${HTTP_POSTGRES_MODULE_SHA1}"
+		myconf+=" --add-module=${WORKDIR}/${HTTP_POSTGRES_MODULE_P}"
 	fi
 
 # http_coolkit
@@ -714,7 +715,7 @@ src_install() {
 # http_postgres
 	if use nginx_modules_http_postgres; then
 		docinto "${HTTP_POSTGRES_MODULE_P}"
-		dodoc "${WORKDIR}"/"FRiCKLE-ngx_postgres-${HTTP_POSTGRES_MODULE_SHA1}"/README.md
+		dodoc "${WORKDIR}"/"${HTTP_POSTGRES_MODULE_P}"/README.md
 	fi
 
 # http_coolkit
