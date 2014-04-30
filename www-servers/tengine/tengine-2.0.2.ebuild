@@ -36,9 +36,9 @@ HTTP_HEADERS_MORE_MODULE_P="ngx-http-headers-more-${HTTP_HEADERS_MORE_MODULE_PV}
 #HTTP_REDIS_MODULE_P="ngx_http_redis-0.3.5"
 
 # http_redis (https://github.com/agentzh/redis2-nginx-module, BSD license)
-HTTP_REDIS_MODULE_PV="0.10"
+HTTP_REDIS_MODULE_PV="0.11"
 HTTP_REDIS_MODULE_P="ngx_redis-${HTTP_REDIS_MODULE_PV}"
-#HTTP_REDIS_MODULE_SHA1="78a7622"
+HTTP_REDIS_MODULE_SHA1="828803d"
 HTTP_REDIS_MODULE_URI="http://github.com/agentzh/redis2-nginx-module/tarball/v${HTTP_REDIS_MODULE_PV}"
 
 # http_push (http://pushmodule.slact.net/, MIT license)
@@ -131,17 +131,17 @@ HTTP_ICONV_MODULE_P="iconv-nginx-module-${HTTP_ICONV_MODULE_PV}"
 #HTTP_SET_CCONV_MODULE_SHA1=""
 
 # NginX Featured mecached module (http://labs.frickle.com/nginx_ngx_postgres, BSD-2)
-HTTP_POSTGRES_MODULE_PV="0.9"
+HTTP_POSTGRES_MODULE_PV="1.0rc3"
 HTTP_POSTGRES_MODULE_P="ngx_postgres-${HTTP_POSTGRES_MODULE_PV}"
-HTTP_POSTGRES_MODULE_SHA1="803f879"
+HTTP_POSTGRES_MODULE_SHA1="a9b4dd6"
 
 # NginX coolkit module (http://labs.frickle.com/nginx_ngx_coolkit/, BSD-2)
 HTTP_COOLKIT_MODULE_PV="1.0"
 HTTP_COOLKIT_MODULE_P="ngx_coolkit-${HTTP_COOLKIT_MODULE_PV}"
 
-# NginX Supervisord module (http://labs.frickle.com/nginx_ngx_supervisord/, BSD-2)
-HTTP_SUPERVISORD_MODULE_PV="1.4"
-HTTP_SUPERVISORD_MODULE_P="ngx_supervisord-${HTTP_SUPERVISORD_MODULE_PV}"
+# # NginX Supervisord module (http://labs.frickle.com/nginx_ngx_supervisord/, BSD-2)
+# HTTP_SUPERVISORD_MODULE_PV="1.4"
+# HTTP_SUPERVISORD_MODULE_P="ngx_supervisord-${HTTP_SUPERVISORD_MODULE_PV}"
 
 # NginX Auth Request module (BSD)
 HTTP_AUTH_REQUEST_MODULE_PV="0.2"
@@ -181,16 +181,16 @@ SRC_URI="http://tengine.taobao.org/download/${P}.tar.gz
 	nginx_modules_http_array_var? ( https://github.com/agentzh/array-var-nginx-module/tarball/v${HTTP_ARRAY_VAR_MODULE_PV} -> ${HTTP_ARRAY_VAR_MODULE_P}.tar.gz )
 	nginx_modules_http_iconv? ( https://github.com/calio/iconv-nginx-module/tarball/v${HTTP_ICONV_MODULE_PV} -> ${HTTP_ICONV_MODULE_P}.tar.gz )
 	nginx_modules_http_memc? ( https://github.com/agentzh/memc-nginx-module/tarball/v${HTTP_MEMC_MODULE_PV} -> ${HTTP_MEMC_MODULE_P}.tar.gz )
-	nginx_modules_http_postgres? ( https://github.com/FRiCKLE/ngx_postgres/tarball/${HTTP_POSTGRES_MODULE_PV} -> ${HTTP_POSTGRES_MODULE_P}.tar.gz )
+	nginx_modules_http_postgres? ( https://github.com/FRiCKLE/ngx_postgres/archive/${HTTP_POSTGRES_MODULE_PV} -> ${HTTP_POSTGRES_MODULE_P}.tar.gz )
 	nginx_modules_http_coolkit? ( http://labs.frickle.com/files/${HTTP_COOLKIT_MODULE_P}.tar.gz )
 	nginx_modules_http_upload_progress? ( https://github.com/masterzen/nginx-upload-progress-module/tarball/v${HTTP_UPLOAD_PROGRESS_MODULE_PV} -> ${HTTP_UPLOAD_PROGRESS_MODULE_P}.tar.gz )
-	nginx_modules_http_supervisord? ( http://labs.frickle.com/files/${HTTP_SUPERVISORD_MODULE_P}.tar.gz )
 	nginx_modules_http_auth_request? ( http://mdounin.ru/files/${HTTP_AUTH_REQUEST_MODULE_P}.tar.gz )
 	nginx_modules_http_slowfs_cache? ( http://labs.frickle.com/files/${HTTP_SLOWFS_CACHE_MODULE_P}.tar.gz )
 	pam? ( http://web.iti.upv.es/~sto/nginx/ngx_http_auth_pam_module-1.1.tar.gz )
 	rrd? ( http://wiki.nginx.org/images/9/9d/Mod_rrd_graph-0.2.0.tar.gz )
 	chunk? ( https://github.com/agentzh/chunkin-nginx-module/tarball/v${CHUNKIN_MODULE_PV} -> chunkin-nginx-module-${CHUNKIN_MODULE_PV}.tgz )"
 #	nginx_modules_http_set_cconv? ( http://github.com/liseen/set-cconv-nginx-module/tarball/v${HTTP_SET_CCONV_MODULE_PV} -> ${HTTP_SET_CCON_MODULE_P}.tar.gz )
+	# nginx_modules_http_supervisord? ( http://labs.frickle.com/files/${HTTP_SUPERVISORD_MODULE_P}.tar.gz )
 
 LICENSE="BSD BSD-2 GPL-2 MIT
 	pam? ( as-is )"
@@ -207,7 +207,7 @@ NGINX_MODULES_MAIL="imap pop3 smtp"
 NGINX_MODULES_3RD="http_cache_purge http_headers_more http_passenger http_redis http_push
 http_upload http_ey_balancer http_slowfs_cache http_ndk http_lua http_form_input
 http_echo http_memc http_drizzle http_rds_json http_postgres http_coolkit
-http_auth_request http_set_misc http_srcache http_supervisord http_array_var
+http_auth_request http_set_misc http_srcache http_array_var
 http_xss http_iconv http_upload_progress http_syslog"
 # http_set_cconv"
 
@@ -467,10 +467,10 @@ src_configure() {
 	fi
 
 # http_supervisord
-	if use nginx_modules_http_supervisord; then
-		http_enabled=1
-		myconf+=" --add-module=${WORKDIR}/${HTTP_SUPERVISORD_MODULE_P}"
-	fi
+	# if use nginx_modules_http_supervisord; then
+	# 	http_enabled=1
+	# 	myconf+=" --add-module=${WORKDIR}/${HTTP_SUPERVISORD_MODULE_P}"
+	# fi
 
 # http_xss
 	if use nginx_modules_http_xss; then
@@ -536,7 +536,7 @@ src_configure() {
 	if use nginx_modules_http_redis; then
 		http_enabled=1
 		#myconf+=" --add-module=${WORKDIR}/${HTTP_REDIS_MODULE_P}"
-		myconf+=" --add-module=${WORKDIR}/agentzh-redis2-nginx-module-${HTTP_REDIS_MODULE_SHA1}"
+		myconf+=" --add-module=${WORKDIR}/openresty-redis2-nginx-module-${HTTP_REDIS_MODULE_SHA1}"
 	fi
 
 	if use http || use http-cache; then
@@ -754,10 +754,10 @@ src_install() {
 #	fi
 
 # http_supervisord
-	if use nginx_modules_http_supervisord; then
-		docinto "${HTTP_SUPERVISORD_MODULE_P}"
-		dodoc "${WORKDIR}"/"${HTTP_SUPERVISORD_MODULE_P}"/README
-	fi
+	# if use nginx_modules_http_supervisord; then
+	# 	docinto "${HTTP_SUPERVISORD_MODULE_P}"
+	# 	dodoc "${WORKDIR}"/"${HTTP_SUPERVISORD_MODULE_P}"/README
+	# fi
 
 # http_slowfs_cache
 	if use nginx_modules_http_slowfs_cache; then
