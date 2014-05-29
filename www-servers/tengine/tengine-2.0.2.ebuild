@@ -154,7 +154,7 @@ HTTP_SLOWFS_CACHE_MODULE_P="ngx_slowfs_cache-${HTTP_SLOWFS_CACHE_MODULE_PV}"
 CHUNKIN_MODULE_PV="0.22rc2"
 CHUNKIN_MODULE_SHA1="b46dd27"
 
-inherit eutils ssl-cert toolchain-funcs perl-module ruby-ng flag-o-matic systemd
+inherit eutils user ssl-cert toolchain-funcs perl-module ruby-ng flag-o-matic systemd
 
 DESCRIPTION="Robust, small and high performance http and reverse proxy server"
 HOMEPAGE="http://sysoev.ru/nginx/
