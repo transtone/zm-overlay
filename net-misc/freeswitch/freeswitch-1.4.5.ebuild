@@ -130,7 +130,7 @@ RDEPEND="virtual/libc
 	 ${MODULES_RDEPEND}"
 
 DEPEND="${RDEPEND}
-	Net-libs/ldns
+	net-libs/ldns
 	sctp? ( kernel_linux? ( net-misc/lksctp-tools ) )"
 
 #PDEPEND=">=net-misc/freeswitch-sounds-1.0.22
