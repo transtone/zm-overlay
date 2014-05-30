@@ -1053,7 +1053,7 @@ src_install() {
 	if use esl; then
 		einfo "Installing libesl..."
 		insinto "/opt/freeswitch/lib"
-		doins libs/esl/libesl.la
+		# doins libs/esl/libesl.la
 	fi
 
 	#
