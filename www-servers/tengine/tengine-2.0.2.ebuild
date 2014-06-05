@@ -199,11 +199,10 @@ KEYWORDS="~amd64 ~x86"
 
 NGINX_MODULES_STD="access auth_basic autoindex browser charset empty_gif fastcgi
 geo gzip limit_req limit_zone map memcached proxy referer rewrite scgi ssi
-split_clients upstream_ip_hash userid uwsgi"
-NGINX_MODULES_OPT="addition dav degradation flv geoip gzip_static image_filter
+split_clients upstream_ip_hash userid uwsgi "
+NGINX_MODULES_OPT="addition concat dav degradation flv geoip gzip_static image_filter
 mp4 perl random_index realip secure_link stub_status sub xslt"
 NGINX_MODULES_MAIL="imap pop3 smtp"
-
 NGINX_MODULES_3RD="http_cache_purge http_headers_more http_passenger http_redis http_push
 http_upload http_ey_balancer http_slowfs_cache http_ndk http_lua http_form_input
 http_echo http_memc http_drizzle http_rds_json http_postgres http_coolkit
