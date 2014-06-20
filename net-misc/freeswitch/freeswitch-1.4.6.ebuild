@@ -131,6 +131,7 @@ RDEPEND="virtual/libc
 
 DEPEND="${RDEPEND}
 	net-libs/ldns
+	dev-libs/libedit
 	sctp? ( kernel_linux? ( net-misc/lksctp-tools ) )"
 
 #PDEPEND=">=net-misc/freeswitch-sounds-1.0.22
@@ -874,7 +875,7 @@ src_configure() {
 		--sysconfdir=/opt/freeswitch/conf \
 		--mandir=/usr/share/man \
 		--infodir=/usr/share/info \
-		--disable-core-libedit-support \
+		--enable-core-libedit-support \
 		--datadir=/usr/share \
 		--enable-core-pgsql-support \
 		--with-pkgconfigdir=/usr/$(get_libdir)/pkgconfig \
