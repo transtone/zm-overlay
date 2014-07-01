@@ -58,7 +58,7 @@ IUSE_ESL="esl-ruby esl-php esl-perl esl-python esl-lua"
 IUSE_FREETDM="libpri misdn"
 
 IUSE_MODULES="alsa amr amrwb avmd bv +cdr_csv cdr_pg_csv cdr_sqlite celt cepstral cidlookup +console curl +callcenter
-	+db dialplan_directory dingaling distributor easyroute erlang_event
+	+db +directory dialplan_directory dingaling distributor easyroute erlang_event
 	flite freetdm fsk +g723_1 g729 gsmopen h26x +redis hash +ilbc java lcr ldap limit +local_stream +logfile +lua
 	managed mp4v nibblebill opal osp perl pocketsphinx portaudio portaudio_stream python radius_cdr rtmp
 	shell_stream shout silk siren skinny skypopen snapshot +sndfile snom +sofia +spandsp +opus spy +syslog
