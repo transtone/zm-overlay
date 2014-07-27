@@ -41,10 +41,10 @@ HTTP_REDIS_MODULE_P="ngx_redis-${HTTP_REDIS_MODULE_PV}"
 HTTP_REDIS_MODULE_SHA1="828803d"
 HTTP_REDIS_MODULE_URI="http://github.com/openresty/redis2-nginx-module/tarball/v${HTTP_REDIS_MODULE_PV}"
 
-# nginx_tcp_proxy_module  (https://github.com/openresty/redis2-nginx-module, BSD license)
-HTTP_TCP_PROXY_MODULE_PV="0.4.5"
-HTTP_TCP_PROXY_MODULE_P="ngx_tcp_proxy_module-${HTTP_TCP_PROXY_MODULE_PV}"
-HTTP_TCP_PROXY_MODULE_SHA1="4a8c314"
+# nginx_tcp_proxy_module
+HTTP_TCP_PROXY_MODULE_PV="0.4.6"
+HTTP_TCP_PROXY_MODULE_P="nginx_tcp_proxy_module-${HTTP_TCP_PROXY_MODULE_PV}"
+#HTTP_TCP_PROXY_MODULE_SHA1="4a8c314"
 HTTP_TCP_PROXY_MODULE_URI="http://github.com/yaoweibin/nginx_tcp_proxy_module/tarball/v${HTTP_TCP_PROXY_MODULE_PV}"
 
 # http_push (http://pushmodule.slact.net/, MIT license)
@@ -332,6 +332,10 @@ src_prepare() {
 		epatch "${FILESDIR}"/nginx-1.x-ey-balancer.patch
 	fi
 
+	if use nginx_modules_http_tcp_proxy; then
+		epatch "${WORKDIR}/${HTTP_TCP_PROXY_MODULE_P}"/tcp.patch
+	fi
+
 	if use nginx_modules_http_passenger; then
 		mv "${WORKDIR}/FooBarWidget-passenger-2c75a53" "${WORKDIR}"/passenger-"${PASSENGER_PV}";
 		cd "${WORKDIR}"/passenger-"${PASSENGER_PV}";
@@ -544,6 +548,11 @@ src_configure() {
 		http_enabled=1
 		#myconf+=" --add-module=${WORKDIR}/${HTTP_REDIS_MODULE_P}"
 		myconf+=" --add-module=${WORKDIR}/openresty-redis2-nginx-module-${HTTP_REDIS_MODULE_SHA1}"
+	fi
+
+	if use nginx_modules_http_tcp_proxy; then
+		http_enabled=1
+		myconf+=" --add-module=${WORKDIR}/${HTTP_TCP_PROXY_MODULE_P}"
 	fi
 
 	if use http || use http-cache; then
