@@ -41,6 +41,12 @@ HTTP_REDIS_MODULE_P="ngx_redis-${HTTP_REDIS_MODULE_PV}"
 HTTP_REDIS_MODULE_SHA1="828803d"
 HTTP_REDIS_MODULE_URI="http://github.com/openresty/redis2-nginx-module/tarball/v${HTTP_REDIS_MODULE_PV}"
 
+# nginx_tcp_proxy_module  (https://github.com/openresty/redis2-nginx-module, BSD license)
+HTTP_TCP_PROXY_MODULE_PV="0.4.5"
+HTTP_TCP_PROXY_MODULE_P="ngx_tcp_proxy_module-${HTTP_TCP_PROXY_MODULE_PV}"
+HTTP_TCP_PROXY_MODULE_SHA1="4a8c314"
+HTTP_TCP_PROXY_MODULE_URI="http://github.com/yaoweibin/nginx_tcp_proxy_module/tarball/v${HTTP_TCP_PROXY_MODULE_PV}"
+
 # http_push (http://pushmodule.slact.net/, MIT license)
 HTTP_PUSH_MODULE_PV="0.692"
 HTTP_PUSH_MODULE_P="nginx_http_push_module-${HTTP_PUSH_MODULE_PV}"
@@ -165,6 +171,7 @@ SRC_URI="http://tengine.taobao.org/download/${P}.tar.gz
 	nginx_modules_http_headers_more? ( https://github.com/openresty/headers-more-nginx-module/tarball/v${HTTP_HEADERS_MORE_MODULE_PV} -> ${HTTP_HEADERS_MORE_MODULE_P}.tar.gz )
 	nginx_modules_http_passenger? ( https://github.com/FooBarWidget/passenger/tarball/master -> passenger-git-${PASSENGER_PV}.tar.gz )
 	nginx_modules_http_redis? ( ${HTTP_REDIS_MODULE_URI} ->	${HTTP_REDIS_MODULE_P}.tar.gz )
+	nginx_modules_http_tcp_proxy? ( ${HTTP_TCP_PROXY_MODULE_URI} ->	${HTTP_TCP_PROXY_MODULE_P}.tar.gz )
 	nginx_modules_http_push? ( http://pushmodule.slact.net/downloads/${HTTP_PUSH_MODULE_P}.tar.gz )
 	nginx_modules_http_cache_purge? ( http://labs.frickle.com/files/${HTTP_CACHE_PURGE_MODULE_P}.tar.gz )
 	nginx_modules_http_upload? ( http://www.grid.net.ru/nginx/download/${HTTP_UPLOAD_MODULE_P}.tar.gz )
@@ -207,7 +214,7 @@ NGINX_MODULES_3RD="http_cache_purge http_headers_more http_passenger http_redis 
 http_upload http_ey_balancer http_slowfs_cache http_ndk http_lua http_form_input
 http_echo http_memc http_drizzle http_rds_json http_postgres http_coolkit
 http_auth_request http_set_misc http_srcache http_array_var
-http_xss http_iconv http_upload_progress http_syslog"
+http_xss http_iconv http_upload_progress http_syslog http_tcp_proxy "
 # http_set_cconv"
 
 REQUIRED_USE="	nginx_modules_http_lua? ( nginx_modules_http_ndk )
