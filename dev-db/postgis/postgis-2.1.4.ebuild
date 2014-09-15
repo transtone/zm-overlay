@@ -1,9 +1,9 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-db/postgis/postgis-2.1.1.ebuild,v 1.2 2014/04/26 16:08:54 nimiux Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-db/postgis/postgis-2.1.1.ebuild,v 1.3 2014/08/22 03:49:29 patrick Exp $
 
 EAPI="5"
-POSTGRES_COMPAT=( 9.{0,1,2,3} )
+POSTGRES_COMPAT=( 9.{0,1,2,3,4} )
 
 inherit autotools eutils versionator
 
@@ -21,6 +21,7 @@ IUSE="doc gtk test"
 
 RDEPEND="
 		|| (
+			dev-db/postgresql-server:9.4
 			dev-db/postgresql-server:9.3
 			dev-db/postgresql-server:9.2
 			dev-db/postgresql-server:9.1
@@ -97,7 +98,7 @@ pkg_setup() {
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.1-ldflags.patch" \
 		"${FILESDIR}/${PN}-2.0-arflags.patch" \
-		"${FILESDIR}/${PN}-2.1.2-pkgconfig-json.patch"
+		"${FILESDIR}/${PN}-2.1.3-pkgconfig-json.patch"
 
 	local AT_M4DIR="macros"
 	eautoreconf

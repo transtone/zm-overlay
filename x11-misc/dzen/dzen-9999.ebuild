@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/robm/dzen"
 EGIT_REPO_URI="https://github.com/robm/dzen.git"
 
 LICENSE="MIT"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 IUSE="minimal xinerama xpm xft"
 
 RDEPEND="x11-libs/libX11
