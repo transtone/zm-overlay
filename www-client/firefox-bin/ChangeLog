@@ -1,6 +1,259 @@
 # ChangeLog for www-client/firefox-bin
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/www-client/firefox-bin/ChangeLog,v 1.161 2013/06/27 20:49:01 ago Exp $
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/www-client/firefox-bin/ChangeLog,v 1.213 2014/10/18 15:55:44 axs Exp $
+
+  18 Oct 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  -firefox-bin-24.8.1.ebuild:
+  cleanup old, security bug 525474
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-31.2.0-r1.ebuild:
+  Stable for x86, wrt bug #525474
+
+  18 Oct 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-31.2.0-r1.ebuild:
+  Stable for amd64, wrt bug #525474
+
+  17 Oct 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  firefox-bin-31.2.0-r1.ebuild:
+  fixed cairo dep in line with actual
+
+*firefox-bin-31.2.0-r1 (17 Oct 2014)
+
+  17 Oct 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +firefox-bin-31.2.0-r1.ebuild, -firefox-bin-31.2.0.ebuild,
+  firefox-bin-33.0.ebuild:
+  added missing deps to firefox-31 and 33 ; revbumped firefox-31 for stable
+  candidate
+
+*firefox-bin-31.2.0 (15 Oct 2014)
+
+  15 Oct 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +firefox-bin-31.2.0.ebuild:
+  version bumped 31.x ESR (restoring a 31.x version to the tree, bug 525486),
+  security bug 525474
+
+*firefox-bin-33.0 (14 Oct 2014)
+
+  14 Oct 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +firefox-bin-33.0.ebuild, -firefox-bin-24.8.0.ebuild,
+  -firefox-bin-31.1.1.ebuild, -firefox-bin-32.0.3.ebuild:
+  version bump, remove old
+
+  06 Oct 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.8.1.ebuild:
+  Stable for x86, wrt bug #523652
+
+  06 Oct 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.8.1.ebuild:
+  Stable for amd64, wrt bug #523652
+
+*firefox-bin-32.0.3 (26 Sep 2014)
+*firefox-bin-24.8.1 (26 Sep 2014)
+*firefox-bin-31.1.1 (26 Sep 2014)
+
+  26 Sep 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +firefox-bin-24.8.1.ebuild, +firefox-bin-31.1.1.ebuild,
+  +firefox-bin-32.0.3.ebuild, -firefox-bin-17.0.10.ebuild,
+  -firefox-bin-17.0.9.ebuild, -firefox-bin-24.7.0.ebuild,
+  -firefox-bin-31.1.0.ebuild, -firefox-bin-32.0.ebuild:
+  security bump, bug 523652 ; removed old
+
+  05 Sep 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.8.0.ebuild:
+  Stable for x86, wrt bug #522020
+
+  05 Sep 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.8.0.ebuild:
+  Stable for amd64, wrt bug #522020
+
+*firefox-bin-24.8.0 (03 Sep 2014)
+*firefox-bin-32.0 (03 Sep 2014)
+*firefox-bin-31.1.0 (03 Sep 2014)
+
+  03 Sep 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +firefox-bin-24.8.0.ebuild, +firefox-bin-31.1.0.ebuild,
+  +firefox-bin-32.0.ebuild, -firefox-bin-24.6.0.ebuild,
+  -firefox-bin-31.0.ebuild:
+  version bump, removed some old
+
+  04 Aug 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.7.0.ebuild:
+  Stable for x86, wrt bug #517876
+
+  01 Aug 2014; Mikle Kolyada <zlogene@gentoo.org> firefox-bin-24.7.0.ebuild:
+  amd64 stable wrt bug #517876
+
+*firefox-bin-31.0 (23 Jul 2014)
+*firefox-bin-24.7.0 (23 Jul 2014)
+
+  23 Jul 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +firefox-bin-24.7.0.ebuild, +firefox-bin-31.0.ebuild,
+  -firefox-bin-24.5.0.ebuild, -firefox-bin-30.0.ebuild:
+  version bump, remove old; security bug 517876
+
+  16 Jun 2014; Pacho Ramos <pacho@gentoo.org> files/firefox-bin.desktop,
+  firefox-bin-17.0.10.ebuild, firefox-bin-17.0.9.ebuild,
+  firefox-bin-24.5.0.ebuild, firefox-bin-24.6.0.ebuild, firefox-bin-30.0.ebuild:
+  Allow bigger icon to be used (#465130)
+
+  15 Jun 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.6.0.ebuild:
+  Stable for x86, wrt bug #512896
+
+  13 Jun 2014; Mikle Kolyada <zlogene@gentoo.org> firefox-bin-24.6.0.ebuild:
+  amd64 stable wrt bug #512896
+
+  11 Jun 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  firefox-bin-24.6.0.ebuild, firefox-bin-30.0.ebuild:
+  dropped now-unnecessary blocker of libproxy[spidermonkey]
+
+*firefox-bin-30.0 (11 Jun 2014)
+*firefox-bin-24.6.0 (11 Jun 2014)
+
+  11 Jun 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +firefox-bin-24.6.0.ebuild, +firefox-bin-30.0.ebuild,
+  -firefox-bin-24.4.0.ebuild, -firefox-bin-29.0.1.ebuild:
+  version bump, remove old ; security bug 512896
+
+  17 May 2014; Sven Vermeulen <swift@gentoo.org> firefox-bin-17.0.10.ebuild,
+  firefox-bin-17.0.9.ebuild, firefox-bin-24.4.0.ebuild,
+  firefox-bin-24.5.0.ebuild, firefox-bin-29.0.1.ebuild:
+  Fix bug #509740 - Add USE=selinux dependency to sec-policy/selinux-mozilla
+
+*firefox-bin-29.0.1 (10 May 2014)
+
+  10 May 2014;  <anarchy@gentoo.org> +firefox-bin-29.0.1.ebuild,
+  -firefox-bin-29.0.ebuild:
+  Misc upstream fixes
+
+  08 May 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.5.0.ebuild:
+  Stable for x86, wrt bug #509050
+
+  08 May 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.5.0.ebuild:
+  Stable for amd64, wrt bug #509050
+
+  07 May 2014; Lars Wendler <polynomial-c@gentoo.org> firefox-bin-29.0.ebuild:
+  Revert firefox-29 back to unstable.
+
+  07 May 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-29.0.ebuild:
+  Stable for x86, wrt bug #509050
+
+  07 May 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-29.0.ebuild:
+  Stable for amd64, wrt bug #509050
+
+*firefox-bin-24.5.0 (30 Apr 2014)
+*firefox-bin-29.0 (30 Apr 2014)
+
+  30 Apr 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +firefox-bin-24.5.0.ebuild, +firefox-bin-29.0.ebuild,
+  -firefox-bin-24.3.0.ebuild, -firefox-bin-28.0-r1.ebuild:
+  version bump, security bug 509050
+
+  29 Mar 2014;  <anarchy@gentoo.org> files/all-gentoo-1.js:
+  Fix typo in updated preference file, bug #506144
+
+*firefox-bin-28.0-r1 (29 Mar 2014)
+
+  29 Mar 2014;  <anarchy@gentoo.org> +files/all-gentoo-1.js,
+  +firefox-bin-28.0-r1.ebuild, -firefox-bin-28.0.ebuild:
+  Allow user to modify a few settings locally, bug #465802
+
+  22 Mar 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.4.0.ebuild:
+  Stable for x86, wrt bug #505072
+
+  22 Mar 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.4.0.ebuild:
+  Stable for amd64, wrt bug #505072
+
+*firefox-bin-24.4.0 (19 Mar 2014)
+*firefox-bin-28.0 (19 Mar 2014)
+
+  19 Mar 2014; Ian Stakenvicius (_AxS_) <axs@gentoo.org>
+  +firefox-bin-24.4.0.ebuild, +firefox-bin-28.0.ebuild,
+  -firefox-bin-27.0.1.ebuild, -firefox-bin-27.0.ebuild:
+  version bump, security bug 505072
+
+*firefox-bin-27.0.1 (05 Mar 2014)
+
+  05 Mar 2014; Lars Wendler <polynomial-c@gentoo.org>
+  +firefox-bin-27.0.1.ebuild:
+  Version bump.
+
+  22 Feb 2014; Lars Wendler <polynomial-c@gentoo.org>
+  -firefox-bin-24.1.1.ebuild, -firefox-bin-24.2.0.ebuild,
+  -firefox-bin-26.0.ebuild:
+  Removed vulnerable versions.
+
+  15 Feb 2014; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.3.0.ebuild:
+  Stable for amd64, wrt bug #500320
+
+  11 Feb 2014; Pawel Hajdan jr <phajdan.jr@gentoo.org>
+  firefox-bin-24.3.0.ebuild:
+  x86 stable wrt security bug #500320
+
+*firefox-bin-27.0 (07 Feb 2014)
+*firefox-bin-24.3.0 (07 Feb 2014)
+
+  07 Feb 2014; Lars Wendler <polynomial-c@gentoo.org>
+  +firefox-bin-24.3.0.ebuild, -firefox-bin-25.0.ebuild,
+  +firefox-bin-27.0.ebuild:
+  Security bump (bug #500320). Removed old.
+
+*firefox-bin-26.0 (13 Dec 2013)
+*firefox-bin-24.2.0 (13 Dec 2013)
+
+  13 Dec 2013; Jeff Horelick <jdhore@gentoo.org> +firefox-bin-24.2.0.ebuild,
+  +firefox-bin-26.0.ebuild:
+  Version bump on ESR and main branches
+
+  27 Nov 2013; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.1.1.ebuild:
+  Stable for x86, wrt bug #491234
+
+  27 Nov 2013; Agostino Sarubbo <ago@gentoo.org> firefox-bin-24.1.1.ebuild:
+  Stable for amd64, wrt bug #491234
+
+*firefox-bin-24.1.1 (20 Nov 2013)
+
+  20 Nov 2013; Jory A. Pratt <anarchy@gentoo.org> +firefox-bin-24.1.1.ebuild,
+  -firefox-bin-24.0.ebuild, -firefox-bin-24.1.0.ebuild:
+  Security bump for nss/nspr update
+
+*firefox-bin-17.0.10 (31 Oct 2013)
+*firefox-bin-25.0 (31 Oct 2013)
+*firefox-bin-24.1.0 (31 Oct 2013)
+
+  31 Oct 2013; Jeff Horelick <jdhore@gentoo.org> +firefox-bin-17.0.10.ebuild,
+  +firefox-bin-24.1.0.ebuild, +firefox-bin-25.0.ebuild:
+  Version bump on both ESR branches and mainline branch
+
+  25 Sep 2013; Lars Wendler <polynomial-c@gentoo.org>
+  -firefox-bin-17.0.8.ebuild, -firefox-bin-23.0.ebuild:
+  Removed old.
+
+  21 Sep 2013; Agostino Sarubbo <ago@gentoo.org> firefox-bin-17.0.9.ebuild:
+  Stable for x86, wrt bug #485258
+
+  21 Sep 2013; Agostino Sarubbo <ago@gentoo.org> firefox-bin-17.0.9.ebuild:
+  Stable for amd64, wrt bug #485258
+
+*firefox-bin-24.0 (18 Sep 2013)
+*firefox-bin-17.0.9 (18 Sep 2013)
+
+  18 Sep 2013; Lars Wendler <polynomial-c@gentoo.org>
+  -firefox-bin-17.0.5-r1.ebuild, -firefox-bin-17.0.6.ebuild,
+  -firefox-bin-17.0.7.ebuild, +firefox-bin-17.0.9.ebuild,
+  +firefox-bin-24.0.ebuild:
+  Security bump (bug #485258). Removed old.
+
+  12 Aug 2013; Agostino Sarubbo <ago@gentoo.org> firefox-bin-17.0.8.ebuild:
+  Stable for x86, wrt bug #479968
+
+  12 Aug 2013; Agostino Sarubbo <ago@gentoo.org> firefox-bin-17.0.8.ebuild:
+  Stable for amd64, wrt bug #479968
+
+*firefox-bin-23.0 (07 Aug 2013)
+
+  07 Aug 2013;  <anarchy@gentoo.org> +firefox-bin-23.0.ebuild,
+  -firefox-bin-20.0.1.ebuild, -firefox-bin-21.0.ebuild,
+  -firefox-bin-22.0.ebuild:
+  version bump for security bug #479968
+
+*firefox-bin-17.0.8 (07 Aug 2013)
+
+  07 Aug 2013; Ian Stakenvicius <axs@gentoo.org> +firefox-bin-17.0.8.ebuild:
+  version bump for security bug #479968
 
   27 Jun 2013; Agostino Sarubbo <ago@gentoo.org> firefox-bin-17.0.7.ebuild:
   Stable for x86, wrt bug #474758

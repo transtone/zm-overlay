@@ -42,11 +42,11 @@ ${PV%.*}.9999*)
 	;;
 *_rc*)
 	MY_P="${PN}-${PV/.?_/.}"	# 1.2.0_rcX -> 1.2.rcX
-	SRC_URI="http://files-sync.freeswitch.org/${MY_P}.tar.bz2"
+	SRC_URI="http://files.freeswitch.org/${MY_P}.tar.bz2"
 	S="${WORKDIR}/${MY_P}"
 	;;
 *)
-	SRC_URI="http://files-sync.freeswitch.org/${P/_/}.tar.xz"
+	SRC_URI="http://files.freeswitch.org/${P/_/}.tar.xz"
 	S="${WORKDIR}/${P/_/}"
 	;;
 esac
