@@ -19,7 +19,7 @@ inherit autotools eutils flag-o-matic python user
 DESCRIPTION="FreeSWITCH telephony platform"
 HOMEPAGE="http://www.freeswitch.org/"
 
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 LICENSE="MPL-1.1"
 SLOT="0"
 
