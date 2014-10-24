@@ -25,12 +25,12 @@ SLOT="0"
 
 case ${PV} in
 9999*)
-	EGIT_REPO_URI="git://git.freeswitch.org/freeswitch.git"
+	EGIT_REPO_URI="https://freeswitch.org/stash/scm/fs/freeswitch.git"
 	EGIT_BOOTSTRAP=""
 	inherit git-2
 	;;
 ${PV%.*}.9999*)
-	EGIT_REPO_URI="git://git.freeswitch.org/freeswitch.git"
+	EGIT_REPO_URI="https://freeswitch.org/stash/scm/fs/freeswitch.git"
 	EGIT_BRANCH="v${PV%.*}.stable"
 	EGIT_BOOTSTRAP=""
 	inherit git-2
