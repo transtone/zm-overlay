@@ -18,7 +18,7 @@ else
 fi
 
 IUSE="+dahdi vanilla"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 LICENSE=""
 SLOT="0"
 
