@@ -104,6 +104,8 @@ MODULES_RDEPEND="
 	freeswitch_modules_osp? ( >=net-libs/osptoolkit-4.0.0 )
 	freeswitch_modules_freetdm? (
 		libpri? ( >=net-libs/libpri-1.4.0 )
+		sng_isdn? ( net-libs/libsng-isdn )
+		sng_ss7? ( net-libs/libsng-ss7 )
 		misdn? ( >=net-dialup/misdnuser-2.0.0 )
 	)
 	freeswitch_modules_spandsp? ( virtual/jpeg )
