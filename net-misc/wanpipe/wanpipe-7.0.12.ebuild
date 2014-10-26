@@ -18,7 +18,7 @@ else
 fi
 
 IUSE="+dahdi vanilla"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 LICENSE=""
 SLOT="0"
 
@@ -105,7 +105,7 @@ src_prepare() {
 	# Remove kernel's (old) wanrouter.h,
 	# so we're really only using wanpipe's version
 	#
-	rm -f "${S_KERNEL}/include/linux/wanrouter.h" || die "Failed to remove ${KV_FULL} old linux/wanrouter.h"
+	# rm -f "${S_KERNEL}/include/linux/wanrouter.h" || die "Failed to remove ${KV_FULL} old linux/wanrouter.h"
 
 	###
 	# Wanpipe: disable header cleaning script,
@@ -134,8 +134,8 @@ src_prepare() {
 		epatch "${FILESDIR}/${PN}-3.5.28-linux-3.7.patch"
 
 		# >=linux-3.9 removed node field from sk_for_each() and friends
-		kernel_is ge 3 9 0 && \
-		epatch "${FILESDIR}/${P}-linux-3.9.patch"
+#		kernel_is ge 3 9 0 && \
+	#	epatch "${FILESDIR}/${P}-linux-3.9.patch"
 	else
 		ewarn "Vanilla wanpipe build, all non-mandatory patches are disabled!"
 	fi
