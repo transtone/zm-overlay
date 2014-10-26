@@ -55,7 +55,7 @@ esac
 IUSE="esl nosamples odbc +resampler sctp zrtp"
 
 IUSE_ESL="esl-ruby esl-php esl-perl esl-python esl-lua"
-IUSE_FREETDM="libpri misdn"
+IUSE_FREETDM="+libpri misdn +libsng_isdn"
 
 IUSE_MODULES="alsa amr amrwb avmd bv +cdr_csv cdr_pg_csv cdr_sqlite celt cepstral cidlookup +console curl +callcenter
 	+db +directory dialplan_directory dingaling distributor easyroute erlang_event
@@ -850,7 +850,7 @@ src_configure() {
 		java_opts="--with-java=$(/usr/bin/java-config -O)"
 
 	# FreeTDM specific options
-	ftdm_opts="$(fs_with libpri) $(fs_with misdn)"
+	ftdm_opts="$(fs_with libpri) $(fs_with misdn) $(fs_with libsng_isdn)"
 
 	#
 	# 1. filter some flags known to break things
