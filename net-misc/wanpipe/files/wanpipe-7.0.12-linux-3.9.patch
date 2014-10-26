@@ -1,0 +1,61 @@
+diff -Naur wanpipe-7.0.12.orig/patches/kdrivers/src/wanrouter/af_wanpipe.c wanpipe-7.0.12/patches/kdrivers/src/wanrouter/af_wanpipe.c
+--- wanpipe-7.0.12.orig/patches/kdrivers/src/wanrouter/af_wanpipe.c	2014-10-26 10:15:56.927956388 +0800
++++ wanpipe-7.0.12/patches/kdrivers/src/wanrouter/af_wanpipe.c	2014-10-26 10:22:56.294166420 +0800
+@@ -1725,9 +1725,6 @@
+ int wanpipe_notifier(struct notifier_block *this, unsigned long msg, void *data)
+ {
+ 	struct sock *sk;
+-#if KERN_SK_FOR_NODE_FEATURE > 0
+-	struct hlist_node *node;
+-#endif
+ 	netdevice_t *dev = (netdevice_t*)data;
+ 
+ 	if (dev==NULL){
+@@ -1739,7 +1736,7 @@
+ #if KERN_SK_FOR_NODE_FEATURE == 0
+ 	sk_for_each(sk, &wanpipe_sklist) {
+ #elif defined(LINUX_2_6)
+-	sk_for_each(sk, node, &wanpipe_sklist) {
++	sk_for_each(sk, &wanpipe_sklist) {
+ #else
+ 	for (sk = wanpipe_sklist; sk; sk = sk->next) {
+ #endif
+diff -Naur wanpipe-7.0.12.orig/patches/kdrivers/src/wanrouter/af_wanpipe_datascope.c wanpipe-7.0.12/patches/kdrivers/src/wanrouter/af_wanpipe_datascope.c
+--- wanpipe-7.0.12.orig/patches/kdrivers/src/wanrouter/af_wanpipe_datascope.c	2014-10-26 10:15:56.927956388 +0800
++++ wanpipe-7.0.12/patches/kdrivers/src/wanrouter/af_wanpipe_datascope.c	2014-10-26 10:27:12.192697216 +0800
+@@ -151,12 +151,7 @@
+ 	write_lock_irqsave(&wanpipe_parent_sklist_lock,flags);
+ #ifdef LINUX_2_6
+ 	{
+-#if KERN_SK_FOR_NODE_FEATURE == 0
+-	sk_for_each(parent_sk, &wanpipe_parent_sklist) {
+-#else
+-	struct hlist_node *node;
+-	sk_for_each(parent_sk, node, &wanpipe_parent_sklist) {
+-#endif
++    sk_for_each(parent_sk, &wanpipe_parent_sklist) {
+ 		if (SK_PRIV((parent_sk))->dev == dev) {
+ 			break;
+ 		}
+diff -Naur wanpipe-7.0.12.orig/patches/kdrivers/src/wanrouter/af_wanpipe_src.c wanpipe-7.0.12/patches/kdrivers/src/wanrouter/af_wanpipe_src.c
+--- wanpipe-7.0.12.orig/patches/kdrivers/src/wanrouter/af_wanpipe_src.c	2014-10-26 10:15:56.927956388 +0800
++++ wanpipe-7.0.12/patches/kdrivers/src/wanrouter/af_wanpipe_src.c	2014-10-26 10:22:56.294166420 +0800
+@@ -1725,9 +1725,6 @@
+ int wanpipe_notifier(struct notifier_block *this, unsigned long msg, void *data)
+ {
+ 	struct sock *sk;
+-#if KERN_SK_FOR_NODE_FEATURE > 0
+-	struct hlist_node *node;
+-#endif
+ 	netdevice_t *dev = (netdevice_t*)data;
+ 
+ 	if (dev==NULL){
+@@ -1739,7 +1736,7 @@
+ #if KERN_SK_FOR_NODE_FEATURE == 0
+ 	sk_for_each(sk, &wanpipe_sklist) {
+ #elif defined(LINUX_2_6)
+-	sk_for_each(sk, node, &wanpipe_sklist) {
++	sk_for_each(sk, &wanpipe_sklist) {
+ #else
+ 	for (sk = wanpipe_sklist; sk; sk = sk->next) {
+ #endif

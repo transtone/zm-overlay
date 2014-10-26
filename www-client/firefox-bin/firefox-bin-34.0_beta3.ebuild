@@ -22,8 +22,7 @@ inherit eutils multilib pax-utils fdo-mime gnome2-utils mozlinguas nsplugins
 DESCRIPTION="Firefox Web Browser"
 MOZ_FTP_URI="http://ftp.mozilla.org/pub/mozilla.org/${MOZ_PN}/releases"
 SRC_URI="${SRC_URI}
-	amd64? ( ${MOZ_FTP_URI}/${MOZ_PV}/linux-x86_64/en-US/${MOZ_P}.tar.bz2 -> ${PN}_x86_64-${PV}.tar.bz2 )
-	x86? ( ${MOZ_FTP_URI}/${MOZ_PV}/linux-i686/en-US/${MOZ_P}.tar.bz2 -> ${PN}_i686-${PV}.tar.bz2 )"
+	amd64? ( ${MOZ_FTP_URI}/${MOZ_PV}/linux-x86_64/en-US/${MOZ_P}.tar.bz2 -> ${PN}_x86_64-${PV}.tar.bz2 ) "
 HOMEPAGE="http://www.mozilla.com/firefox"
 RESTRICT="strip mirror"
 
