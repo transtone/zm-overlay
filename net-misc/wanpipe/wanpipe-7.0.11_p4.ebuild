@@ -135,7 +135,7 @@ src_prepare() {
 
 		# >=linux-3.9 removed node field from sk_for_each() and friends
 		kernel_is ge 3 9 0 && \
-		epatch "${FILESDIR}/${P}-linux-3.9.patch"
+		epatch "${FILESDIR}/${PN}-7.0.12-linux-3.9.patch"
 	else
 		ewarn "Vanilla wanpipe build, all non-mandatory patches are disabled!"
 	fi
