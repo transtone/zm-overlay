@@ -13,14 +13,15 @@ diff -Nur freeswitch-1.4.13.orig/libs/freetdm/src/ftdm_backtrace.c freeswitch-1.
  
 diff -Nur freeswitch-1.4.13.orig/src/include/switch.h freeswitch-1.4.13/src/include/switch.h
 --- freeswitch-1.4.13.orig/src/include/switch.h	2014-12-12 01:25:27.321588014 +0800
-+++ freeswitch-1.4.13/src/include/switch.h	2014-12-12 03:39:11.055286659 +0800
-@@ -63,6 +63,9 @@
- #ifndef _BSD_SOURCE
- #define _BSD_SOURCE
++++ freeswitch-1.4.13/src/include/switch.h	2014-12-12 04:21:24.024191526 +0800
+@@ -60,8 +60,8 @@
  #endif
+ #endif
+ #ifdef __linux__
+-#ifndef _BSD_SOURCE
+-#define _BSD_SOURCE
 +#ifndef _DEFAULT_SOURCE
 +#define _DEFAULT_SOURCE
-+#endif
+ #endif
  #endif
  #ifndef __BSD_VISIBLE
- #define __BSD_VISIBLE 1
