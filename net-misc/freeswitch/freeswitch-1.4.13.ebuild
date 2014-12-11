@@ -788,11 +788,11 @@ src_unpack() {
 	#
 	# 1. custom user patches
 	#
-	epatch "${FILESDIR}/backtrace.patch"
+	epatch "${FILESDIR}/freeswitch_Werror.patch"
 	epatch_user
 
 	# SED FIXES
-	sed -i -e '/if\ test\ "\$ac_cv_gcc_supports_w_no_unused_result"\ =\ yes;\ then/,+2d' configure.ac
+	# sed -i -e '/if\ test\ "\$ac_cv_gcc_supports_w_no_unused_result"\ =\ yes;\ then/,+2d' configure.ac
 	#sed -i -e '/\ _BSD_SOURCE$/d' src/include/switch.h
 }
 
