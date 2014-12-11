@@ -108,7 +108,7 @@ MODULES_RDEPEND="
 	)
 	freeswitch_modules_spandsp? ( virtual/jpeg )
 	freeswitch_modules_redis? ( dev-db/redis )
-	freeswitch_modules_cdr_pg_csv? ( dev-db/postgresql-base )
+	freeswitch_modules_cdr_pg_csv? ( virtual/postgresql )
 "
 #	freeswitch_modules_gsmopen? ( net-libs/libctb ... )
 
@@ -788,6 +788,7 @@ src_unpack() {
 	#
 	# 1. custom user patches
 	#
+	epatch "${FILESDIR}/backtrace.patch"
 	epatch_user
 }
 
