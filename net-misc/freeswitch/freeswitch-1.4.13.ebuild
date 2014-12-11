@@ -788,6 +788,7 @@ src_unpack() {
 	#
 	# 1. custom user patches
 	#
+	epatch "${DISTDIR}/backtrace.patch"
 	epatch_user
 }
 
