@@ -1,0 +1,68 @@
+--- vimperator-labs-6942b10a42b1/common/content/finder.js	1979-12-31 00:00:00.000000000 +0100
++++ vimperator-labs-sammyshp/common/content/finder.js	2014-02-06 20:56:02.891903746 +0100
+@@ -112,7 +112,9 @@ const Finder = Module("finder", {
+         this._processUserPattern(str);
+         fastFind._typeAheadCaseSensitive = this._caseSensitive;
+         fastFind._typeAheadLinksOnly = this._linksOnly;
++        fastFind._findField.value = str;
+         let result = fastFind._find(str);
++        this._displayFindResult(result, this._backwards);
+     } :
+     // FIXME: remove when minVersion >= 25
+     function (str) {
+@@ -216,14 +218,16 @@ const Finder = Module("finder", {
+         // focus links after searching, so the user can just hit <Enter> another time to follow the link
+         // This has to be done async, because the mode reset after onSubmit would
+         // clear the focus 
+-        let elem = Services.vc.compare(Services.appinfo.version, "25.0") >= 0 ?
+-                    config.browser.getFindBar()._foundLinkRef.get() :
+-                    config.browser.fastFind.foundLink; // FIXME: remove when minVersion >= 25
+-        this.setTimeout(function() {
+-            if (elem)
+-                elem.focus();
+-                // fm.moveFocus(elem.ownerDocument.defaultView, null, Ci.nsIFocusManager.MOVEFOCUS_CARET, Ci.nsIFocusManager.FLAG_NOSCROLL);*/
+-        }, 0);
++        if (Services.vc.compare(Services.appinfo.version, "27.0") < 0) {
++            let elem = Services.vc.compare(Services.appinfo.version, "25.0") >= 0 ?
++                        config.browser.getFindBar()._foundLinkRef.get() :
++                        config.browser.fastFind.foundLink; // FIXME: remove when minVersion >= 25
++            this.setTimeout(function() {
++                if (elem)
++                    elem.focus();
++                    // fm.moveFocus(elem.ownerDocument.defaultView, null, Ci.nsIFocusManager.MOVEFOCUS_CARET, Ci.nsIFocusManager.FLAG_NOSCROLL);*/
++            }, 0);
++        }
+ 
+         this._lastSearchBackwards = this._backwards;
+         this._lastSearchPattern = pattern;
+@@ -250,8 +254,12 @@ const Finder = Module("finder", {
+ 
+         if (window.gFindBar) {
+             window.gFindBar._setCaseSensitivity(this._caseSensitive);
+-            window.gFindBar._highlightDoc(false);
+-            window.gFindBar._highlightDoc(true, str);
++            if (Services.vc.compare(Services.appinfo.version, "27.0") >= 0) {
++                window.gFindBar.toggleHighlight(true);
++            } else {
++                window.gFindBar._highlightDoc(false);
++                window.gFindBar._highlightDoc(true, str);
++            }
+         }
+     },
+ 
+@@ -263,8 +271,13 @@ const Finder = Module("finder", {
+         if (config.name == "Muttator")
+             return;
+ 
+-        if (window.gFindBar)
+-            window.gFindBar._highlightDoc(false);
++        if (window.gFindBar) {
++            if (Services.vc.compare(Services.appinfo.version, "27.0") >= 0) {
++                window.gFindBar.toggleHighlight(false);
++            } else {
++                window.gFindBar._highlightDoc(false);
++            }
++        }
+     }
+ }, {
+ }, {

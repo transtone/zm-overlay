@@ -1,0 +1,63 @@
+Author: Jeremy Lainé <jeremy.laine@m4x.org>
+Description: Reduce number of libraries linked with pjmedia
+
+All libraries and applications were gratuitously linked against
+libgsm, libportaudio, libspeex and libspeexdsp but only pjmedia
+needs them.
+
+--- a/build.mak.in
++++ b/build.mak.in
+@@ -62,7 +62,7 @@ endif
+ ifneq (@ac_no_gsm_codec@,1)
+ ifeq (@ac_external_gsm@,1)
+ # External GSM library
+-APP_THIRD_PARTY_EXT += -lgsm
++PJMEDIA_CODEC_EXT += -lgsm
+ else
+ APP_THIRD_PARTY_LIB_FILES += $(PJ_DIR)/third_party/lib/libgsmcodec-$(LIB_SUFFIX)
+ ifeq ($(PJ_SHARED_LIBRARIES),)
+@@ -76,7 +76,8 @@ endif
+ 
+ ifneq (@ac_no_speex_codec@,1)
+ ifeq (@ac_external_speex@,1)
+-APP_THIRD_PARTY_EXT += -lspeex -lspeexdsp
++PJMEDIA_EXT += -lspeexdsp
++PJMEDIA_CODEC_EXT += -lspeex
+ else
+ APP_THIRD_PARTY_LIB_FILES += $(PJ_DIR)/third_party/lib/libspeex-$(LIB_SUFFIX)
+ ifeq ($(PJ_SHARED_LIBRARIES),)
+@@ -111,7 +112,7 @@ endif
+ ifneq ($(findstring pa,@ac_pjmedia_snd@),)
+ ifeq (@ac_external_pa@,1)
+ # External PA
+-APP_THIRD_PARTY_EXT += -lportaudio
++PJMEDIA_AUDIODEV_EXT += -lportaudio
+ else
+ APP_THIRD_PARTY_LIB_FILES += $(PJ_DIR)/third_party/lib/libportaudio-$(LIB_SUFFIX)
+ ifeq ($(PJ_SHARED_LIBRARIES),)
+--- a/pjmedia/build/Makefile
++++ b/pjmedia/build/Makefile
+@@ -84,6 +84,7 @@ export PJMEDIA_LDFLAGS += $(PJMEDIA_VIDE
+ 			  $(PJLIB_LDLIB) \
+ 			  $(PJLIB_UTIL_LDLIB) \
+ 			  $(PJNATH_LDLIB) \
++			  $(PJMEDIA_EXT) \
+ 			  $(_LDFLAGS)
+ 
+ 
+@@ -98,6 +99,7 @@ export PJMEDIA_AUDIODEV_OBJS +=  audiode
+ export PJMEDIA_AUDIODEV_CFLAGS += $(_CFLAGS)
+ export PJMEDIA_AUDIODEV_CXXFLAGS += $(_CXXFLAGS)
+ export PJMEDIA_AUDIODEV_LDFLAGS += $(PJLIB_LDLIB) \
++				   $(PJMEDIA_AUDIODEV_EXT) \
+ 				   $(_LDFLAGS)
+ 
+ 
+@@ -145,6 +147,7 @@ export PJMEDIA_CODEC_CXXFLAGS += $(_CXXF
+ 			$(ILBC_CFLAGS) $(IPP_CFLAGS) $(G7221_CFLAGS)
+ export PJMEDIA_CODEC_LDFLAGS += $(PJMEDIA_LDLIB) \
+ 				$(PJLIB_LDLIB) \
++				$(PJMEDIA_CODEC_EXT) \
+ 				$(_LDFLAGS)
+ 
+ ###############################################################################

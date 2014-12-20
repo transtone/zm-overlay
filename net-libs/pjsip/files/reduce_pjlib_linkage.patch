@@ -1,0 +1,88 @@
+Author: Jeremy Lainé <jeremy.laine@m4x.org>
+Description: Reduce number of libraries linked with pjlib
+
+All libraries and applications were gratuitously linked against
+libcrypto, libssl and libuuid, but only libpj needs them.
+
+--- a/aconfigure
++++ b/aconfigure
+@@ -592,6 +592,7 @@ ac_includes_default="\
+ 
+ ac_subst_vars='LTLIBOBJS
+ LIBOBJS
++PJLIB_EXT
+ ac_main_obj
+ ac_host
+ ac_linux_poll
+@@ -4171,7 +4172,7 @@ if test "x$ac_cv_lib_uuid_uuid_generate"
+ #define HAVE_LIBUUID 1
+ _ACEOF
+ 
+-  LIBS="-luuid $LIBS"
++  PJLIB_EXT="-luuid $PJLIB_EXT"
+ 
+ fi
+ 
+@@ -7299,7 +7300,7 @@ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_crypto_ERR_load_BIO_strings" >&5
+ $as_echo "$ac_cv_lib_crypto_ERR_load_BIO_strings" >&6; }
+ if test "x$ac_cv_lib_crypto_ERR_load_BIO_strings" = xyes; then :
+-  libcrypto_present=1 && LIBS="$LIBS -lcrypto"
++  libcrypto_present=1 && PJLIB_EXT="$PJLIB_EXT -lcrypto"
+ fi
+ 
+ 		{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SSL_library_init in -lssl" >&5
+@@ -7339,7 +7340,7 @@ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_ssl_SSL_library_init" >&5
+ $as_echo "$ac_cv_lib_ssl_SSL_library_init" >&6; }
+ if test "x$ac_cv_lib_ssl_SSL_library_init" = xyes; then :
+-  libssl_present=1 && LIBS="$LIBS -lssl"
++  libssl_present=1 && PJLIB_EXT="$PJLIB_EXT -lssl"
+ fi
+ 
+ 		if test "x$openssl_h_present" = "x1" -a "x$libssl_present" = "x1" -a "x$libcrypto_present" = "x1"; then
+--- a/build.mak.in
++++ b/build.mak.in
+@@ -28,6 +28,8 @@ export APP_THIRD_PARTY_EXT :=
+ export APP_THIRD_PARTY_LIBS :=
+ export APP_THIRD_PARTY_LIB_FILES :=
+ 
++PJLIB_EXT = @PJLIB_EXT@
++
+ ifeq (@ac_external_srtp@,1)
+ # External SRTP library
+ APP_THIRD_PARTY_EXT += -lsrtp
+--- a/pjlib/build/Makefile
++++ b/pjlib/build/Makefile
+@@ -38,7 +38,7 @@ export PJLIB_OBJS += $(OS_OBJS) $(M_OBJS
+ 	string.o timer.o types.o
+ export PJLIB_CFLAGS += $(_CFLAGS)
+ export PJLIB_CXXFLAGS += $(_CXXFLAGS)
+-export PJLIB_LDFLAGS += $(_LDFLAGS)
++export PJLIB_LDFLAGS += $(PJLIB_EXT) $(_LDFLAGS)
+ 
+ ###############################################################################
+ # Defines for building test application
+--- a/aconfigure.ac
++++ b/aconfigure.ac
+@@ -114,7 +114,8 @@ AC_CHECK_LIB(winmm,puts)
+ AC_CHECK_LIB(socket,puts)
+ AC_CHECK_LIB(rt,puts)
+ AC_CHECK_LIB(m,sin)
+-AC_CHECK_LIB(uuid,uuid_generate)
++AC_SUBST(PJLIB_EXT)
++AC_CHECK_LIB(uuid,uuid_generate,[PJLIB_EXT="-luuid $PJLIB_EXT"])
+ AC_CHECK_LIB(uuid,uuid_generate,[ac_has_uuid_lib=1])
+ AC_SEARCH_LIBS(gethostbyname,nsl)
+ 
+@@ -1343,8 +1344,8 @@ AC_ARG_ENABLE(ssl,
+ 		AC_SUBST(libssl_present)
+ 		AC_SUBST(libcrypto_present)
+ 		AC_CHECK_HEADER(openssl/ssl.h,[openssl_h_present=1])
+-		AC_CHECK_LIB(crypto,ERR_load_BIO_strings,[libcrypto_present=1 && LIBS="$LIBS -lcrypto"])
+-		AC_CHECK_LIB(ssl,SSL_library_init,[libssl_present=1 && LIBS="$LIBS -lssl"])
++		AC_CHECK_LIB(crypto,ERR_load_BIO_strings,[libcrypto_present=1 && PJLIB_EXT="$PJLIB_EXT -lcrypto"])
++		AC_CHECK_LIB(ssl,SSL_library_init,[libssl_present=1 && PJLIB_EXT="$PJLIB_EXT -lssl"])
+ 		if test "x$openssl_h_present" = "x1" -a "x$libssl_present" = "x1" -a "x$libcrypto_present" = "x1"; then
+ 	        	AC_MSG_RESULT([OpenSSL library found, SSL support enabled])
+ 			# PJSIP_HAS_TLS_TRANSPORT setting follows PJ_HAS_SSL_SOCK
