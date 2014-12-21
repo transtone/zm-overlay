@@ -1,36 +1,46 @@
 # Copyright 1999-2005 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header$
-
-EAPI="4"
-
+EAPI="3"
 inherit eutils
 
 DESCRIPTION="OpenSIPS - flexible and robust SIP (RFC3261) server"
 HOMEPAGE="http://www.opensips.org/"
 MY_P="${P}_src"
+P2="${P}-tls"
+
 SRC_URI="http://opensips.org/pub/opensips/${PV}/src/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug ipv6 -mysql postgres radius +b2bua presence jabber ssl cpl unixodbc"
+IUSE="debug ipv6 mysql postgres radius jabber ssl cpl unixodbc b2bua presence xmlrpc httpd json"
 
 RDEPEND="
-	mysql? ( virtual/mysql )
+	json? ( dev-libs/json-c )
+	httpd? ( =net-libs/libmicrohttpd-0.9.22 )
+	mysql? ( >=dev-db/mariadb-4.1.20 )
 	radius? ( >=net-dialup/radiusclient-ng-0.5.0 )
-	postgres? ( >=dev-db/postgresql-base-8.0.8 )
+	postgres? ( >=dev-db/postgresql-8.0.8 )
 	jabber? ( dev-libs/expat )
 	ssl? ( dev-libs/openssl )
 	cpl? ( dev-libs/libxml2 )
 	b2bua? ( dev-libs/libxml2 )
 	presence? ( dev-libs/libxml2 )
-	unixodbc? ( dev-db/unixODBC )"
+	xmlrpc? ( dev-libs/xmlrpc-c[abyss] )
+	unixodbc? ( >=dev-db/unixODBC-2.3.0 )"
 
 inc_mod=""
 make_options=""
 
 pkg_setup() {
+
+	use json && \
+		inc_mod="${inc_mod} json mi_json"
+
+	use httpd && \
+		inc_mod="${inc_mod} httpd"
+
 	use mysql && \
 		inc_mod="${inc_mod} db_mysql"
 
@@ -50,20 +60,25 @@ pkg_setup() {
 		inc_mod="${inc_mod} b2b_entities b2bua_logic"
 
 	use presence && \
-		inc_mod="${inc_mod} presence presence_dialoginfo presence_mwi presence_xcapdiff presence_xml pua pua_bla pua_dialoginfo pua_mi pua_usrloc pua_xmpp rls xcap xcap_client"
+		inc_mod="${inc_mod} presence presence_dialoginfo presence_mwi presence_xcapdiff presence_xml pua pua_bla pua_dialoginfo pua_mi pua_usrloc pua_xmpp rls xcap_client"
 
 	use unixodbc && \
 		inc_mod="${inc_mod} db_unixodbc"
+
+	use xmlrpc  && \
+                inc_mod="${inc_mod} mi_xmlrpc mi_xmlrpc_ng"
 
 	export inc_mod
 }
 
 src_unpack() {
 	unpack ${MY_P}.tar.gz
+	mv ${P2} ${P}
 
 	cd ${S}
-	# use ipv6 || \
-	# 	sed -i -e "s/-DUSE_IPV6//g" Makefile.defs
+	use ipv6 || \
+		sed -i -e "s/-DUSE_IPV6//g" Makefile.defs
+	epatch ${FILESDIR}/Makefile-1.8.0.patch
 }
 
 src_compile() {
@@ -77,11 +92,10 @@ src_compile() {
 	else
 		compile_options="${compile_options} CFLAGS=${CFLAGS}"
 	fi
-
+	
 	if use ssl; then
 		compile_options="TLS=1 ${compile_options}"
 	fi
-
 	emake all "${compile_options}" \
 		prefix=${ROOT}/ \
 		include_modules="${inc_mod}" \
@@ -91,27 +105,29 @@ src_compile() {
 
 src_install () {
 	local install_options
-
 	emake install \
-		prefix=${D}/ \
+		prefix=${d}/ \
 		include_modules="${inc_mod}" \
-		bin-prefix=${D}/usr/sbin \
+		bin-prefix=${d}/usr/sbin \
 		bin-dir="" \
-		cfg-prefix=${D}/etc \
+		cfg-prefix=${d}/etc \
 		cfg-dir=opensips/ \
-		cfg-target=${D}/etc/opensips \
-		modules-prefix=${D}/usr/lib/opensips \
+		cfg-target=${d}/etc/opensips \
+		modules-prefix=${d}/usr/lib/opensips \
 		modules-dir=modules \
-		modules-target=${D}/usr/lib/opensips/modules/ \
+		modules-target=${D}/usr/lib/opensips/modules \
 		man-prefix=${D}/usr/share/man \
 		man-dir="" \
 		doc-prefix=${D}/usr/share/doc \
-		doc-dir=${PF} || die
+		doc-dir=${PF} \
+		data-prefix=${D}/usr || die
 	exeinto /etc/init.d
 	newexe ${FILESDIR}/opensips.init opensips
-
+	newconfd ${FILESDIR}/opensips.default opensips
+	mv menuconfig/configure menuconfig/osipsconfig
+	dosbin menuconfig/osipsconfig 
 	# fix what the Makefile don't do
-	use mysql || \
+	use mysql && \
 		rm ${D}/usr/sbin/opensips_mysql.sh
 }
 
