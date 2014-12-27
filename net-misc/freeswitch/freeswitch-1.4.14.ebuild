@@ -11,7 +11,7 @@ PYTHON_DEPEND="2"
 
 # The automagic default "latest" only works for eautoreconf and friends,
 # so force these versions until we don't have to use (re)bootstrap.sh anymore.
-WANT_AUTOMAKE="1.11"
+WANT_AUTOMAKE="1.12"
 WANT_AUTOCONF="2.5"
 
 inherit autotools eutils flag-o-matic python user
@@ -788,7 +788,8 @@ src_unpack() {
 	#
 	# 1. custom user patches
 	#
-	epatch "${FILESDIR}/freeswitch_Werror.patch"
+	# patch for FS-7108
+	epatch "${FILESDIR}"/mod_hash_1.4.x.patch
 	epatch_user
 
 	# SED FIXES
