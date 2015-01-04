@@ -108,7 +108,7 @@ MODULES_RDEPEND="
 	)
 	freeswitch_modules_spandsp? ( virtual/jpeg )
 	freeswitch_modules_redis? ( dev-db/redis )
-	freeswitch_modules_cdr_pg_csv? ( virtual/postgresql )
+	freeswitch_modules_cdr_pg_csv? ( dev-db/postgresql )
 "
 #	freeswitch_modules_gsmopen? ( net-libs/libctb ... )
 
