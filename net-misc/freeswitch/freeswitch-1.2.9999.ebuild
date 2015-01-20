@@ -62,7 +62,7 @@ CORE_MODULE_DEPENDS="
 # external dependencies of modules
 MODULES_RDEPEND="
 	freeswitch_modules_alsa? ( media-libs/alsa-lib )
-	freeswitch_modules_radius_cdr? ( net-dialup/freeradius-client )
+	freeswitch_modules_radius_cdr? ( net-dialup/radiusclient-ng )
 	freeswitch_modules_xml_curl? ( net-misc/curl )
 	freeswitch_modules_xml_ldap? ( net-nds/openldap )
 	freeswitch_modules_ldap? ( net-nds/openldap )
