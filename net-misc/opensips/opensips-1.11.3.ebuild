@@ -1,8 +1,8 @@
 # Copyright 1999-2005 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header$
-EAPI="5"
-inherit eutils
+EAPI="4"
+inherit eutils user
 
 MAGIC="latest"
 
@@ -19,8 +19,8 @@ KEYWORDS="~x86 ~amd64"
 IUSE="debug ipv6 mysql postgres radius jabber ssl cpl unixodbc b2bua presence xmlrpc httpd json"
 
 RDEPEND="
-        json? ( dev-libs/json-c )
-        httpd? ( =net-libs/libmicrohttpd-0.9.22 )
+		json? ( dev-libs/json-c )
+		httpd? ( =net-libs/libmicrohttpd-0.9.22 )
 	mysql? ( >=dev-db/mariadb-4.1.20 )
 	radius? ( >=net-dialup/radiusclient-ng-0.5.0 )
 	postgres? ( >=dev-db/postgresql-8.0.8 )
@@ -36,11 +36,11 @@ inc_mod=""
 make_options=""
 
 pkg_setup() {
-        use json && \
-                inc_mod="${inc_mod} json"
+		use json && \
+				inc_mod="${inc_mod} json"
 
-        use httpd && \
-                inc_mod="${inc_mod} httpd"
+		use httpd && \
+				inc_mod="${inc_mod} httpd"
 
 	use mysql && \
 		inc_mod="${inc_mod} db_mysql"
@@ -67,7 +67,7 @@ pkg_setup() {
 		inc_mod="${inc_mod} db_unixodbc"
 
 	use xmlrpc  && \
-                inc_mod="${inc_mod} mi_xmlrpc mi_xmlrpc_ng"
+				inc_mod="${inc_mod} mi_xmlrpc mi_xmlrpc_ng"
 
 	export inc_mod
 }
@@ -93,7 +93,7 @@ src_compile() {
 	else
 		compile_options="${compile_options} CFLAGS=${CFLAGS}"
 	fi
-	
+
 	if use ssl; then
 		compile_options="TLS=1 ${compile_options}"
 	fi
@@ -126,7 +126,7 @@ src_install () {
 	newexe ${FILESDIR}/opensips.init opensips
 	newconfd ${FILESDIR}/opensips.default opensips
 	mv menuconfig/configure menuconfig/osipsconfig
-	dosbin menuconfig/osipsconfig 
+	dosbin menuconfig/osipsconfig
 	# fix what the Makefile don't do
 	use mysql && \
 		rm ${D}/usr/sbin/opensips_mysql.sh
