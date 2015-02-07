@@ -23,11 +23,33 @@ KEYWORDS="~x86 ~amd64"
 LICENSE="MPL-1.1"
 SLOT="0"
 
-EGIT_REPO_URI="https://freeswitch.org/stash/scm/fs/freeswitch.git"
-EGIT_BRANCH="v1.2.stable"
-EGIT_BOOTSTRAP=""
-inherit git-2
-
+case ${PV} in
+9999*)
+	EGIT_REPO_URI="git://git.freeswitch.org/freeswitch.git"
+	EGIT_BOOTSTRAP=""
+	inherit git-2
+	;;
+${PV%.*}.9999*)
+	EGIT_REPO_URI="git://git.freeswitch.org/freeswitch.git"
+	EGIT_BRANCH="v${PV%.*}.stable"
+	EGIT_BOOTSTRAP=""
+	inherit git-2
+	;;
+*_beta*)
+	MY_P="${PN}-${PV/_/.}"	# 1.4.0_betaX -> 1.4.0.betaX
+	SRC_URI="http://files-sync.freeswitch.org/${MY_P}.tar.bz2"
+	S="${WORKDIR}/${PN}-${PV/_beta?/}"
+	;;
+*_rc*)
+	MY_P="${PN}-${PV/.?_/.}"	# 1.2.0_rcX -> 1.2.rcX
+	SRC_URI="http://files.freeswitch.org/${MY_P}.tar.bz2"
+	S="${WORKDIR}/${MY_P}"
+	;;
+*)
+	SRC_URI="http://files.freeswitch.org/${P/_/}.tar.xz"
+	S="${WORKDIR}/${P/_/}"
+	;;
+esac
 
 IUSE="esl nosamples odbc +resampler sctp zrtp"
 
