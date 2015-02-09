@@ -1,0 +1,58 @@
+diff -Nur wanpipe-7.0.12.orig/patches/kdrivers/include/wanpipe_defines.h wanpipe-7.0.12/patches/kdrivers/include/wanpipe_defines.h
+--- wanpipe-7.0.12.orig/patches/kdrivers/include/wanpipe_defines.h      2015-02-09 19:58:51.213056430 +0800
++++ wanpipe-7.0.12/patches/kdrivers/include/wanpipe_defines.h   2015-02-09 19:59:52.835063152 +0800
+@@ -900,7 +900,7 @@
+
+ //#if defined(HAVE_NET_DEVICE_OPS) || LINUX_VERSION_CODE >= KERNEL_VERSION(3,0,0)
+ #if defined(HAVE_NET_DEVICE_OPS) || defined(LINUX_HAS_NET_DEVICE_OPS)
+-#define WAN_DECLARE_NETDEV_OPS(_ops_name) static struct net_device_ops _ops_name = {0};
++#define WAN_DECLARE_NETDEV_OPS(_ops_name) static struct net_device_ops _ops_name = {};
+
+ #define WAN_NETDEV_OPS_BIND(dev,_ops_name)  dev->netdev_ops = &_ops_name
+
+diff -Nur wanpipe-7.0.12.orig/patches/kdrivers/src/net/wanpipe_linux_iface.c wanpipe-7.0.12/patches/kdrivers/src/net/wanpipe_linux_iface.c
+--- wanpipe-7.0.12.orig/patches/kdrivers/src/net/wanpipe_linux_iface.c  2015-02-09 19:58:51.189056427 +0800
++++ wanpipe-7.0.12/patches/kdrivers/src/net/wanpipe_linux_iface.c       2015-02-09 20:02:12.810078421 +0800
+@@ -69,13 +69,13 @@
+ /****** Global Data *********************************************************/
+ wan_iface_t wan_iface =
+ {
+-       wan_iface_alloc,        /* alloc */
+-       wan_iface_free,         /* free */
+-       wan_iface_attach,       /* attach */    
+-       wan_iface_detach,       /* detach */    
+-       wan_iface_input,        /* input */     
+-       wan_iface_set_proto,    /* set_proto */ 
+-       wan_iface_attach_eth    /* attach ethernet interface */
++    .alloc = wan_iface_alloc,
++    .free = wan_iface_free,
++    .attach = wan_iface_attach,
++    .detach = wan_iface_detach,
++    .input = wan_iface_input,
++    .set_proto = wan_iface_set_proto,
++    .attach_eth = wan_iface_attach_eth
+ };
+
+ /******* WAN Device Driver Entry Points *************************************/
+diff -Nur wanpipe-7.0.12.orig/patches/kdrivers/src/wan_aften/wanpipe_linux_iface.c wanpipe-7.0.12/patches/kdrivers/src/wan_aften/wanpipe_linux_iface.c
+--- wanpipe-7.0.12.orig/patches/kdrivers/src/wan_aften/wanpipe_linux_iface.c    2015-02-09 19:58:51.192056428 +0800
++++ wanpipe-7.0.12/patches/kdrivers/src/wan_aften/wanpipe_linux_iface.c 2015-02-09 20:03:38.307087747 +0800
+@@ -69,13 +69,13 @@
+ /****** Global Data *********************************************************/
+ wan_iface_t wan_iface =
+ {
+-       wan_iface_alloc,        /* alloc */
+-       wan_iface_free,         /* free */
+-       wan_iface_attach,       /* attach */    
+-       wan_iface_detach,       /* detach */    
+-       wan_iface_input,        /* input */     
+-       wan_iface_set_proto,    /* set_proto */ 
+-       wan_iface_attach_eth    /* attach ethernet interface */
++    .alloc = wan_iface_alloc,
++    .free = wan_iface_free,
++    .attach = wan_iface_attach,
++    .detach = wan_iface_detach,
++    .input = wan_iface_input,
++    .set_proto = wan_iface_set_proto,
++    .attach_eth = wan_iface_attach_eth
+ };
