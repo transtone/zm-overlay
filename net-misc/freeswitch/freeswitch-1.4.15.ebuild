@@ -785,11 +785,15 @@ src_unpack() {
 	fi
 
 	cd "${S}"
+	# patch for FS-7252
+	epatch "${FILESDIR}"/fs_7252-esl.patch
+
+	# patch for FS-7108
+	epatch "${FILESDIR}"/mod_hash_1.4.x.patch
+
 	#
 	# 1. custom user patches
 	#
-	# patch for FS-7108
-	epatch "${FILESDIR}"/mod_hash_1.4.x.patch
 	epatch_user
 
 	# SED FIXES

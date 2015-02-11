@@ -1,0 +1,15 @@
+diff -Nur freeswitch-1.2.23/src/mod/event_handlers/mod_event_socket/mod_event_socket.c freeswitch-1.2.23.orig/src/mod/event_handlers/mod_event_socket/mod_event_socket.c
+--- freeswitch-1.2.23/src/mod/event_handlers/mod_event_socket/mod_event_socket.c	2014-03-19 11:32:48.000000000 +0800
++++ freeswitch-1.2.23.orig/src/mod/event_handlers/mod_event_socket/mod_event_socket.c	2015-02-11 14:44:04.896839170 +0800
+@@ -269,9 +269,10 @@
+ 		return;
+ 	}
+ 
++	switch_mutex_lock(globals.listener_mutex);
++
+ 	lp = listen_list.listeners;
+ 
+-	switch_mutex_lock(globals.listener_mutex);
+ 	while (lp) {
+ 		int send = 0;
+ 

@@ -786,6 +786,10 @@ src_unpack() {
 	fi
 
 	cd "${S}"
+
+	# patch for FS-7252
+	epatch "${FILESDIR}"/fs_7252-esl.patch
+
 	#
 	# 1. custom user patches
 	#
