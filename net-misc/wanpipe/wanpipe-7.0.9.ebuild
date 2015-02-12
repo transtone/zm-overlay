@@ -121,7 +121,7 @@ src_prepare() {
 		epatch "${FILESDIR}/${PN}-3.5.24-QA-fix-format-literal-warnings.patch"
 
 		# Silence gcc-4.4 "warning: deprecated conversion from string constant to 'char*'"
-		epatch "${FILESDIR}/${PN}-3.5.27-QA-fix-const-char-warnings.patch"
+		#epatch "${FILESDIR}/${PN}-3.5.27-QA-fix-const-char-warnings.patch"
 
 		# Silence "ignoring return value of 'XXXX', declared with attribute warn_unused_result"
 		epatch "${FILESDIR}/${PN}-3.5.24-QA-fix-warn_unused_result.patch"
