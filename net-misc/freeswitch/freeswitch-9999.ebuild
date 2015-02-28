@@ -794,6 +794,8 @@ src_unpack() {
 	# 1. custom user patches
 	#
 	epatch_user
+
+	sed -i -e '/if\ test\ "\$ac_cv_gcc_supports_w_no_unused_result"\ =\ yes;\ then/,+2d' configure.ac
 }
 
 src_prepare() {

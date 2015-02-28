@@ -797,8 +797,8 @@ src_unpack() {
 	epatch_user
 
 	# SED FIXES
-	# sed -i -e '/if\ test\ "\$ac_cv_gcc_supports_w_no_unused_result"\ =\ yes;\ then/,+2d' configure.ac
-	#sed -i -e '/\ _BSD_SOURCE$/d' src/include/switch.h
+	sed -i -e '/if\ test\ "\$ac_cv_gcc_supports_w_no_unused_result"\ =\ yes;\ then/,+2d' configure.ac
+	# # sed -i -e '/\ _BSD_SOURCE$/d' src/include/switch.h
 }
 
 src_prepare() {
