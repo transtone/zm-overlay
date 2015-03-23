@@ -6,20 +6,20 @@ EAPI="5"
 K_DEBLOB_AVAILABLE="1"
 
 ck_version="1"
-gentoo_version="7"
-tuxonice_version="2014.06.27"
-uksm_version="0.1.2.3"
+gentoo_version="3"
+#tuxonice_version="2015.02.14"  it is buggy
+#uksm_version="0.1.2.3"
 
-aufs_kernel_version="3.15_p20140630"
-cjktty_kernel_version="3.14"
-#reiser4_kernel_version=""
-tuxonice_kernel_version="3.15.2"
-uksm_kernel_version="3.15.3"
+aufs_kernel_version="3.19_p20150216"
+cjktty_kernel_version="3.19"
+#reiser4_kernel_version="3.17.2"
+tuxonice_kernel_version="head-3.19.0"
+#uksm_kernel_version="3.18.0"
 
 KEYWORDS="~x86 ~amd64 ~mips"
 
-SUPPORTED_USE="+additional +aufs +cjktty +ck +exfat +experimental +gentoo +thinkpad +tuxonice +uksm"
-UNSUPPORTED_USE="imq reiser4"
+SUPPORTED_USE="+additional +aufs +cjktty +ck +exfat +experimental +gentoo +thinkpad"
+UNSUPPORTED_USE="imq reiser4 tuxonice uksm"
 
 UNIPATCH_EXCLUDE=""
 
