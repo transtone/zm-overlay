@@ -786,7 +786,7 @@ src_unpack() {
 
 	cd "${S}"
 	# patch for FS-7252
-	epatch "${FILESDIR}"/fs_7252-esl.patch
+	#epatch "${FILESDIR}"/fs_7252-esl.patch
 
 	# patch for FS-7108
 	epatch "${FILESDIR}"/mod_hash_1.4.x.patch
