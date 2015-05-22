@@ -5,7 +5,6 @@
 EAPI="5"
 
 # Can be updated using scripts/get_langs.sh from mozilla overlay
-MOZ_LANGS=( zh-CN )
 
 # Convert the ebuild version to the upstream mozilla version, used by mozlinguas
 MOZ_PV="${PV/_beta/b}" # Handle beta for SRC_URI
@@ -17,7 +16,7 @@ MOZ_P="${MOZ_PN}-${MOZ_PV}"
 # We don't use the http mirror because it deletes old tarballs.
 MOZ_FTP_URI="http://ftp.mozilla.org/pub/mozilla.org/${MOZ_PN}/releases/"
 
-inherit eutils multilib pax-utils fdo-mime gnome2-utils mozlinguas nsplugins
+inherit eutils multilib pax-utils fdo-mime gnome2-utils nsplugins
 
 DESCRIPTION="Firefox Web Browser"
 MOZ_FTP_URI="http://ftp.mozilla.org/pub/mozilla.org/${MOZ_PN}/releases"
@@ -70,9 +69,6 @@ S="${WORKDIR}/${MOZ_PN}"
 
 src_unpack() {
 	unpack ${A}
-
-	# Unpack language packs
-	mozlinguas_src_unpack
 }
 
 src_install() {
@@ -112,17 +108,6 @@ src_install() {
 	doins "${FILESDIR}"/local-settings.js
 	# Copy preferences file so we can do a simple rename.
 	cp "${FILESDIR}"/all-gentoo-1.js  "${D}"${MOZILLA_FIVE_HOME}/all-gentoo.js
-
-	# Install language packs
-	mozlinguas_src_install
-
-	local LANG=${linguas%% *}
-	if [[ -n ${LANG} && ${LANG} != "en" ]]; then
-		elog "Setting default locale to ${LANG}"
-		echo "pref(\"general.useragent.locale\", \"${LANG}\");" \
-			>> "${D}${MOZILLA_FIVE_HOME}"/defaults/pref/${PN}-prefs.js || \
-			die "sed failed to change locale"
-	fi
 
 	# Create /usr/bin/firefox-bin
 	dodir /usr/bin/
